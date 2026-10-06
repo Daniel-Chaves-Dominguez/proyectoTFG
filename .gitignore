@@ -1,18 +1,4 @@
-# build
-dist/
-.astro/
-
-# dependencias
-node_modules/
-
-# logs
-npm-debug.log*
-
-# entorno
-.env
-.env.*
-!.env.example
-
 # sistema / editor
 .DS_Store
-.vercel
+Thumbs.db
+.vscode/
