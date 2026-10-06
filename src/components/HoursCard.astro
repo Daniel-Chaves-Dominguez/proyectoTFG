@@ -1,0 +1,60 @@
+---
+/** Horario con el marco del flyer. Los datos salen de src/data/business.ts. */
+import { business } from '../data/business';
+import { groupSchedule } from '../lib/hours';
+import Icon from './Icon.astro';
+import OpeningStatus from './OpeningStatus.astro';
+
+const groups = groupSchedule(business.hours);
+---
+
+<div class="marco-flyer">
+  <div class="px-2 py-3 sm:px-4 sm:py-4">
+    <h3 class="flex items-center gap-3 font-serif text-[1.75rem] leading-none">
+      <Icon name="clock" size={26} class="text-cobre" />
+      Horario
+    </h3>
+
+    <dl class="mt-6 space-y-2">
+      {groups.map((group) => (
+        <div
+          class="horario-fila grid grid-cols-[1fr_auto] items-baseline gap-x-4 rounded-2xl px-4 py-3"
+          data-dias={group.days.join(',')}
+        >
+          <dt class="text-[0.9375rem] font-medium">
+            {group.label}
+            <span class="ml-1.5 text-[0.8125rem] font-normal text-cobre" data-etiqueta-hoy hidden>
+              (hoy)
+            </span>
+          </dt>
+          <dd
+            class:list={[
+              'text-right font-serif text-[1.1875rem] leading-snug',
+              { 'text-velo': group.ranges.length === 0 },
+            ]}
+          >
+            {group.ranges.length === 0
+              ? 'Cerrado'
+              : group.ranges.map((r) => (
+                  <span class="block whitespace-nowrap">
+                    {r.open} a {r.close}
+                  </span>
+                ))}
+          </dd>
+        </div>
+      ))}
+    </dl>
+
+    <OpeningStatus class="mt-5 px-1" />
+  </div>
+</div>
+
+<style>
+  .horario-fila {
+    background-color: var(--color-rubor);
+  }
+
+  .horario-fila[data-hoy] {
+    box-shadow: inset 0 0 0 1px var(--color-oro-rosa);
+  }
+</style>

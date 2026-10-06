@@ -1,0 +1,61 @@
+---
+/**
+ * Botón flotante de cita (solo móvil). Se oculta mientras se ven los botones
+ * del inicio o la sección de contacto, para no duplicarlos ni tapar el formulario.
+ */
+import { links } from '../data/links';
+import Icon from './Icon.astro';
+---
+
+<a
+  href={links.whatsapp}
+  class="fab btn btn-principal md:hidden"
+  target="_blank"
+  rel="noopener"
+  data-fab
+>
+  <Icon name="chat" />
+  Pedir cita
+</a>
+
+<style>
+  .fab {
+    position: fixed;
+    z-index: 30;
+    right: 1rem;
+    bottom: max(1rem, env(safe-area-inset-bottom));
+    /* Filete rosado: mantiene el botón visible también sobre la sección oscura. */
+    box-shadow:
+      0 0 0 1px rgb(233 177 166 / 0.75),
+      var(--shadow-flotante);
+    transition:
+      opacity 0.25s ease,
+      translate 0.25s ease,
+      visibility 0.25s;
+  }
+
+  .fab[data-oculto] {
+    opacity: 0;
+    translate: 0 1rem;
+    visibility: hidden;
+  }
+</style>
+
+<script>
+  const fab = document.querySelector<HTMLElement>('[data-fab]');
+  const targets = ['#heroe-acciones', '#contacto']
+    .map((selector) => document.querySelector(selector))
+    .filter((el): el is Element => el !== null);
+
+  if (fab && targets.length > 0 && 'IntersectionObserver' in window) {
+    const visible = new Set<Element>();
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) visible.add(entry.target);
+        else visible.delete(entry.target);
+      }
+      fab.toggleAttribute('data-oculto', visible.size > 0);
+    });
+    targets.forEach((target) => observer.observe(target));
+  }
+</script>

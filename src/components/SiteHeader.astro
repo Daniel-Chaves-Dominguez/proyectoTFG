@@ -1,0 +1,176 @@
+---
+import mc from '../assets/brand/mc.svg';
+import { business } from '../data/business';
+import { links } from '../data/links';
+import { navigation } from '../data/navigation';
+import Icon from './Icon.astro';
+---
+
+<a
+  href="#contenido"
+  class="sr-only z-50 rounded-full bg-cacao px-5 py-3 text-polvo focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+>
+  Saltar al contenido
+</a>
+
+<header class="cabecera sticky top-0 z-40 border-b border-transparent bg-polvo/85 backdrop-blur-md">
+  <div class="contenedor flex h-[4.25rem] items-center justify-between gap-6 lg:h-[4.75rem]">
+    <a
+      href="/"
+      class="marca flex items-center gap-3 no-underline"
+      aria-label={`${business.name}, inicio`}
+    >
+      <img src={mc.src} width="44" height="40" alt="" class="h-9 w-auto lg:h-10" />
+      <span class="font-serif text-[1.375rem] leading-none tracking-[-0.01em] lg:text-2xl">
+        {business.name}
+      </span>
+    </a>
+
+    <nav aria-label="Principal" class="hidden lg:block">
+      <ul class="flex items-center gap-7 text-[0.9375rem] text-velo">
+        {navigation.map((item) => (
+          <li>
+            <a href={item.href} class="nav-enlace py-2 transition-colors hover:text-cobre">
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a
+        href={links.whatsapp}
+        class="btn btn-principal hidden min-h-11 px-5 py-2.5 text-[0.9375rem] sm:inline-flex"
+        target="_blank"
+        rel="noopener"
+      >
+        <Icon name="chat" size={18} />
+        Pedir cita
+      </a>
+      <button
+        type="button"
+        popovertarget="menu"
+        class="btn btn-secundario min-h-11 px-4 py-2.5 text-[0.9375rem] lg:hidden"
+      >
+        <Icon name="menu" size={18} />
+        Menú
+      </button>
+    </div>
+  </div>
+</header>
+
+<div id="menu" popover class="menu-movil">
+  <div class="contenedor flex h-full flex-col">
+    <div class="flex h-[4.25rem] items-center justify-between">
+      <span class="flex items-center gap-3">
+        <img src={mc.src} width="44" height="40" alt="" class="h-9 w-auto" />
+        <span class="font-serif text-[1.375rem] leading-none">{business.name}</span>
+      </span>
+      <button
+        type="button"
+        popovertarget="menu"
+        popovertargetaction="hide"
+        class="btn btn-secundario min-h-11 px-4 py-2.5 text-[0.9375rem]"
+      >
+        <Icon name="close" size={18} />
+        Cerrar
+      </button>
+    </div>
+
+    <nav aria-label="Menú móvil" class="mt-8">
+      <ul class="space-y-1">
+        {navigation.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="block border-b border-linea py-3.5 font-serif text-[2rem] leading-tight"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="mt-auto space-y-4 pt-8 pb-[max(2rem,env(safe-area-inset-bottom))]">
+      <a href={links.whatsapp} class="btn btn-principal w-full" target="_blank" rel="noopener">
+        <Icon name="chat" size={20} />
+        Pedir cita por WhatsApp
+      </a>
+      <p class="text-center text-[0.9375rem] text-velo">
+        {business.address.display}. Con cita previa.
+      </p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .marca {
+    color: var(--color-cacao);
+  }
+
+  @supports (animation-timeline: scroll()) {
+    .cabecera {
+      animation: cabecera-borde linear both;
+      animation-timeline: scroll();
+      animation-range: 0 8rem;
+    }
+
+    @keyframes cabecera-borde {
+      to {
+        border-bottom-color: var(--color-linea);
+      }
+    }
+  }
+
+  .menu-movil {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    max-width: none;
+    height: 100dvh;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background-color: var(--color-polvo);
+    color: var(--color-cacao);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .menu-movil {
+      transition:
+        opacity 0.25s ease,
+        translate 0.25s ease,
+        overlay 0.25s allow-discrete,
+        display 0.25s allow-discrete;
+      opacity: 0;
+      translate: 0 -0.75rem;
+    }
+
+    .menu-movil:popover-open {
+      opacity: 1;
+      translate: 0 0;
+    }
+
+    @starting-style {
+      .menu-movil:popover-open {
+        opacity: 0;
+        translate: 0 -0.75rem;
+      }
+    }
+  }
+</style>
+
+<script>
+  // Cierra el menú móvil al elegir una sección.
+  const menu = document.getElementById('menu');
+  menu?.addEventListener('click', (event) => {
+    if (event.target instanceof Element && event.target.closest('a[href^="/#"]')) {
+      menu.hidePopover();
+    }
+  });
+</script>

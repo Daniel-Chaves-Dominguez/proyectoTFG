@@ -1,0 +1,225 @@
+@import 'tailwindcss';
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Tokens de marca
+   Colores muestreados del logo y del flyer. Los contrastes indicados son
+   sobre «polvo» (fondo base) y cumplen WCAG 2.2 AA donde se usan para texto.
+   ────────────────────────────────────────────────────────────────────────── */
+@theme static {
+  --color-polvo: #fdf5f2; /* fondo base, igual que el flyer */
+  --color-rubor: #f7e9e3; /* bandas y paneles */
+  --color-nacar: #fffaf8; /* superficies elevadas */
+  --color-cacao: #34292a; /* tinta principal · 13:1 */
+  --color-cacao-profundo: #2b2122; /* sección oscura */
+  --color-velo: #6b5552; /* texto secundario · 6,4:1 */
+  --color-cobre: #94504a; /* texto rosado · 5,6:1 */
+  --color-cobre-oscuro: #7d413c;
+  --color-oro-rosa: #d9978c; /* decorativo (anillo, filetes): nunca para texto pequeño */
+  --color-oro-rosa-claro: #f4bdb2;
+  --color-linea: #e6cfc8; /* filetes sutiles */
+  --color-borde: #a8746a; /* bordes de controles · ≥3:1 */
+  --color-noche-texto: #f6e9e4; /* texto sobre cacao profundo · 13:1 */
+  --color-noche-velo: #cdb7b1; /* texto secundario sobre cacao profundo · 8:1 */
+
+  --text-display: clamp(3rem, 2.1rem + 3.9vw, 5.75rem);
+  --text-display--line-height: 1.02;
+  --text-titulo: clamp(2.25rem, 1.75rem + 2.1vw, 3.5rem);
+  --text-titulo--line-height: 1.08;
+  --text-entradilla: clamp(1.1875rem, 1.1rem + 0.35vw, 1.3125rem);
+  --text-entradilla--line-height: 1.55;
+
+  --radius-panel: 1.75rem;
+  --shadow-flotante: 0 18px 40px -18px rgb(52 41 42 / 0.35);
+
+  --ease-luz: cubic-bezier(0.65, 0, 0.35, 1);
+  --espacio-seccion: clamp(4.5rem, 3rem + 6vw, 8rem);
+}
+
+/* Las familias las inyecta el componente <Font> de Astro (con fallbacks métricos). */
+@theme inline {
+  --font-serif: var(--font-garamond);
+  --font-sans: var(--font-jost);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Base
+   ────────────────────────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    color-scheme: light;
+    scroll-padding-top: 6rem;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background-color: var(--color-polvo);
+    color: var(--color-cacao);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  @media (width >= 48rem) {
+    body {
+      font-size: 1.125rem;
+    }
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: -0.012em;
+    text-wrap: balance;
+  }
+
+  p,
+  li,
+  dd {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: var(--color-oro-rosa-claro);
+    color: var(--color-cacao);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-cobre);
+    outline-offset: 3px;
+  }
+
+  /* Destino del enlace «Saltar al contenido»: recibe el foco sin marco visible. */
+  [tabindex='-1']:focus {
+    outline: none;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Utilidades propias
+   ────────────────────────────────────────────────────────────────────────── */
+@utility contenedor {
+  width: 100%;
+  max-width: 74rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+
+  @media (width >= 48rem) {
+    padding-inline: 2rem;
+  }
+}
+
+@utility seccion {
+  padding-block: var(--espacio-seccion);
+}
+
+/* Para una sección que sigue a otra con el mismo fondo: sin doble espacio arriba. */
+@utility seccion-continua {
+  padding-top: 0;
+  padding-bottom: var(--espacio-seccion);
+}
+
+/* Texto con el degradado de oro rosa del monograma (solo tamaños grandes/decorativos). */
+@utility texto-oro {
+  background-image: linear-gradient(
+    115deg,
+    #b8706a 0%,
+    #d28d84 30%,
+    #b46d63 55%,
+    #c9837a 80%,
+    #a9625b 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Componentes
+   ────────────────────────────────────────────────────────────────────────── */
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 3.25rem;
+    padding: 0.8rem 1.6rem;
+    border-radius: 999px;
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease,
+      border-color 0.2s ease,
+      transform 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .btn:active {
+    transform: translateY(1px);
+  }
+
+  .btn-principal {
+    background-color: var(--color-cacao);
+    color: var(--color-polvo);
+    box-shadow: inset 0 0 0 1px rgb(244 189 178 / 0.35);
+  }
+
+  .btn-principal:hover {
+    background-color: #4a3b3b;
+  }
+
+  .btn-secundario {
+    border: 1px solid var(--color-borde);
+    color: var(--color-cacao);
+    background-color: transparent;
+  }
+
+  .btn-secundario:hover {
+    background-color: var(--color-rubor);
+    border-color: var(--color-cobre);
+  }
+
+  .enlace {
+    color: var(--color-cobre);
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.22em;
+    text-decoration-color: rgb(148 80 74 / 0.45);
+    transition: text-decoration-color 0.2s ease;
+  }
+
+  .enlace:hover {
+    text-decoration-color: currentColor;
+  }
+
+  /* Marco con esquinas cóncavas y doble filete, como el del flyer. */
+  .marco-flyer {
+    border: 24px solid transparent;
+    border-image-source: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%23fffaf8' d='M16.2 6H83.8A16 16 0 0 0 94 16.2V83.8A16 16 0 0 0 83.8 94H16.2A16 16 0 0 0 6 83.8V16.2A16 16 0 0 0 16.2 6Z'/%3E%3Cg fill='none' stroke='%23d29a90'%3E%3Cpath d='M12 1H88A11 11 0 0 0 99 12V88A11 11 0 0 0 88 99H12A11 11 0 0 0 1 88V12A11 11 0 0 0 12 1Z'/%3E%3Cpath d='M16.2 6H83.8A16 16 0 0 0 94 16.2V83.8A16 16 0 0 0 83.8 94H16.2A16 16 0 0 0 6 83.8V16.2A16 16 0 0 0 16.2 6Z'/%3E%3C/g%3E%3C/svg%3E");
+    border-image-slice: 24 fill;
+    border-image-width: 24px;
+    border-image-repeat: stretch;
+  }
+}

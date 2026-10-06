@@ -1,0 +1,59 @@
+---
+import { business } from '../data/business';
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  updated: string;
+}
+
+const { title, description, updated } = Astro.props;
+---
+
+<BaseLayout title={`${title} | ${business.name}`} description={description}>
+  <div class="contenedor">
+    <article class="legal max-w-[48rem] py-16 lg:py-24">
+      <h1 class="text-titulo">{title}</h1>
+      <p class="mt-3 text-[0.9375rem] text-velo">Última actualización: {updated}</p>
+      <div class="mt-10">
+        <slot />
+      </div>
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .legal :global(h2) {
+    margin-top: 2.5rem;
+    font-size: 1.75rem;
+    line-height: 1.2;
+  }
+
+  .legal :global(p),
+  .legal :global(ul) {
+    margin-top: 1rem;
+  }
+
+  .legal :global(ul) {
+    padding-left: 1.25rem;
+    list-style: disc;
+  }
+
+  .legal :global(li + li) {
+    margin-top: 0.4rem;
+  }
+
+  .legal :global(a) {
+    color: var(--color-cobre);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .legal :global(mark) {
+    padding: 0.05em 0.35em;
+    border-radius: 0.3em;
+    background-color: #ffe7a6;
+    color: var(--color-cacao);
+  }
+</style>

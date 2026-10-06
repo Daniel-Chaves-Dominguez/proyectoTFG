@@ -1,0 +1,35 @@
+---
+import Booking from '../components/Booking.astro';
+import Care from '../components/Care.astro';
+import Faq from '../components/Faq.astro';
+import Hero from '../components/Hero.astro';
+import LaserScience from '../components/LaserScience.astro';
+import Steps from '../components/Steps.astro';
+import Treatments from '../components/Treatments.astro';
+import ZonePlanner from '../components/ZonePlanner.astro';
+import { business } from '../data/business';
+import { aestheticServices } from '../data/services';
+import { zoneGroups } from '../data/zones';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { localBusinessSchema } from '../lib/schema';
+
+const town = business.address.locality ? ` en ${business.address.locality}` : '';
+const title = `Depilación láser y estética${town} | ${business.name}`;
+const description = `Depilación láser para mujeres y hombres y tratamientos de estética en ${business.address.display}${town}. Pide tu cita por WhatsApp: ${business.phone.display}.`;
+const site = Astro.site ?? new URL(Astro.url.origin);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  jsonLd={localBusinessSchema(business, site, zoneGroups, aestheticServices)}
+>
+  <Hero />
+  <Treatments />
+  <ZonePlanner />
+  <LaserScience />
+  <Steps />
+  <Care />
+  <Faq />
+  <Booking />
+</BaseLayout>

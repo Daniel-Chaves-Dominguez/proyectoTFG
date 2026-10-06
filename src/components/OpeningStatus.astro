@@ -1,0 +1,68 @@
+---
+/**
+ * Estado «abierto / cerrado» en tiempo real (hora de Madrid, sin depender del visitante).
+ * Sin JavaScript muestra un texto neutro que siempre es cierto.
+ */
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<p class:list={['estado', className]} data-estado-horario>
+  <span class="estado__punto" aria-hidden="true"></span>
+  <span data-estado-texto>Atendemos con cita previa.</span>
+</p>
+
+<style>
+  .estado {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.9375rem;
+    color: var(--color-velo);
+  }
+
+  .estado__punto {
+    width: 0.55rem;
+    height: 0.55rem;
+    flex: none;
+    border-radius: 999px;
+    border: 1.5px solid var(--color-cobre);
+  }
+
+  .estado[data-abierto='true'] .estado__punto {
+    border-color: #5f8462;
+    background-color: #5f8462;
+    box-shadow: 0 0 0 4px rgb(95 132 98 / 0.15);
+  }
+</style>
+
+<script>
+  import { business } from '../data/business';
+  import { describeStatus, getOpeningStatus, zonedNow } from '../lib/hours';
+
+  function update() {
+    const now = new Date();
+    const status = getOpeningStatus(business.hours, now, business.timeZone);
+    const text = describeStatus(status);
+
+    for (const el of document.querySelectorAll<HTMLElement>('[data-estado-horario]')) {
+      el.dataset.abierto = String(status.open);
+      const label = el.querySelector('[data-estado-texto]');
+      if (label && label.textContent !== text) label.textContent = text;
+    }
+
+    // Resalta el día de hoy en las tablas de horario.
+    const { weekday } = zonedNow(now, business.timeZone);
+    for (const row of document.querySelectorAll<HTMLElement>('[data-dias]')) {
+      const days = (row.dataset.dias ?? '').split(',').map(Number);
+      const isToday = days.includes(weekday);
+      row.toggleAttribute('data-hoy', isToday);
+      row.querySelector('[data-etiqueta-hoy]')?.toggleAttribute('hidden', !isToday);
+    }
+  }
+
+  update();
+  setInterval(update, 60_000);
+</script>

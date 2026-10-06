@@ -1,0 +1,85 @@
+---
+import { aestheticServices } from '../data/services';
+import Sparkle from './brand/Sparkle.astro';
+
+const laserFacts = ['Mujeres y hombres', 'Rostro y cuerpo', 'Valoración antes de empezar'];
+---
+
+<section id="tratamientos" class="seccion" aria-labelledby="tratamientos-titulo">
+  <div class="contenedor grid gap-x-12 gap-y-10 lg:grid-cols-12">
+    <div class="lg:col-span-4">
+      <h2 id="tratamientos-titulo" class="text-titulo">
+        Tratamientos
+      </h2>
+      <p class="mt-5 max-w-[26rem] text-velo">
+        Depilación láser y cuidados de estética, siempre con cita previa para dedicarte el tiempo
+        que necesitas.
+      </p>
+    </div>
+
+    <div class="lg:col-span-8">
+      <article class="laser relative isolate overflow-hidden rounded-[var(--radius-panel)] bg-nacar p-7 ring-1 ring-linea sm:p-10 lg:p-12">
+        <svg class="laser__aro" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+          <circle
+            cx="100"
+            cy="100"
+            r="98"
+            fill="none"
+            stroke="currentColor"
+            stroke-width=".6"
+          ></circle>
+        </svg>
+        <h3 class="text-[2rem] leading-tight sm:text-[2.375rem]">Depilación láser</h3>
+        <p class="mt-4 max-w-[36rem]">
+          Cada disparo debilita la raíz del vello. Sesión a sesión notarás menos vello y más fino,
+          sin los tirones de la cera ni la irritación de la cuchilla.
+        </p>
+        <ul class="mt-7 flex flex-wrap gap-x-7 gap-y-3 text-[0.9375rem] text-velo">
+          {laserFacts.map((fact) => (
+            <li class="flex items-center gap-2.5">
+              <Sparkle size={11} class="text-oro-rosa" />
+              {fact}
+            </li>
+          ))}
+        </ul>
+        <a href="#zonas" class="enlace mt-8 inline-block font-medium">
+          Ver zonas y sesiones
+        </a>
+      </article>
+
+      <div class="mt-14">
+        <h3 class="text-[1.75rem]">Estética</h3>
+        <dl class="mt-5 border-t border-linea">
+          {aestheticServices.map((service) => (
+            <div class="grid gap-1 border-b border-linea py-5 sm:grid-cols-[13rem_1fr] sm:gap-6">
+              <dt class="font-serif text-[1.375rem] leading-snug">{service.name}</dt>
+              <dd class="text-velo">{service.description}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Aro fino del logo asomando por la esquina: firma visual, sin protagonismo. */
+  .laser__aro {
+    display: none;
+    position: absolute;
+    z-index: -1;
+    top: -9rem;
+    right: -9rem;
+    width: 22rem;
+    height: 22rem;
+    color: var(--color-oro-rosa);
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
+  @media (width >= 40rem) {
+    .laser__aro {
+      display: block;
+    }
+  }
+</style>

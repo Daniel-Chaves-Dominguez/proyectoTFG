@@ -1,0 +1,7 @@
+dist
+.astro
+node_modules
+package-lock.json
+src/components/brand/emblem-paths.ts
+src/assets/brand/*.svg
+public

@@ -1,0 +1,13 @@
+---
+/**
+ * Muestra el valor si existe; si no, un aviso visible «pendiente» para que
+ * nadie publique la web con datos legales vacíos sin darse cuenta.
+ */
+interface Props {
+  value: string;
+  label: string;
+}
+const { value, label } = Astro.props;
+---
+
+{value ? value : <mark>{label} pendiente de completar</mark>}
