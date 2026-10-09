@@ -16,7 +16,6 @@
 
   <a href="#contenido" class="saltar">Saltar al contenido</a>
 
-  <!-- ===== CABECERA ===== -->
   <header class="cabecera">
     <div class="contenedor cabecera__barra">
       <a href="index.html" class="marca" aria-label="María Chaves, inicio">
@@ -27,16 +26,16 @@
       <nav class="nav-principal" aria-label="Principal">
         <ul>
           <li><a href="index.html#tratamientos">Tratamientos</a></li>
-          <li><a href="index.html#zonas">Zonas y sesiones</a></li>
           <li><a href="index.html#laser">Cómo funciona</a></li>
           <li><a href="index.html#preguntas">Preguntas</a></li>
           <li><a href="index.html#contacto">Contacto</a></li>
+          <li><a href="index.html#opiniones">Opiniones</a></li>
         </ul>
       </nav>
 
       <div class="cabecera__botones">
-        <a href="https://wa.me/34689751693?text=Hola%2C%20me%20gustar%C3%ADa%20pedir%20cita." class="btn btn-principal btn-peque cabecera__cita" target="_blank" rel="noopener">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5z"/></svg>
+        <a href="index.html#tratamientos" class="btn btn-principal btn-peque cabecera__cita">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
           Pedir cita
         </a>
         <button type="button" class="btn btn-secundario btn-peque btn-menu" id="abrir-menu" aria-expanded="false" aria-controls="menu">
@@ -47,7 +46,6 @@
     </div>
   </header>
 
-  <!-- Menú para móvil -->
   <div class="menu-movil" id="menu">
     <div class="contenedor">
       <div class="menu-movil__arriba">
@@ -64,17 +62,17 @@
       <nav aria-label="Menú móvil">
         <ul>
           <li><a href="index.html#tratamientos">Tratamientos</a></li>
-          <li><a href="index.html#zonas">Zonas y sesiones</a></li>
           <li><a href="index.html#laser">Cómo funciona</a></li>
           <li><a href="index.html#preguntas">Preguntas</a></li>
           <li><a href="index.html#contacto">Contacto</a></li>
+          <li><a href="index.html#opiniones">Opiniones</a></li>
         </ul>
       </nav>
 
       <div class="menu-movil__abajo">
-        <a href="https://wa.me/34689751693?text=Hola%2C%20me%20gustar%C3%ADa%20pedir%20cita." class="btn btn-principal" target="_blank" rel="noopener">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5z"/></svg>
-          Pedir cita por WhatsApp
+        <a href="index.html#tratamientos" class="btn btn-principal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          Pedir cita
         </a>
         <p>C/ La Palma, 29. Con cita previa.</p>
       </div>
@@ -89,7 +87,6 @@
 
         <div class="legal__contenido">
           <h2>Responsable del tratamiento</h2>
-          <!-- PENDIENTE: poner el NIF y el correo cuando los tenga -->
           <ul>
             <li>María Chaves, NIF <mark>NIF pendiente de completar</mark></li>
             <li>Calle La Palma, 29</li>
@@ -99,9 +96,12 @@
 
           <h2>Qué datos tratamos</h2>
           <p>
-            Esta web no guarda datos personales: no tiene registro de usuarios y el formulario de cita no
-            envía nada a ningún servidor, solo prepara un mensaje en tu dispositivo para que lo envíes tú
-            por WhatsApp.
+            Esta web no tiene registro de usuarios y el formulario de cita no envía nada a ningún
+            servidor: solo prepara un mensaje en tu dispositivo para que lo envíes tú por WhatsApp.
+          </p>
+          <p>
+            Si dejas una opinión, guardamos el nombre que escribas, la puntuación, el comentario y la
+            fecha, y se muestran públicamente en la web. No escribas datos que no quieras que se vean.
           </p>
           <p>
             Cuando nos escribes por WhatsApp, nos llamas o vienes al centro, tratamos tu nombre, tu teléfono
@@ -113,6 +113,7 @@
           <h2>Para qué y con qué base legal</h2>
           <ul>
             <li>Gestionar tus citas y responder tus consultas, a petición tuya (artículo 6.1.b del RGPD).</li>
+            <li>Publicar tu opinión en la web, con tu consentimiento al enviarla (artículo 6.1.a del RGPD).</li>
             <li>
               Registrar los datos de salud de tu ficha, con tu consentimiento explícito (artículo 9.2.a del
               RGPD). Puedes retirarlo cuando quieras.
@@ -122,13 +123,14 @@
           <h2>Cuánto tiempo los conservamos</h2>
           <p>
             Mientras dure el tratamiento y, después, el tiempo que exijan las obligaciones legales. Pasado
-            ese plazo se eliminan.
+            ese plazo se eliminan. Las opiniones se mantienen publicadas hasta que pidas que se borren.
           </p>
 
           <h2>Con quién los compartimos</h2>
           <p>
             No cedemos tus datos a terceros salvo obligación legal. Los mensajes de WhatsApp se transmiten a
-            través de los servicios de WhatsApp, sujetos a su propia política de privacidad.
+            través de los servicios de WhatsApp, sujetos a su propia política de privacidad. Las opiniones
+            se guardan en Firebase, un servicio de Google que usamos como base de datos.
           </p>
 
           <h2>Tus derechos</h2>
@@ -143,8 +145,8 @@
           <h2>Cookies</h2>
           <p>
             Esta web no usa cookies ni herramientas de analítica o publicidad, por eso no te pide
-            consentimiento al entrar. Las fuentes tipográficas se sirven desde el propio sitio, sin
-            conexiones a servicios de terceros. Si en el futuro se añade alguna, esta política se
+            consentimiento al entrar. Las fuentes tipográficas se sirven desde el propio sitio. La única
+            conexión a un servicio externo es la de Firebase, para cargar y guardar las opiniones. Si en el futuro se añade alguna, esta política se
             actualizará y se pedirá tu consentimiento cuando la ley lo exija.
           </p>
         </div>
@@ -152,7 +154,6 @@
     </div>
   </main>
 
-  <!-- ===== PIE DE PÁGINA ===== -->
   <footer class="pie">
     <div class="contenedor pie__grid">
       <div class="pie__marca">
@@ -183,10 +184,10 @@
         <h2 class="pie__titulo">Secciones</h2>
         <ul>
           <li><a href="index.html#tratamientos" class="pie__enlace">Tratamientos</a></li>
-          <li><a href="index.html#zonas" class="pie__enlace">Zonas y sesiones</a></li>
           <li><a href="index.html#laser" class="pie__enlace">Cómo funciona</a></li>
           <li><a href="index.html#preguntas" class="pie__enlace">Preguntas</a></li>
           <li><a href="index.html#contacto" class="pie__enlace">Contacto</a></li>
+          <li><a href="index.html#opiniones" class="pie__enlace">Opiniones</a></li>
         </ul>
       </nav>
 
@@ -212,9 +213,8 @@
       </div>
     </div>
 
-    <!-- Botón flotante de WhatsApp (solo se ve en móvil) -->
-    <a href="https://wa.me/34689751693?text=Hola%2C%20me%20gustar%C3%ADa%20pedir%20cita." class="btn btn-principal fab" id="fab" target="_blank" rel="noopener">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5z"/></svg>
+    <a href="index.html#tratamientos" class="btn btn-principal fab" id="fab">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
       Pedir cita
     </a>
   </footer>

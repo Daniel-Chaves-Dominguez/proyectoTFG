@@ -17,7 +17,6 @@
 
   <a href="#contenido" class="saltar">Saltar al contenido</a>
 
-  <!-- ===== CABECERA ===== -->
   <header class="cabecera">
     <div class="contenedor cabecera__barra">
       <a href="/index.html" class="marca" aria-label="María Chaves, inicio">
@@ -28,16 +27,16 @@
       <nav class="nav-principal" aria-label="Principal">
         <ul>
           <li><a href="/index.html#tratamientos">Tratamientos</a></li>
-          <li><a href="/index.html#zonas">Zonas y sesiones</a></li>
           <li><a href="/index.html#laser">Cómo funciona</a></li>
           <li><a href="/index.html#preguntas">Preguntas</a></li>
           <li><a href="/index.html#contacto">Contacto</a></li>
+          <li><a href="/index.html#opiniones">Opiniones</a></li>
         </ul>
       </nav>
 
       <div class="cabecera__botones">
-        <a href="https://wa.me/34689751693?text=Hola%2C%20me%20gustar%C3%ADa%20pedir%20cita." class="btn btn-principal btn-peque cabecera__cita" target="_blank" rel="noopener">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5z"/></svg>
+        <a href="/index.html#tratamientos" class="btn btn-principal btn-peque cabecera__cita">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
           Pedir cita
         </a>
         <button type="button" class="btn btn-secundario btn-peque btn-menu" id="abrir-menu" aria-expanded="false" aria-controls="menu">
@@ -48,7 +47,6 @@
     </div>
   </header>
 
-  <!-- Menú para móvil -->
   <div class="menu-movil" id="menu">
     <div class="contenedor">
       <div class="menu-movil__arriba">
@@ -65,17 +63,17 @@
       <nav aria-label="Menú móvil">
         <ul>
           <li><a href="/index.html#tratamientos">Tratamientos</a></li>
-          <li><a href="/index.html#zonas">Zonas y sesiones</a></li>
           <li><a href="/index.html#laser">Cómo funciona</a></li>
           <li><a href="/index.html#preguntas">Preguntas</a></li>
           <li><a href="/index.html#contacto">Contacto</a></li>
+          <li><a href="/index.html#opiniones">Opiniones</a></li>
         </ul>
       </nav>
 
       <div class="menu-movil__abajo">
-        <a href="https://wa.me/34689751693?text=Hola%2C%20me%20gustar%C3%ADa%20pedir%20cita." class="btn btn-principal" target="_blank" rel="noopener">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5z"/></svg>
-          Pedir cita por WhatsApp
+        <a href="/index.html#tratamientos" class="btn btn-principal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          Pedir cita
         </a>
         <p>C/ La Palma, 29. Con cita previa.</p>
       </div>
@@ -122,13 +120,11 @@
                 <clipPath id="emblema-recorte-mc">
                   <use href="#emblema-trazo-mc"/>
                 </clipPath>
-                <!-- máscara para "dibujar" el anillo con stroke-dashoffset -->
                 <mask id="emblema-trazo" maskUnits="userSpaceOnUse" x="110" y="25" width="1000" height="830">
                   <path class="emblema__trazo" d="M350.2 181.6 A431.7 431.7 0 0 1 1016.6 716.4" pathLength="1" fill="none" stroke="#FFFFFF" stroke-width="18"/>
                 </mask>
               </defs>
 
-              <!-- puntitos de antes y después del anillo -->
               <circle class="emblema__punto" cx="318.6" cy="200.9" r="5.2" fill="#C98477" style="animation-delay: .25s"/>
               <circle class="emblema__punto" cx="290.5" cy="234.8" r="5" fill="#C98477" style="animation-delay: .1s"/>
               <circle class="emblema__punto" cx="1002" cy="742.6" r="5.4" fill="#C98477" style="animation-delay: 2.2s"/>
@@ -150,7 +146,6 @@
 
               <path class="emblema__destello" d="M952 572.4c-.1-1.1-.3-4.2-.3-6.8s-.1-6.7-.3-9.1l-.6-10.1a106 106 0 0 0-1.1-11.8l-.4-4.5c-.3-3.4-.3-3.6-1.2-3.6-.6 0-1.5.7-4.2 3l-3.3 2.6-4.9 4.3-.8.4q-.8 0 1.1-2.2l2.2-2.6 2.9-3.3 1.4-1.8.7-1q1.8-2.2 1.1-3c-.8-.6-5.4-1.2-12.4-1.6l-8.7-.6c-8.5-.5-12.6-.7-16.8-.7a43 43 0 0 1-9.2-.5l.9-.6a51 51 0 0 1 10.3-.6 476 476 0 0 0 22.5-1.3l6-.5 4-.5c4-.5 4.2-.6 3.3-2.4l-.9-1.6-2.1-2.6c-.9-1.3-2.5-3.1-3.5-4.1l-2.3-2.9q-1.1-1.2-.2-1.2.5 0 .6.4 0 .3.5.8a25 25 0 0 1 4 3.3l2.7 2.2.8.6 1.6 1.2 2 1.5c.4.5 1.2.7 1.4.4.3-.5.7-5.2 1.2-13.2l.9-12.5c.2-2.2.5-7.1.6-10.8.4-10.8.6-13.6 1-13.6.3 0 .5 3.3.8 12.4l.4 11 .6 7.1a235 235 0 0 0 1.8 19.2q.4.3 2.8-1.7 1.4-1.2 1.8-1.3c.2 0 1.6-1 5.5-4 3-2.3 3.4-2.5 3.2-1.5q-.2.7-.8 1.2l-.6.7-.6.9a20 20 0 0 0-3.4 4.1c-.5.8-1.5 2.1-2.3 2.9q-1.6 1.7-1.5 2.3c0 .8.1.8 3.3 1.2l2.3.4 11.8.7 4.9.4 7.7.5q10.8.6 11.9 1 1.5.7-.7.9a331 331 0 0 0-32.1 1.5 90 90 0 0 0-8.5 1q-1.4.2.1 2.7a46 46 0 0 0 5.6 6.6c1 1 1.8 2 1.8 2.1q0 .3.7.8c1 .5 1 1.4 0 1.4q-.7 0-.9-.4-.5-1-3.8-3.8l-1.8-1.6a14 14 0 0 0-3.4-2.4l-1.1-.8c-1.4-1.4-2.5-.7-2.5 1.5l-.2 2.8c-.7 5.3-.8 6.7-.9 11.5l-.5 9.7-.7 12.1c-.3 10.2-.6 12.1-1.2 7.8" fill="#CF8A7D"/>
 
-              <!-- punto de luz que recorre el anillo -->
               <g transform="translate(644.6 497.3)">
                 <g class="emblema__cabeza">
                   <circle cx="431.7" cy="0" r="34" fill="url(#emblema-luz)"/>
@@ -165,7 +160,6 @@
     </section>
   </main>
 
-  <!-- ===== PIE DE PÁGINA ===== -->
   <footer class="pie">
     <div class="contenedor pie__grid">
       <div class="pie__marca">
@@ -196,10 +190,10 @@
         <h2 class="pie__titulo">Secciones</h2>
         <ul>
           <li><a href="/index.html#tratamientos" class="pie__enlace">Tratamientos</a></li>
-          <li><a href="/index.html#zonas" class="pie__enlace">Zonas y sesiones</a></li>
           <li><a href="/index.html#laser" class="pie__enlace">Cómo funciona</a></li>
           <li><a href="/index.html#preguntas" class="pie__enlace">Preguntas</a></li>
           <li><a href="/index.html#contacto" class="pie__enlace">Contacto</a></li>
+          <li><a href="/index.html#opiniones" class="pie__enlace">Opiniones</a></li>
         </ul>
       </nav>
 
@@ -225,9 +219,8 @@
       </div>
     </div>
 
-    <!-- Botón flotante de WhatsApp (solo se ve en móvil) -->
-    <a href="https://wa.me/34689751693?text=Hola%2C%20me%20gustar%C3%ADa%20pedir%20cita." class="btn btn-principal fab" id="fab" target="_blank" rel="noopener">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5z"/></svg>
+    <a href="/index.html#tratamientos" class="btn btn-principal fab" id="fab">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
       Pedir cita
     </a>
   </footer>

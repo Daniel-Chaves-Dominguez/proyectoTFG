@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Depilación láser y estética | María Chaves</title>
-  <meta name="description" content="Depilación láser para mujeres y hombres y tratamientos de estética en C/ La Palma, 29. Pide tu cita por WhatsApp: 689 751 693.">
+  <meta name="description" content="Depilación láser para mujeres y hombres, limpieza facial y radiofrecuencia en C/ La Palma, 29. Pide tu cita por WhatsApp: 689 751 693.">
   <meta name="theme-color" content="#fdf5f2">
 
   <link rel="icon" href="img/favicon.ico" sizes="32x32">
@@ -12,13 +12,54 @@
   <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
 
-  <!-- Para cuando se comparte el enlace en redes -->
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_ES">
   <meta property="og:site_name" content="María Chaves">
   <meta property="og:title" content="Depilación láser y estética | María Chaves">
-  <meta property="og:description" content="Depilación láser para mujeres y hombres y tratamientos de estética en C/ La Palma, 29. Pide tu cita por WhatsApp: 689 751 693.">
-  <meta property="og:image" content="img/og.jpg">
+  <meta property="og:description" content="Depilación láser para mujeres y hombres, limpieza facial y radiofrecuencia en C/ La Palma, 29. Pide tu cita por WhatsApp: 689 751 693.">
+  <meta property="og:url" content="https://tu-dominio.es/">
+  <meta property="og:image" content="https://tu-dominio.es/img/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://tu-dominio.es/">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BeautySalon",
+    "name": "María Chaves - Depilación láser y estética",
+    "url": "https://tu-dominio.es/",
+    "image": "https://tu-dominio.es/img/og.jpg",
+    "logo": "https://tu-dominio.es/img/icon-512.png",
+    "telephone": "+34689751693",
+    "priceRange": "5€ - 210€",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Calle La Palma, 29",
+      "addressCountry": "ES"
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "10:00",
+        "closes": "13:30"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "17:00",
+        "closes": "20:30"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Saturday",
+        "opens": "10:00",
+        "closes": "12:30"
+      }
+    ],
+    "sameAs": ["https://www.instagram.com/maria.chaves.depra/"]
+  }
+  </script>
 
   <link rel="preload" href="fonts/eb-garamond.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/jost.woff2" as="font" type="font/woff2" crossorigin>
@@ -28,7 +69,6 @@
 
   <a href="#contenido" class="saltar">Saltar al contenido</a>
 
-  <!-- ===== CABECERA ===== -->
   <header class="cabecera">
     <div class="contenedor cabecera__barra">
       <a href="index.html" class="marca" aria-label="María Chaves, inicio">
@@ -39,16 +79,16 @@
       <nav class="nav-principal" aria-label="Principal">
         <ul>
           <li><a href="#tratamientos">Tratamientos</a></li>
-          <li><a href="#zonas">Zonas y sesiones</a></li>
           <li><a href="#laser">Cómo funciona</a></li>
           <li><a href="#preguntas">Preguntas</a></li>
           <li><a href="#contacto">Contacto</a></li>
+          <li><a href="#opiniones">Opiniones</a></li>
         </ul>
       </nav>
 
       <div class="cabecera__botones">
-        <a href="https://wa.me/34689751693?text=Hola%2C%20me%20gustar%C3%ADa%20pedir%20cita." class="btn btn-principal btn-peque cabecera__cita" target="_blank" rel="noopener">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5z"/></svg>
+        <a href="#tratamientos" class="btn btn-principal btn-peque cabecera__cita">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
           Pedir cita
         </a>
         <button type="button" class="btn btn-secundario btn-peque btn-menu" id="abrir-menu" aria-expanded="false" aria-controls="menu">
@@ -59,7 +99,6 @@
     </div>
   </header>
 
-  <!-- Menú para móvil -->
   <div class="menu-movil" id="menu">
     <div class="contenedor">
       <div class="menu-movil__arriba">
@@ -76,17 +115,17 @@
       <nav aria-label="Menú móvil">
         <ul>
           <li><a href="#tratamientos">Tratamientos</a></li>
-          <li><a href="#zonas">Zonas y sesiones</a></li>
           <li><a href="#laser">Cómo funciona</a></li>
           <li><a href="#preguntas">Preguntas</a></li>
           <li><a href="#contacto">Contacto</a></li>
+          <li><a href="#opiniones">Opiniones</a></li>
         </ul>
       </nav>
 
       <div class="menu-movil__abajo">
-        <a href="https://wa.me/34689751693?text=Hola%2C%20me%20gustar%C3%ADa%20pedir%20cita." class="btn btn-principal" target="_blank" rel="noopener">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5z"/></svg>
-          Pedir cita por WhatsApp
+        <a href="#tratamientos" class="btn btn-principal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          Pedir cita
         </a>
         <p>C/ La Palma, 29. Con cita previa.</p>
       </div>
@@ -95,7 +134,6 @@
 
   <main id="contenido" tabindex="-1">
 
-    <!-- ===== INICIO ===== -->
     <section class="heroe" aria-labelledby="heroe-titulo">
       <div class="contenedor heroe__grid">
         <div class="heroe__texto">
@@ -105,11 +143,11 @@
             atendemos con cita previa en <span class="nowrap">C/ La Palma, 29</span>.
           </p>
           <div class="heroe__acciones" id="heroe-acciones">
-            <a class="btn btn-principal" href="https://wa.me/34689751693?text=Hola%2C%20me%20gustar%C3%ADa%20pedir%20cita." target="_blank" rel="noopener">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5z"/></svg>
-              Pedir cita por WhatsApp
+            <a href="#tratamientos" class="btn btn-principal">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              Pedir cita
             </a>
-            <a class="btn btn-secundario" href="#zonas">Ver zonas y sesiones</a>
+            <a class="btn btn-secundario" href="#laser">Cómo funciona</a>
           </div>
           <p class="estado">
             <span class="estado__punto" aria-hidden="true"></span>
@@ -119,7 +157,6 @@
 
         <div class="heroe__imagen">
           <div class="heroe__emblema">
-            <!-- Logo dibujado en SVG. La animación está en style.css -->
             <svg class="emblema emblema--animado" viewBox="110 25 1000 830" aria-hidden="true">
               <defs>
                 <linearGradient id="emblema-mc" x1="389" y1="212" x2="961" y2="739" gradientUnits="userSpaceOnUse">
@@ -157,13 +194,11 @@
                 <clipPath id="emblema-recorte-mc">
                   <use href="#emblema-trazo-mc"/>
                 </clipPath>
-                <!-- máscara para "dibujar" el anillo con stroke-dashoffset -->
                 <mask id="emblema-trazo" maskUnits="userSpaceOnUse" x="110" y="25" width="1000" height="830">
                   <path class="emblema__trazo" d="M350.2 181.6 A431.7 431.7 0 0 1 1016.6 716.4" pathLength="1" fill="none" stroke="#FFFFFF" stroke-width="18"/>
                 </mask>
               </defs>
 
-              <!-- puntitos de antes y después del anillo -->
               <circle class="emblema__punto" cx="318.6" cy="200.9" r="5.2" fill="#C98477" style="animation-delay: .25s"/>
               <circle class="emblema__punto" cx="290.5" cy="234.8" r="5" fill="#C98477" style="animation-delay: .1s"/>
               <circle class="emblema__punto" cx="1002" cy="742.6" r="5.4" fill="#C98477" style="animation-delay: 2.2s"/>
@@ -185,7 +220,6 @@
 
               <path class="emblema__destello" d="M952 572.4c-.1-1.1-.3-4.2-.3-6.8s-.1-6.7-.3-9.1l-.6-10.1a106 106 0 0 0-1.1-11.8l-.4-4.5c-.3-3.4-.3-3.6-1.2-3.6-.6 0-1.5.7-4.2 3l-3.3 2.6-4.9 4.3-.8.4q-.8 0 1.1-2.2l2.2-2.6 2.9-3.3 1.4-1.8.7-1q1.8-2.2 1.1-3c-.8-.6-5.4-1.2-12.4-1.6l-8.7-.6c-8.5-.5-12.6-.7-16.8-.7a43 43 0 0 1-9.2-.5l.9-.6a51 51 0 0 1 10.3-.6 476 476 0 0 0 22.5-1.3l6-.5 4-.5c4-.5 4.2-.6 3.3-2.4l-.9-1.6-2.1-2.6c-.9-1.3-2.5-3.1-3.5-4.1l-2.3-2.9q-1.1-1.2-.2-1.2.5 0 .6.4 0 .3.5.8a25 25 0 0 1 4 3.3l2.7 2.2.8.6 1.6 1.2 2 1.5c.4.5 1.2.7 1.4.4.3-.5.7-5.2 1.2-13.2l.9-12.5c.2-2.2.5-7.1.6-10.8.4-10.8.6-13.6 1-13.6.3 0 .5 3.3.8 12.4l.4 11 .6 7.1a235 235 0 0 0 1.8 19.2q.4.3 2.8-1.7 1.4-1.2 1.8-1.3c.2 0 1.6-1 5.5-4 3-2.3 3.4-2.5 3.2-1.5q-.2.7-.8 1.2l-.6.7-.6.9a20 20 0 0 0-3.4 4.1c-.5.8-1.5 2.1-2.3 2.9q-1.6 1.7-1.5 2.3c0 .8.1.8 3.3 1.2l2.3.4 11.8.7 4.9.4 7.7.5q10.8.6 11.9 1 1.5.7-.7.9a331 331 0 0 0-32.1 1.5 90 90 0 0 0-8.5 1q-1.4.2.1 2.7a46 46 0 0 0 5.6 6.6c1 1 1.8 2 1.8 2.1q0 .3.7.8c1 .5 1 1.4 0 1.4q-.7 0-.9-.4-.5-1-3.8-3.8l-1.8-1.6a14 14 0 0 0-3.4-2.4l-1.1-.8c-1.4-1.4-2.5-.7-2.5 1.5l-.2 2.8c-.7 5.3-.8 6.7-.9 11.5l-.5 9.7-.7 12.1c-.3 10.2-.6 12.1-1.2 7.8" fill="#CF8A7D"/>
 
-              <!-- punto de luz que recorre el anillo -->
               <g transform="translate(644.6 497.3)">
                 <g class="emblema__cabeza">
                   <circle cx="431.7" cy="0" r="34" fill="url(#emblema-luz)"/>
@@ -198,329 +232,57 @@
       </div>
     </section>
 
-    <!-- ===== TRATAMIENTOS ===== -->
-    <section id="tratamientos" class="seccion" aria-labelledby="tratamientos-titulo">
-      <div class="contenedor tratamientos__grid">
-        <div class="tratamientos__intro">
-          <h2 id="tratamientos-titulo" class="titulo">Tratamientos</h2>
-          <p class="intro">
-            Depilación láser y cuidados de estética, siempre con cita previa para dedicarte el tiempo
-            que necesitas.
-          </p>
-        </div>
-
-        <div class="tratamientos__contenido">
-          <article class="laser">
-            <svg class="laser__aro" viewBox="0 0 200 200" aria-hidden="true">
-              <circle cx="100" cy="100" r="98" fill="none" stroke="currentColor" stroke-width=".6"/>
-            </svg>
-            <h3>Depilación láser</h3>
-            <p>
-              Cada disparo debilita la raíz del vello. Sesión a sesión notarás menos vello y más fino,
-              sin los tirones de la cera ni la irritación de la cuchilla.
-            </p>
-            <ul>
-              <li>
-                <svg class="destello" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c.6 7.2 4.8 11.4 12 12-7.2.6-11.4 4.8-12 12-.6-7.2-4.8-11.4-12-12 7.2-.6 11.4-4.8 12-12Z"/></svg>
-                Mujeres y hombres
-              </li>
-              <li>
-                <svg class="destello" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c.6 7.2 4.8 11.4 12 12-7.2.6-11.4 4.8-12 12-.6-7.2-4.8-11.4-12-12 7.2-.6 11.4-4.8 12-12Z"/></svg>
-                Rostro y cuerpo
-              </li>
-              <li>
-                <svg class="destello" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c.6 7.2 4.8 11.4 12 12-7.2.6-11.4 4.8-12 12-.6-7.2-4.8-11.4-12-12 7.2-.6 11.4-4.8 12-12Z"/></svg>
-                Valoración antes de empezar
-              </li>
-            </ul>
-            <a href="#zonas" class="enlace">Ver zonas y sesiones</a>
-          </article>
-
-          <div class="estetica">
-            <h3>Estética</h3>
-            <dl>
-              <div>
-                <dt>Estética facial</dt>
-                <dd>Limpieza facial profunda e hidratación adaptadas a tu tipo de piel.</dd>
-              </div>
-              <div>
-                <dt>Cejas y pestañas</dt>
-                <dd>Diseño de cejas, lifting y tinte de pestañas para una mirada definida sin maquillaje.</dd>
-              </div>
-              <div>
-                <dt>Manos y pies</dt>
-                <dd>Manicura y pedicura, también con esmaltado semipermanente.</dd>
-              </div>
-            </dl>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== ZONAS Y SESIONES ===== -->
-    <!-- Sesiones e intervalos orientativos: revisar con María -->
-    <section id="zonas" class="seccion fondo-rubor" aria-labelledby="zonas-titulo">
+    <section id="tratamientos" class="seccion fondo-rubor" aria-labelledby="tratamientos-titulo">
       <div class="contenedor">
         <div class="zonas__intro">
-          <h2 id="zonas-titulo" class="titulo">Zonas y sesiones</h2>
+          <h2 id="tratamientos-titulo" class="titulo">Tratamientos y precios</h2>
           <p class="intro">
-            Cada zona tiene su propio ritmo de crecimiento. Elige una para ver cuántas sesiones suelen
-            hacer falta y cada cuánto tiempo.
+            Elige para quién es y qué tipo de tratamiento buscas. Toca todo lo que te interese y pide
+            cita con todo a la vez.
           </p>
         </div>
 
-        <div class="planificador">
+        <div class="filtros">
           <fieldset>
-            <legend class="sr-only">Elige una zona del cuerpo</legend>
+            <legend class="filtros__titulo">Para</legend>
             <div class="zonas__opciones">
-              <input type="radio" name="zona" id="zona-rostro" value="rostro" class="sr-only">
-              <label for="zona-rostro" class="opcion-zona">Rostro</label>
+              <input type="radio" name="publico" id="publico-mujer" value="mujer" class="sr-only" checked>
+              <label for="publico-mujer" class="opcion-zona">Mujer</label>
 
-              <input type="radio" name="zona" id="zona-axilas-ingles" value="axilas-ingles" class="sr-only" checked>
-              <label for="zona-axilas-ingles" class="opcion-zona">Axilas e ingles</label>
-
-              <input type="radio" name="zona" id="zona-brazos" value="brazos" class="sr-only">
-              <label for="zona-brazos" class="opcion-zona">Brazos y manos</label>
-
-              <input type="radio" name="zona" id="zona-piernas" value="piernas" class="sr-only">
-              <label for="zona-piernas" class="opcion-zona">Piernas y glúteos</label>
-
-              <input type="radio" name="zona" id="zona-torso" value="torso" class="sr-only">
-              <label for="zona-torso" class="opcion-zona">Pecho y espalda</label>
+              <input type="radio" name="publico" id="publico-hombre" value="hombre" class="sr-only">
+              <label for="publico-hombre" class="opcion-zona">Hombre</label>
             </div>
           </fieldset>
 
-          <!-- Panel: Rostro -->
-          <div class="panel-zona" id="panel-rostro">
-            <div>
-              <h3>Rostro</h3>
-              <p class="panel-zona__resumen">El vello facial depende mucho de las hormonas, así que necesita más sesiones y más seguidas que el resto del cuerpo.</p>
-              <ul class="panel-zona__lista" aria-label="Zonas de rostro">
-                <li>Labio superior</li>
-                <li>Mentón</li>
-                <li>Patillas</li>
-                <li>Entrecejo</li>
-                <li>Mejillas</li>
-                <li>Cuello</li>
-                <li>Rostro completo</li>
-                <li>Barba (perfilado)</li>
-              </ul>
-            </div>
-            <div class="panel-zona__derecha">
-              <dl class="datos">
-                <div><dt>Sesiones</dt><dd>8 a 12</dd></div>
-                <div><dt>Cada</dt><dd>4 a 6<span>semanas</span></dd></div>
-                <div><dt>Duración</dt><dd>6 a 15<span>meses</span></dd></div>
-              </dl>
-              <div class="sesiones" aria-hidden="true">
-                <span class="sesion"></span>
-                <span class="sesion" style="opacity: .925"></span>
-                <span class="sesion" style="opacity: .85"></span>
-                <span class="sesion" style="opacity: .775"></span>
-                <span class="sesion" style="opacity: .7"></span>
-                <span class="sesion" style="opacity: .625"></span>
-                <span class="sesion" style="opacity: .55"></span>
-                <span class="sesion" style="opacity: .475"></span>
-                <span class="sesion sesion--opcional"></span>
-                <span class="sesion sesion--opcional"></span>
-                <span class="sesion sesion--opcional"></span>
-                <span class="sesion sesion--opcional"></span>
-              </div>
-              <p class="leyenda" aria-hidden="true">
-                <span><span class="sesion sesion--muestra"></span> Previstas</span>
-                <span><span class="sesion sesion--opcional sesion--muestra"></span> Según tu evolución</span>
-              </p>
-              <div class="panel-zona__cita">
-                <a class="btn btn-principal" href="https://wa.me/34689751693?text=Hola%2C%20me%20gustar%C3%ADa%20informaci%C3%B3n%20y%20cita%20para%20depilaci%C3%B3n%20l%C3%A1ser%20de%20rostro." target="_blank" rel="noopener">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5z"/></svg>
-                  Pedir cita para rostro
-                </a>
-                <p>Te damos el precio por WhatsApp. Valores orientativos: tu plan se ajusta en la primera valoración.</p>
-              </div>
-            </div>
-          </div>
+          <fieldset>
+            <legend class="filtros__titulo">Tratamiento</legend>
+            <div class="zonas__opciones">
+              <input type="radio" name="categoria" id="categoria-zonas" value="zonas" class="sr-only" checked>
+              <label for="categoria-zonas" class="opcion-zona">Láser: zonas sueltas</label>
 
-          <!-- Panel: Axilas e ingles (el que sale por defecto) -->
-          <div class="panel-zona activo" id="panel-axilas-ingles">
-            <div>
-              <h3>Axilas e ingles</h3>
-              <p class="panel-zona__resumen">Son las zonas donde antes se notan los resultados: el vello es grueso y oscuro, y absorbe muy bien la luz del láser.</p>
-              <ul class="panel-zona__lista" aria-label="Zonas de axilas e ingles">
-                <li>Axilas</li>
-                <li>Ingles</li>
-                <li>Ingle brasileña</li>
-                <li>Ingle completa</li>
-                <li>Perianal</li>
-              </ul>
-            </div>
-            <div class="panel-zona__derecha">
-              <dl class="datos">
-                <div><dt>Sesiones</dt><dd>6 a 8</dd></div>
-                <div><dt>Cada</dt><dd>6 a 8<span>semanas</span></dd></div>
-                <div><dt>Duración</dt><dd>7 a 13<span>meses</span></dd></div>
-              </dl>
-              <div class="sesiones" aria-hidden="true">
-                <span class="sesion"></span>
-                <span class="sesion" style="opacity: .9"></span>
-                <span class="sesion" style="opacity: .8"></span>
-                <span class="sesion" style="opacity: .7"></span>
-                <span class="sesion" style="opacity: .6"></span>
-                <span class="sesion" style="opacity: .5"></span>
-                <span class="sesion sesion--opcional"></span>
-                <span class="sesion sesion--opcional"></span>
-              </div>
-              <p class="leyenda" aria-hidden="true">
-                <span><span class="sesion sesion--muestra"></span> Previstas</span>
-                <span><span class="sesion sesion--opcional sesion--muestra"></span> Según tu evolución</span>
-              </p>
-              <div class="panel-zona__cita">
-                <a class="btn btn-principal" href="https://wa.me/34689751693?text=Hola%2C%20me%20gustar%C3%ADa%20informaci%C3%B3n%20y%20cita%20para%20depilaci%C3%B3n%20l%C3%A1ser%20de%20axilas%20e%20ingles." target="_blank" rel="noopener">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5z"/></svg>
-                  Pedir cita para axilas e ingles
-                </a>
-                <p>Te damos el precio por WhatsApp. Valores orientativos: tu plan se ajusta en la primera valoración.</p>
-              </div>
-            </div>
-          </div>
+              <input type="radio" name="categoria" id="categoria-packs" value="packs" class="sr-only">
+              <label for="categoria-packs" class="opcion-zona">Láser: packs</label>
 
-          <!-- Panel: Brazos y manos -->
-          <div class="panel-zona" id="panel-brazos">
-            <div>
-              <h3>Brazos y manos</h3>
-              <p class="panel-zona__resumen">El vello de los brazos suele ser más fino y claro. Según su color y grosor, puede necesitar alguna sesión más.</p>
-              <ul class="panel-zona__lista" aria-label="Zonas de brazos y manos">
-                <li>Brazos completos</li>
-                <li>Medios brazos</li>
-                <li>Manos y dedos</li>
-              </ul>
+              <input type="radio" name="categoria" id="categoria-estetica" value="estetica" class="sr-only">
+              <label for="categoria-estetica" class="opcion-zona">Estética</label>
             </div>
-            <div class="panel-zona__derecha">
-              <dl class="datos">
-                <div><dt>Sesiones</dt><dd>6 a 10</dd></div>
-                <div><dt>Cada</dt><dd>6 a 8<span>semanas</span></dd></div>
-                <div><dt>Duración</dt><dd>7 a 17<span>meses</span></dd></div>
-              </dl>
-              <div class="sesiones" aria-hidden="true">
-                <span class="sesion"></span>
-                <span class="sesion" style="opacity: .9"></span>
-                <span class="sesion" style="opacity: .8"></span>
-                <span class="sesion" style="opacity: .7"></span>
-                <span class="sesion" style="opacity: .6"></span>
-                <span class="sesion" style="opacity: .5"></span>
-                <span class="sesion sesion--opcional"></span>
-                <span class="sesion sesion--opcional"></span>
-                <span class="sesion sesion--opcional"></span>
-                <span class="sesion sesion--opcional"></span>
-              </div>
-              <p class="leyenda" aria-hidden="true">
-                <span><span class="sesion sesion--muestra"></span> Previstas</span>
-                <span><span class="sesion sesion--opcional sesion--muestra"></span> Según tu evolución</span>
-              </p>
-              <div class="panel-zona__cita">
-                <a class="btn btn-principal" href="https://wa.me/34689751693?text=Hola%2C%20me%20gustar%C3%ADa%20informaci%C3%B3n%20y%20cita%20para%20depilaci%C3%B3n%20l%C3%A1ser%20de%20brazos%20y%20manos." target="_blank" rel="noopener">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5z"/></svg>
-                  Pedir cita para brazos y manos
-                </a>
-                <p>Te damos el precio por WhatsApp. Valores orientativos: tu plan se ajusta en la primera valoración.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Panel: Piernas y glúteos -->
-          <div class="panel-zona" id="panel-piernas">
-            <div>
-              <h3>Piernas y glúteos</h3>
-              <p class="panel-zona__resumen">Zonas amplias en las que el vello crece despacio, por eso las sesiones se separan más entre sí.</p>
-              <ul class="panel-zona__lista" aria-label="Zonas de piernas y glúteos">
-                <li>Piernas completas</li>
-                <li>Medias piernas</li>
-                <li>Muslos</li>
-                <li>Glúteos</li>
-                <li>Pies</li>
-              </ul>
-            </div>
-            <div class="panel-zona__derecha">
-              <dl class="datos">
-                <div><dt>Sesiones</dt><dd>6 a 10</dd></div>
-                <div><dt>Cada</dt><dd>8 a 10<span>semanas</span></dd></div>
-                <div><dt>Duración</dt><dd>9 a 21<span>meses</span></dd></div>
-              </dl>
-              <div class="sesiones" aria-hidden="true">
-                <span class="sesion"></span>
-                <span class="sesion" style="opacity: .9"></span>
-                <span class="sesion" style="opacity: .8"></span>
-                <span class="sesion" style="opacity: .7"></span>
-                <span class="sesion" style="opacity: .6"></span>
-                <span class="sesion" style="opacity: .5"></span>
-                <span class="sesion sesion--opcional"></span>
-                <span class="sesion sesion--opcional"></span>
-                <span class="sesion sesion--opcional"></span>
-                <span class="sesion sesion--opcional"></span>
-              </div>
-              <p class="leyenda" aria-hidden="true">
-                <span><span class="sesion sesion--muestra"></span> Previstas</span>
-                <span><span class="sesion sesion--opcional sesion--muestra"></span> Según tu evolución</span>
-              </p>
-              <div class="panel-zona__cita">
-                <a class="btn btn-principal" href="https://wa.me/34689751693?text=Hola%2C%20me%20gustar%C3%ADa%20informaci%C3%B3n%20y%20cita%20para%20depilaci%C3%B3n%20l%C3%A1ser%20de%20piernas%20y%20gl%C3%BAteos." target="_blank" rel="noopener">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5z"/></svg>
-                  Pedir cita para piernas y glúteos
-                </a>
-                <p>Te damos el precio por WhatsApp. Valores orientativos: tu plan se ajusta en la primera valoración.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Panel: Pecho y espalda -->
-          <div class="panel-zona" id="panel-torso">
-            <div>
-              <h3>Pecho y espalda</h3>
-              <p class="panel-zona__resumen">Muy habituales también en hombres. Se tratan con sesiones espaciadas porque el vello de estas zonas crece despacio.</p>
-              <ul class="panel-zona__lista" aria-label="Zonas de pecho y espalda">
-                <li>Pecho</li>
-                <li>Abdomen</li>
-                <li>Línea alba</li>
-                <li>Espalda</li>
-                <li>Hombros</li>
-                <li>Lumbares</li>
-              </ul>
-            </div>
-            <div class="panel-zona__derecha">
-              <dl class="datos">
-                <div><dt>Sesiones</dt><dd>6 a 10</dd></div>
-                <div><dt>Cada</dt><dd>8 a 10<span>semanas</span></dd></div>
-                <div><dt>Duración</dt><dd>9 a 21<span>meses</span></dd></div>
-              </dl>
-              <div class="sesiones" aria-hidden="true">
-                <span class="sesion"></span>
-                <span class="sesion" style="opacity: .9"></span>
-                <span class="sesion" style="opacity: .8"></span>
-                <span class="sesion" style="opacity: .7"></span>
-                <span class="sesion" style="opacity: .6"></span>
-                <span class="sesion" style="opacity: .5"></span>
-                <span class="sesion sesion--opcional"></span>
-                <span class="sesion sesion--opcional"></span>
-                <span class="sesion sesion--opcional"></span>
-                <span class="sesion sesion--opcional"></span>
-              </div>
-              <p class="leyenda" aria-hidden="true">
-                <span><span class="sesion sesion--muestra"></span> Previstas</span>
-                <span><span class="sesion sesion--opcional sesion--muestra"></span> Según tu evolución</span>
-              </p>
-              <div class="panel-zona__cita">
-                <a class="btn btn-principal" href="https://wa.me/34689751693?text=Hola%2C%20me%20gustar%C3%ADa%20informaci%C3%B3n%20y%20cita%20para%20depilaci%C3%B3n%20l%C3%A1ser%20de%20pecho%20y%20espalda." target="_blank" rel="noopener">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5z"/></svg>
-                  Pedir cita para pecho y espalda
-                </a>
-                <p>Te damos el precio por WhatsApp. Valores orientativos: tu plan se ajusta en la primera valoración.</p>
-              </div>
-            </div>
-          </div>
+          </fieldset>
         </div>
+
+        <p class="tratamientos__nota">Precios por sesión. Pregunta por las facilidades de pago.</p>
+
+        <div class="tarjetas activo" id="tarjetas-mujer-zonas"></div>
+        <div class="tarjetas" id="tarjetas-mujer-packs"></div>
+        <div class="tarjetas" id="tarjetas-hombre-zonas"></div>
+        <div class="tarjetas" id="tarjetas-hombre-packs"></div>
+        <div class="tarjetas" id="tarjetas-estetica"></div>
+
+        <noscript>
+          <p class="tratamientos__nota">Activa JavaScript para ver los tratamientos o escríbenos por WhatsApp al 689 751 693.</p>
+        </noscript>
       </div>
     </section>
 
-    <!-- ===== CÓMO ACTÚA EL LÁSER ===== -->
     <section id="laser" class="seccion seccion-laser" aria-labelledby="laser-titulo">
       <div class="contenedor seccion-laser__grid">
         <div class="seccion-laser__texto">
@@ -528,7 +290,7 @@
           <p>
             El láser emite una luz que absorbe el pigmento del vello. Esa energía se convierte en calor
             en la raíz y debilita el folículo, así que el vello vuelve a salir cada vez más fino y
-            escaso. La piel de alrededor apenas absorbe esa luz y el equipo la enfría en cada disparo.
+            escaso. La piel de alrededor apenas absorbe esa luz.
           </p>
           <p>
             El folículo solo responde mientras el vello está creciendo. Como en cada momento solo una
@@ -542,7 +304,7 @@
 
         <figure class="diagrama" id="diagrama">
           <svg viewBox="0 0 640 380" role="img" aria-labelledby="diagrama-titulo">
-            <title id="diagrama-titulo">Corte de la piel con tres folículos: el láser actúa sobre el que está en fase de crecimiento.</title>
+            <title id="diagrama-titulo">Corte de la piel con tres folículos: el láser actúa sobre el que está en fase anágena (de crecimiento).</title>
             <defs>
               <linearGradient id="diagrama-haz" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0" stop-color="#FFD9CE" stop-opacity=".75"/>
@@ -559,11 +321,9 @@
               </radialGradient>
             </defs>
 
-            <!-- Piel -->
             <rect x="0" y="160" width="640" height="220" fill="#F4BDB2" fill-opacity=".05"/>
             <path d="M0 160c80-4 160 4 240 0s160-4 240 0 120 4 160 0v24H0z" fill="#F4BDB2" fill-opacity=".1"/>
 
-            <!-- Cabezal y haz de luz -->
             <g class="diagrama__haz">
               <rect x="50" y="10" width="540" height="26" rx="13" fill="#F4BDB2" fill-opacity=".1" stroke="#E9B1A6" stroke-opacity=".6"/>
               <g style="mix-blend-mode: screen">
@@ -572,41 +332,37 @@
               </g>
             </g>
 
-            <!-- Folículo en crecimiento: el láser lo debilita -->
             <circle class="diagrama__calor" cx="107" cy="330" r="64" fill="url(#diagrama-calor)"/>
             <path d="M96 160c0 68-1 126-6 152-5 28 10 44 17 44s22-16 17-44c-5-26-6-84-6-152" fill="#F4BDB2" fill-opacity=".08" stroke="#E9B1A6" stroke-opacity=".65"/>
             <line x1="107" y1="326" x2="107" y2="150" stroke="#E3A396" stroke-width="4" stroke-linecap="round"/>
             <ellipse class="diagrama__raiz" cx="107" cy="330" rx="13" ry="17" fill="#C98276"/>
             <ellipse cx="107" cy="343" rx="6" ry="7" fill="#2B2122"/>
 
-            <!-- Folículo en transición -->
             <path d="M310 160c0 40 1 80 2 102 1 20 15 20 16 0 1-22 2-62 2-102" fill="#F4BDB2" fill-opacity=".06" stroke="#E9B1A6" stroke-opacity=".5"/>
             <line x1="320" y1="262" x2="320" y2="150" stroke="#E3A396" stroke-width="3.4" stroke-linecap="round"/>
             <ellipse cx="320" cy="262" rx="7" ry="9" fill="#E9B1A6"/>
             <line x1="320" y1="278" x2="320" y2="334" stroke="#E9B1A6" stroke-opacity=".45" stroke-dasharray="3 5"/>
 
-            <!-- Folículo en reposo -->
             <path d="M523 160c0 25 1 45 2 54 1 13 15 13 16 0 1-9 2-29 2-54" fill="#F4BDB2" fill-opacity=".06" stroke="#E9B1A6" stroke-opacity=".5"/>
             <line x1="533" y1="208" x2="533" y2="150" stroke="#E3A396" stroke-width="3" stroke-linecap="round"/>
             <ellipse cx="533" cy="208" rx="6" ry="8" fill="#E9B1A6"/>
             <ellipse cx="533" cy="254" rx="8" ry="10" fill="none" stroke="#E9B1A6" stroke-opacity=".55" stroke-dasharray="2 3"/>
 
-            <!-- Superficie de la piel -->
             <path d="M0 160c80-4 160 4 240 0s160-4 240 0 120 4 160 0" fill="none" stroke="#E9B1A6" stroke-width="1.5"/>
           </svg>
 
           <figcaption>
             <ul class="fases">
               <li class="fase activa">
-                <strong>Crecimiento</strong>
+                <strong>Fase anágena</strong>
                 <span>El vello sigue unido a la raíz: absorbe la luz y el folículo se debilita.</span>
               </li>
               <li class="fase">
-                <strong>Transición</strong>
+                <strong>Fase catágena</strong>
                 <span>El vello se está separando de la raíz y apenas responde.</span>
               </li>
               <li class="fase">
-                <strong>Reposo</strong>
+                <strong>Fase telógena</strong>
                 <span>Responderá en otra sesión, cuando vuelva a crecer.</span>
               </li>
             </ul>
@@ -615,7 +371,6 @@
       </div>
     </section>
 
-    <!-- ===== PASO A PASO ===== -->
     <section id="paso-a-paso" class="seccion" aria-labelledby="pasos-titulo">
       <div class="contenedor">
         <h2 id="pasos-titulo" class="titulo">Paso a paso</h2>
@@ -628,7 +383,7 @@
           <li class="paso">
             <span class="paso__numero" aria-hidden="true">2</span>
             <h3>Valoración</h3>
-            <p>Revisamos tu piel y tu vello, te preguntamos por medicación o tratamientos recientes y hacemos una prueba en una zona pequeña.</p>
+            <p>Revisamos tu piel y tu vello y te preguntamos por medicación o tratamientos recientes.</p>
           </li>
           <li class="paso">
             <span class="paso__numero" aria-hidden="true">3</span>
@@ -644,7 +399,6 @@
       </div>
     </section>
 
-    <!-- ===== CUIDADOS ===== -->
     <section id="cuidados" class="seccion-continua cuidados" aria-labelledby="cuidados-titulo">
       <div class="contenedor">
         <h2 id="cuidados-titulo" class="titulo">Antes y después de cada sesión</h2>
@@ -695,7 +449,6 @@
       </div>
     </section>
 
-    <!-- ===== PREGUNTAS FRECUENTES ===== -->
     <section id="preguntas" class="seccion fondo-rubor" aria-labelledby="preguntas-titulo">
       <div class="contenedor faq__grid">
         <div class="faq__intro">
@@ -713,15 +466,15 @@
           <div class="faq__lista">
             <details class="pregunta" name="preguntas" open>
               <summary>¿Duele? <span class="pregunta__icono" aria-hidden="true"></span></summary>
-              <p>Notarás un calor breve o un pequeño pinchazo con cada disparo. El equipo enfría la piel mientras trabaja y la mayoría de personas lo tolera bien. Las zonas de vello más denso, como ingles o axilas, se notan algo más en las primeras sesiones.</p>
+              <p>Notarás un calor breve o un pequeño pinchazo con cada disparo, pero la mayoría de personas lo tolera bien. Las zonas de vello más denso, como ingles o axilas, se notan algo más en las primeras sesiones.</p>
             </details>
             <details class="pregunta" name="preguntas">
               <summary>¿Cuántas sesiones necesito? <span class="pregunta__icono" aria-hidden="true"></span></summary>
-              <p>Depende de la zona, del color y grosor del vello y de factores hormonales. Como orientación, entre 6 y 10 sesiones en el cuerpo y algunas más en la cara. En la valoración te damos una estimación para tu caso.</p>
+              <p>Depende de la zona, del color y el grosor del vello y de factores hormonales. En tu primera cita te orientamos según tu caso.</p>
             </details>
             <details class="pregunta" name="preguntas">
               <summary>¿Cada cuánto tiempo son las sesiones? <span class="pregunta__icono" aria-hidden="true"></span></summary>
-              <p>Entre 4 y 10 semanas según la zona. La cara se trata más a menudo y las piernas o la espalda con más separación, porque cada zona tiene su propio ciclo de crecimiento.</p>
+              <p>Depende de la zona, porque cada una tiene su propio ciclo de crecimiento del vello. Al terminar cada sesión te decimos cuándo volver.</p>
             </details>
             <details class="pregunta" name="preguntas">
               <summary>¿La depilación láser es definitiva? <span class="pregunta__icono" aria-hidden="true"></span></summary>
@@ -741,14 +494,17 @@
             </details>
             <details class="pregunta" name="preguntas">
               <summary>¿También tratáis a hombres? <span class="pregunta__icono" aria-hidden="true"></span></summary>
-              <p>Sí. Perfilado de barba y cuello, espalda, pecho, hombros y cualquier otra zona del cuerpo.</p>
+              <p>Sí, con precios propios para hombre, tanto por zonas sueltas como en packs. Los tienes en <a href="#tratamientos" class="enlace">Tratamientos y precios</a>.</p>
+            </details>
+            <details class="pregunta" name="preguntas">
+              <summary>¿Los precios son por sesión? <span class="pregunta__icono" aria-hidden="true"></span></summary>
+              <p>Sí. En depilación láser todos los precios son por sesión. En radiofrecuencia también hay bonos de 3 y 5 sesiones, y puedes preguntarnos por las facilidades de pago.</p>
             </details>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== PIDE TU CITA ===== -->
     <section id="contacto" class="seccion contacto-seccion" aria-labelledby="contacto-titulo">
       <div class="contenedor contacto__grid">
         <div class="contacto__formulario">
@@ -758,48 +514,36 @@
             llámanos o escríbenos directamente.
           </p>
 
-          <!-- No se envía a ningún servidor: con JS se monta el mensaje y se abre WhatsApp -->
-          <form class="reserva" id="form-reserva" action="https://wa.me/34689751693" method="get" target="_blank" novalidate>
+          <form class="reserva" id="form-reserva" action="https://wa.me/34689751693" method="get" target="_blank" autocomplete="off" novalidate>
             <div class="campo">
               <label for="reserva-nombre" class="campo__etiqueta">Nombre</label>
-              <input id="reserva-nombre" name="nombre" type="text" class="campo__control" autocomplete="given-name" maxlength="60" required aria-describedby="reserva-nombre-error">
+              <input id="reserva-nombre" name="nombre" type="text" class="campo__control" autocomplete="off" maxlength="60" required aria-describedby="reserva-nombre-error">
               <p id="reserva-nombre-error" class="campo__error" hidden>Escribe tu nombre para saber a quién respondemos.</p>
             </div>
 
             <div class="campo">
-              <label for="reserva-tratamiento" class="campo__etiqueta">¿Qué quieres tratar?</label>
-              <select id="reserva-tratamiento" name="tratamiento" class="campo__control">
-                <option value="">Necesito asesoramiento</option>
-                <optgroup label="Depilación láser">
-                  <option value="depilación láser de rostro">Rostro</option>
-                  <option value="depilación láser de axilas e ingles">Axilas e ingles</option>
-                  <option value="depilación láser de brazos y manos">Brazos y manos</option>
-                  <option value="depilación láser de piernas y glúteos">Piernas y glúteos</option>
-                  <option value="depilación láser de pecho y espalda">Pecho y espalda</option>
-                  <option value="depilación láser de varias zonas">Varias zonas</option>
-                </optgroup>
-                <optgroup label="Estética">
-                  <option value="un tratamiento de estética facial">Estética facial</option>
-                  <option value="cejas y pestañas">Cejas y pestañas</option>
-                  <option value="manicura o pedicura">Manos y pies</option>
-                </optgroup>
-              </select>
+              <p class="campo__etiqueta">¿Qué quieres hacerte?</p>
+              <div class="eleccion">
+                <p class="eleccion__vacia" id="eleccion-vacia">
+                  Todavía no has elegido nada. Puedes elegirlo en
+                  <a href="#tratamientos" class="enlace">Tratamientos y precios</a> o enviarnos el
+                  mensaje y te asesoramos.
+                </p>
+                <ul class="eleccion__lista" id="eleccion-lista"></ul>
+                <p class="eleccion__total" id="eleccion-total" hidden></p>
+              </div>
             </div>
 
             <fieldset class="campo">
               <legend class="campo__etiqueta">¿Cuándo te viene mejor?</legend>
               <div class="fichas">
                 <span>
-                  <input type="radio" name="franja" id="franja-mananas" value="mananas" class="sr-only">
-                  <label for="franja-mananas" class="ficha">Mañanas</label>
+                  <input type="radio" name="franja" id="franja-manana" value="manana" class="sr-only">
+                  <label for="franja-manana" class="ficha">Mañana</label>
                 </span>
                 <span>
-                  <input type="radio" name="franja" id="franja-tardes" value="tardes" class="sr-only">
-                  <label for="franja-tardes" class="ficha">Tardes</label>
-                </span>
-                <span>
-                  <input type="radio" name="franja" id="franja-sabado" value="sabado" class="sr-only">
-                  <label for="franja-sabado" class="ficha">Sábado por la mañana</label>
+                  <input type="radio" name="franja" id="franja-tarde" value="tarde" class="sr-only">
+                  <label for="franja-tarde" class="ficha">Tarde</label>
                 </span>
                 <span>
                   <input type="radio" name="franja" id="franja-indiferente" value="indiferente" class="sr-only" checked>
@@ -807,6 +551,28 @@
                 </span>
               </div>
             </fieldset>
+
+            <div class="campo" id="bloque-dia" hidden>
+              <p class="campo__etiqueta">Día</p>
+              <div class="calendario">
+                <div class="calendario__cabecera">
+                  <button type="button" class="calendario__flecha" id="mes-anterior" aria-label="Mes anterior">‹</button>
+                  <p class="calendario__mes" id="calendario-mes" aria-live="polite"></p>
+                  <button type="button" class="calendario__flecha" id="mes-siguiente" aria-label="Mes siguiente">›</button>
+                </div>
+                <div class="calendario__semana" aria-hidden="true">
+                  <span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span>
+                </div>
+                <div class="calendario__dias" id="calendario-dias"></div>
+              </div>
+            </div>
+
+            <fieldset class="campo" id="bloque-hora" hidden>
+              <legend class="campo__etiqueta">Hora</legend>
+              <div class="fichas" id="lista-horas"></div>
+              <p class="campo__ayuda">Cada cita dura 30 minutos. Te confirmamos por WhatsApp si la hora está libre.</p>
+            </fieldset>
+            <p id="reserva-hora-error" class="campo__error campo__error--suelto" hidden>Elige un día y una hora, o marca «Me da igual».</p>
 
             <div class="campo">
               <label for="reserva-notas" class="campo__etiqueta">¿Algo más que debamos saber? <span>(opcional)</span></label>
@@ -833,7 +599,6 @@
                 <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                 Horario
               </h3>
-              <!-- data-dias: 0 = domingo, 1 = lunes ... 6 = sábado (como getDay() en JS) -->
               <dl>
                 <div class="horario-fila" data-dias="1,2,3,4,5">
                   <dt>Lunes a viernes<span class="etiqueta-hoy" hidden>(hoy)</span></dt>
@@ -885,9 +650,81 @@
       </div>
     </section>
 
+    <section id="opiniones" class="seccion-continua" aria-labelledby="opiniones-titulo">
+      <div class="contenedor opiniones__grid">
+        <div class="opiniones__formulario">
+          <h2 id="opiniones-titulo" class="titulo">Opiniones</h2>
+          <p class="intro">¿Ya has venido? Cuéntanos qué tal y ayuda a otras personas a decidirse.</p>
+
+          <form class="reserva" id="form-opinion" autocomplete="off" novalidate>
+            <div class="campo">
+              <label for="opinion-nombre" class="campo__etiqueta">Nombre</label>
+              <input id="opinion-nombre" name="nombre" type="text" class="campo__control" autocomplete="off" maxlength="40" required aria-describedby="opinion-nombre-error">
+              <p id="opinion-nombre-error" class="campo__error" hidden>Escribe tu nombre.</p>
+            </div>
+
+            <div class="campo-trampa" aria-hidden="true">
+              <label for="opinion-web">No rellenes este campo</label>
+              <input id="opinion-web" name="web" type="text" tabindex="-1" autocomplete="off">
+            </div>
+
+            <fieldset class="campo">
+              <legend class="campo__etiqueta">Puntuación</legend>
+              <div class="estrellas">
+                <input type="radio" name="estrellas" id="estrella-1" value="1" class="sr-only">
+                <label for="estrella-1"><span aria-hidden="true">★</span><span class="sr-only">1 estrella</span></label>
+                <input type="radio" name="estrellas" id="estrella-2" value="2" class="sr-only">
+                <label for="estrella-2"><span aria-hidden="true">★</span><span class="sr-only">2 estrellas</span></label>
+                <input type="radio" name="estrellas" id="estrella-3" value="3" class="sr-only">
+                <label for="estrella-3"><span aria-hidden="true">★</span><span class="sr-only">3 estrellas</span></label>
+                <input type="radio" name="estrellas" id="estrella-4" value="4" class="sr-only">
+                <label for="estrella-4"><span aria-hidden="true">★</span><span class="sr-only">4 estrellas</span></label>
+                <input type="radio" name="estrellas" id="estrella-5" value="5" class="sr-only">
+                <label for="estrella-5"><span aria-hidden="true">★</span><span class="sr-only">5 estrellas</span></label>
+              </div>
+              <p id="opinion-estrellas-error" class="campo__error" hidden>Elige de 1 a 5 estrellas.</p>
+            </fieldset>
+
+            <div class="campo">
+              <label for="opinion-comentario" class="campo__etiqueta">Comentario</label>
+              <textarea id="opinion-comentario" name="comentario" rows="4" maxlength="500" class="campo__control" required aria-describedby="opinion-comentario-error" placeholder="Por ejemplo: qué tratamiento te hiciste y qué tal te fue."></textarea>
+              <p id="opinion-comentario-error" class="campo__error" hidden>Escribe un comentario.</p>
+            </div>
+
+            <div class="reserva__enviar">
+              <button type="submit" class="btn btn-principal" id="opinion-enviar">Publicar opinión</button>
+              <p>Tu opinión se publica con el nombre que escribas.</p>
+            </div>
+            <p class="reserva__estado" id="opinion-estado" role="status"></p>
+          </form>
+        </div>
+
+        <div class="opiniones__columna">
+          <p class="opiniones__media" id="opiniones-media">Cargando opiniones...</p>
+          <ul class="opiniones__lista" id="lista-opiniones"></ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="barra-cita" id="barra-cita" hidden>
+      <div class="barra-cita__panel" id="barra-panel" hidden>
+        <div class="barra-cita__cabecera">
+          <p class="barra-cita__titulo">Lo que has elegido</p>
+          <button type="button" class="barra-cita__vaciar" id="barra-vaciar">Quitar todo</button>
+        </div>
+        <ul class="eleccion__lista" id="barra-lista"></ul>
+      </div>
+      <div class="barra-cita__fila">
+        <button type="button" class="barra-cita__ver" id="barra-ver" aria-expanded="false" aria-controls="barra-panel">
+          <span><strong id="barra-numero">0</strong> <span id="barra-texto">elegidos</span> · <span id="barra-total">0€</span></span>
+          <span class="barra-cita__accion" id="barra-accion">Ver</span>
+        </button>
+        <a href="#contacto" class="btn btn-principal btn-peque" id="barra-pedir">Pedir cita</a>
+      </div>
+    </div>
+
   </main>
 
-  <!-- ===== PIE DE PÁGINA ===== -->
   <footer class="pie">
     <div class="contenedor pie__grid">
       <div class="pie__marca">
@@ -918,10 +755,10 @@
         <h2 class="pie__titulo">Secciones</h2>
         <ul>
           <li><a href="#tratamientos" class="pie__enlace">Tratamientos</a></li>
-          <li><a href="#zonas" class="pie__enlace">Zonas y sesiones</a></li>
           <li><a href="#laser" class="pie__enlace">Cómo funciona</a></li>
           <li><a href="#preguntas" class="pie__enlace">Preguntas</a></li>
           <li><a href="#contacto" class="pie__enlace">Contacto</a></li>
+          <li><a href="#opiniones" class="pie__enlace">Opiniones</a></li>
         </ul>
       </nav>
 
@@ -947,13 +784,14 @@
       </div>
     </div>
 
-    <!-- Botón flotante de WhatsApp (solo se ve en móvil) -->
-    <a href="https://wa.me/34689751693?text=Hola%2C%20me%20gustar%C3%ADa%20pedir%20cita." class="btn btn-principal fab" id="fab" target="_blank" rel="noopener">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5z"/></svg>
+    <a href="#tratamientos" class="btn btn-principal fab" id="fab">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
       Pedir cita
     </a>
   </footer>
 
-  <script src="js/main.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js" defer></script>
+  <script src="js/main.js" defer></script>
 </body>
 </html>
