@@ -1,84 +1,84 @@
-# María Chaves - Depilación láser y estética
+# María Chaves - Laser hair removal and beauty treatments
 
-Página web para el centro de depilación láser y estética de María Chaves.
+Website for María Chaves' laser hair removal and beauty centre.
 
-Proyecto hecho por **Daniel Chaves Domínguez** (2º DAW) con **HTML, CSS y JavaScript**, sin frameworks.
-La única librería externa es **Firebase**, que se usa como base de datos para las opiniones.
+Project made by **Daniel Chaves Domínguez** (2nd year DAW) with **HTML, CSS and JavaScript**, without frameworks.
+The only external library is **Firebase**, which is used as the database for the reviews.
 
-## Cómo verla
+## How to view it
 
-No hace falta instalar nada. Se puede abrir `index.html` directamente en el navegador, aunque es
-mejor usar la extensión **Live Server** de VS Code (clic derecho en `index.html` > *Open with Live
+Nothing needs to be installed. You can open `index.html` directly in the browser, although it is
+better to use the **Live Server** extension for VS Code (right click on `index.html` > *Open with Live
 Server*).
 
-## Estructura
+## Structure
 
 ```
-index.html          Página principal
-aviso-legal.html    Aviso legal
-privacidad.html     Política de privacidad y cookies
-404.html            Página de error (página no encontrada)
-site.webmanifest    Datos para cuando se añade la web a la pantalla de inicio del móvil
-robots.txt          Indica a los buscadores qué pueden ver
-sitemap.xml         Lista de páginas para los buscadores
-style.css           Todos los estilos
-js/main.js          Todo el JavaScript
-img/                Logo, iconos e imágenes
-fonts/              Tipografías (EB Garamond y Jost)
+index.html          Home page
+aviso-legal.html    Legal notice
+privacidad.html     Privacy and cookies policy
+404.html            Error page (page not found)
+site.webmanifest    Data used when the website is added to the phone's home screen
+robots.txt          Tells search engines what they can see
+sitemap.xml         List of pages for search engines
+style.css           All the styles
+js/main.js          All the JavaScript
+img/                Logo, icons and images
+fonts/              Fonts (EB Garamond and Jost)
 ```
 
-## Qué tiene la web
+## Features
 
-- **Cita por WhatsApp**: el formulario monta el mensaje con los datos y abre WhatsApp. Se puede
-  elegir mañana o tarde y después el día y la hora (citas de 30 minutos, dentro del horario del
-  centro). De momento no se guarda nada: más adelante las citas irán a la base de datos para que
-  no se puedan reservar dos a la misma hora.
-- **Tratamientos y precios**: se elige mujer u hombre y el tipo (láser por zonas sueltas, láser
-  por packs o estética). Cada tratamiento es una tarjeta con foto, información y precio. Se pueden
-  elegir varias cosas: aparece una barra abajo con el total y, al pedir cita, la lista va en el
-  mensaje de WhatsApp. Las tarjetas se crean con JS a partir de los datos de `js/main.js`
-  (`ZONAS`, `PACKS` y `ESTETICA`), así que para cambiar un precio solo hay que tocar ahí.
-- **Opiniones**: los clientes pueden dejar su nombre, de 1 a 5 estrellas y un comentario. Se
-  guardan en Firebase y se calcula la media.
-- **Horario en tiempo real**: indica si el centro está abierto o cerrado ahora mismo, con la hora
-  de Madrid, y marca el día de hoy en la tabla del horario.
-- **Animación del láser**: el botón «Simular un disparo» anima el dibujo de cómo actúa el láser.
-- **Logo animado** con CSS (si el usuario tiene activado «reducir movimiento» no se anima).
-- **Menú para móvil** y botón flotante de WhatsApp.
-- **Preguntas frecuentes** desplegables con `<details>`.
-- Diseño **responsive** (móvil, tablet y ordenador).
-- Sin cookies ni analítica, y las fuentes están en la propia web, así que no hace falta banner de
-  cookies.
+- **Booking via WhatsApp**: the form builds the message with the data and opens WhatsApp. You can
+  choose morning or afternoon and then the day and time (30-minute appointments, within the
+  centre's opening hours). For now nothing is saved: later on, appointments will be stored in the
+  database so that two people cannot book the same time.
+- **Treatments and prices**: you choose woman or man and the type (laser by single areas, laser
+  packs or beauty treatments). Each treatment is a card with a photo, information and price. Several
+  items can be selected: a bar appears at the bottom with the total and, when booking, the list is
+  included in the WhatsApp message. The cards are created with JS from the data in `js/main.js`
+  (`ZONAS`, `PACKS` and `ESTETICA`), so to change a price you only need to edit it there.
+- **Reviews**: customers can leave their name, 1 to 5 stars and a comment. They are saved in
+  Firebase and the average rating is calculated.
+- **Real-time opening hours**: shows whether the centre is open or closed right now, using Madrid
+  time, and highlights today in the opening hours table.
+- **Laser animation**: the «Simular un disparo» (simulate a shot) button animates the drawing that
+  shows how the laser works.
+- **Animated logo** with CSS (it is not animated if the user has «reduce motion» enabled).
+- **Mobile menu** and floating booking button.
+- **FAQ** with collapsible questions using `<details>`.
+- **Responsive** design (mobile, tablet and desktop).
+- No cookies or analytics, and the fonts are hosted on the website itself, so no cookie banner is
+  needed.
 
-## Fotos de los tratamientos
+## Treatment photos
 
-Mientras no hay foto, cada tarjeta enseña un boceto con rayas. Para poner una foto, se sube a
-Cloudinary y se pega su URL en el campo `imagen` del tratamiento en `js/main.js`. Conviene añadir
-`f_auto,q_auto,w_600` detrás de `/upload/` en la URL para que Cloudinary la sirva en el formato y
-el tamaño adecuados. Por ejemplo:
+While there is no photo, each card shows a striped placeholder. To add a photo, upload it to
+Cloudinary and paste its URL in the treatment's `imagen` field in `js/main.js`. It is a good idea to
+add `f_auto,q_auto,w_600` after `/upload/` in the URL so that Cloudinary serves it in the right
+format and size. For example:
 
 ```
-https://res.cloudinary.com/TU_CUENTA/image/upload/f_auto,q_auto,w_600/limpieza-facial.jpg
+https://res.cloudinary.com/YOUR_ACCOUNT/image/upload/f_auto,q_auto,w_600/limpieza-facial.jpg
 ```
 
-Las fotos se recortan solas en formato 3:2 (`object-fit: cover`), así que mejor que lo importante
-esté en el centro.
+Photos are automatically cropped to a 3:2 ratio (`object-fit: cover`), so it is best to keep the
+important part in the centre.
 
-## Opiniones con Firebase
+## Reviews with Firebase
 
-Mientras no se configure Firebase, las opiniones no están activas: el formulario avisa de que
-llegarán pronto. Para activarlas:
+Until Firebase is configured, reviews are not active: the form shows a message saying they will be
+available soon. To activate them:
 
-1. Entrar en [console.firebase.google.com](https://console.firebase.google.com) y crear un proyecto
-   (el plan gratuito sobra).
-2. En el proyecto, **Firestore Database** > *Crear base de datos* (ubicación en Europa, por ejemplo
-   `eur3`).
-3. En *Configuración del proyecto* > *Tus apps*, añadir una app **web** y copiar `apiKey`,
-   `authDomain` y `projectId` en `FIREBASE_CONFIG`, al principio del bloque de opiniones de
-   `js/main.js`.
-4. En Firestore > **Reglas**, pegar estas reglas y publicarlas. Así cualquiera puede leer y añadir
-   opiniones, pero nadie puede cambiarlas ni borrarlas desde la web, y se comprueba que los datos
-   tienen el formato correcto:
+1. Go to [console.firebase.google.com](https://console.firebase.google.com) and create a project
+   (the free plan is more than enough).
+2. In the project, go to **Firestore Database** > *Create database* (location in Europe, for
+   example `eur3`).
+3. In *Project settings* > *Your apps*, add a **web** app and copy `apiKey`, `authDomain` and
+   `projectId` into `FIREBASE_CONFIG`, at the beginning of the reviews block in `js/main.js`.
+4. In Firestore > **Rules**, paste these rules and publish them. This way anyone can read and add
+   reviews, but nobody can change or delete them from the website, and the data is checked to have
+   the correct format:
 
 ```
 rules_version = '2';
@@ -103,21 +103,21 @@ service cloud.firestore {
 }
 ```
 
-La `apiKey` de Firebase no es secreta: va en el código de la web y lo que protege los datos son las
-reglas. Si alguien deja una opinión ofensiva, se borra a mano desde la consola de Firebase
-(Firestore > colección `opiniones`).
+The Firebase `apiKey` is not secret: it goes in the website's code, and what protects the data are
+the rules. If someone leaves an offensive review, it can be deleted manually from the Firebase
+console (Firestore > `opiniones` collection).
 
-## Pendiente
+## To do
 
-- [ ] Poner el **NIF** y el **correo** de María en `aviso-legal.html` y `privacidad.html` (ahora
-      salen marcados en amarillo).
-- [ ] Añadir el **código postal** a la dirección (el municipio y la provincia ya están: Puerto Real, Cádiz).
-- [ ] Cuando haya dominio, cambiar `https://tu-dominio.es` por el dominio real (buscar y reemplazar
-      en `index.html`, `robots.txt` y `sitemap.xml`). Se usa para Google y para la imagen que sale
-      al compartir el enlace.
-- [ ] Cuando se sepa, añadir el código postal en los datos para Google (`"postalCode"` dentro de
-      `"address"`, en el `<script type="application/ld+json">` de `index.html`).
-- [ ] Poner las **fotos** de los tratamientos (ver arriba).
-- [ ] Configurar **Firebase** para las opiniones (ver arriba).
-- [ ] Confirmar con María las **preguntas frecuentes** y los textos de «Paso a paso» y «Cuidados».
-- [ ] Que alguien revise los textos legales.
+- [ ] Add María's **tax ID (NIF)** and **email** in `aviso-legal.html` and `privacidad.html` (they
+      are currently highlighted in yellow).
+- [ ] Add the **postal code** to the address (the town and province are already there: Puerto Real, Cádiz).
+- [ ] When there is a domain, replace `https://tu-dominio.es` with the real domain (find and replace
+      in `index.html`, `robots.txt` and `sitemap.xml`). It is used for Google and for the image shown
+      when the link is shared.
+- [ ] When it is known, add the postal code to the Google business data (`"postalCode"` inside
+      `"address"`, in the `<script type="application/ld+json">` of `index.html`).
+- [ ] Add the treatment **photos** (see above).
+- [ ] Set up **Firebase** for the reviews (see above).
+- [ ] Confirm the **FAQ** and the «Paso a paso» (step by step) and «Cuidados» (care) texts with María.
+- [ ] Have someone review the legal texts.

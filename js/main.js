@@ -18,18 +18,18 @@ const HORARIO = {
 
 const DIAS = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
 
-const anio = document.getElementById('anio');
+const anio = document.getElementById('year');
 if (anio) {
   anio.textContent = new Date().getFullYear();
 }
 
-const cabecera = document.querySelector('.cabecera');
+const cabecera = document.querySelector('.header');
 
 function comprobarScroll() {
   if (window.scrollY > 20) {
-    cabecera.classList.add('con-borde');
+    cabecera.classList.add('with-border');
   } else {
-    cabecera.classList.remove('con-borde');
+    cabecera.classList.remove('with-border');
   }
 }
 
@@ -39,17 +39,17 @@ if (cabecera) {
 }
 
 const menu = document.getElementById('menu');
-const botonAbrir = document.getElementById('abrir-menu');
-const botonCerrar = document.getElementById('cerrar-menu');
+const botonAbrir = document.getElementById('open-menu');
+const botonCerrar = document.getElementById('close-menu');
 
 function abrirMenu() {
-  menu.classList.add('abierto');
+  menu.classList.add('open');
   botonAbrir.setAttribute('aria-expanded', 'true');
   botonCerrar.focus();
 }
 
 function cerrarMenu() {
-  menu.classList.remove('abierto');
+  menu.classList.remove('open');
   botonAbrir.setAttribute('aria-expanded', 'false');
 }
 
@@ -62,7 +62,7 @@ if (menu && botonAbrir && botonCerrar) {
   });
 
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && menu.classList.contains('abierto')) {
+    if (e.key === 'Escape' && menu.classList.contains('open')) {
       cerrarMenu();
       botonAbrir.focus();
     }
@@ -105,33 +105,38 @@ function actualizarHorario() {
   const ahora = horaDeMadrid();
   const estado = textoEstado(ahora.dia, ahora.minutos);
 
-  document.querySelectorAll('.estado').forEach(function (el) {
-    el.classList.toggle('abierto', estado.abierto);
-    el.querySelector('.estado__texto').textContent = estado.texto;
+  document.querySelectorAll('.status').forEach(function (el) {
+    el.classList.toggle('open', estado.abierto);
+    el.querySelector('.status__text').textContent = estado.texto;
   });
 
-  document.querySelectorAll('.horario-fila').forEach(function (fila) {
-    const dias = fila.dataset.dias.split(',').map(Number);
+  document.querySelectorAll('.schedule-row').forEach(function (fila) {
+    const dias = fila.dataset.days.split(',').map(Number);
     const esHoy = dias.includes(ahora.dia);
-    fila.classList.toggle('hoy', esHoy);
-    fila.querySelector('.etiqueta-hoy').hidden = !esHoy;
+    fila.classList.toggle('today', esHoy);
+    fila.querySelector('.today-label').hidden = !esHoy;
   });
 }
 
-if (document.querySelector('.estado')) {
+if (document.querySelector('.status')) {
   actualizarHorario();
   setInterval(actualizarHorario, 60000);
 }
 
+const TEXTO_PUBLICO = {
+  woman: 'mujer',
+  man: 'hombre'
+};
+
 const ZONAS = {
-  mujer: [
+  woman: [
     { talla: 'XS', precio: 5, imagen: '', partes: ['Labio superior', 'Patillas', 'Barbilla', 'Areolas', 'Línea alba', 'Perianal'] },
     { talla: 'S', precio: 6, imagen: '', partes: ['Axilas', 'Mentón', 'Triángulo alba', 'Manos', 'Ingles', 'Labios vaginales', 'Pies'] },
     { talla: 'M', precio: 14, imagen: '', partes: ['Facial', 'Antebrazos', 'Ingles brasileñas', 'Pubis', 'Glúteos', 'Lumbar'] },
     { talla: 'L', precio: 22, imagen: '', partes: ['Zona íntima completa', 'Brazos completos', 'Medias piernas', 'Espalda'] },
     { talla: 'XL', precio: 37, imagen: '', partes: ['Piernas completas'] }
   ],
-  hombre: [
+  man: [
     { talla: 'XS', precio: 7, imagen: '', partes: ['Mejillas', 'Entrecejo', 'Nuca'] },
     { talla: 'S', precio: 8, imagen: '', partes: ['Cuello', 'Axilas', 'Manos', 'Pies', 'Perianal'] },
     { talla: 'M', precio: 17, imagen: '', partes: ['Facial', 'Hombros', 'Tórax', 'Abdomen', 'Antebrazos', 'Lumbar', 'Pubis', 'Glúteos'] },
@@ -141,7 +146,7 @@ const ZONAS = {
 };
 
 const PACKS = {
-  mujer: [
+  woman: [
     { nombre: 'Axilas, ingles y pubis', precio: 23, imagen: '' },
     { nombre: 'Axilas, ingles, pubis y medias piernas', precio: 41, imagen: '' },
     { nombre: 'Axilas, ingles, pubis, perianal y medias piernas', precio: 45, imagen: '' },
@@ -149,7 +154,7 @@ const PACKS = {
     { nombre: 'Cuerpo básico', descripcion: 'Sin facial ni brazos.', precio: 68, imagen: '' },
     { nombre: 'Cuerpo completo', precio: 83, imagen: '' }
   ],
-  hombre: [
+  man: [
     { nombre: 'Tórax y abdomen', precio: 32, imagen: '' },
     { nombre: 'Piernas completas y glúteos', precio: 58, imagen: '' },
     { nombre: 'Cuerpo inferior', precio: 75, imagen: '' },
@@ -209,60 +214,60 @@ let seleccion = [];
 
 function crearFoto(imagen, texto) {
   if (imagen !== '') {
-    return '<img class="tarjeta__foto" src="' + imagen + '" alt="" width="600" height="400" loading="lazy">';
+    return '<img class="card__photo" src="' + imagen + '" alt="" width="600" height="400" loading="lazy">';
   }
-  return '<div class="tarjeta__foto boceto" aria-hidden="true">' +
+  return '<div class="card__photo placeholder" aria-hidden="true">' +
     '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="m21 16-5-5-8 8"/></svg>' +
     '<span>Foto: ' + texto + '</span></div>';
 }
 
 function crearOpcion(id, nombre, texto, precio) {
-  return '<li class="opcion">' +
-    '<span class="opcion__texto">' + texto + '</span>' +
-    '<span class="opcion__precio">' + precio + '€</span>' +
-    '<button type="button" class="boton-anadir" aria-pressed="false" data-id="' + id + '" data-nombre="' + nombre + '" data-precio="' + precio + '">Añadir</button>' +
+  return '<li class="option">' +
+    '<span class="option__text">' + texto + '</span>' +
+    '<span class="option__price">' + precio + '€</span>' +
+    '<button type="button" class="add-button" aria-pressed="false" data-id="' + id + '" data-name="' + nombre + '" data-price="' + precio + '">Añadir</button>' +
     '</li>';
 }
 
 function tarjetaZona(zona, publico) {
   let botones = '';
   zona.partes.forEach(function (parte, i) {
-    const id = publico + '-zona-' + zona.talla + '-' + i;
-    const nombre = parte + ' (depilación láser, ' + publico + ')';
-    botones += '<button type="button" class="chip" aria-pressed="false" data-id="' + id + '" data-nombre="' + nombre + '" data-precio="' + zona.precio + '">' + parte + '</button>';
+    const id = publico + '-zone-' + zona.talla + '-' + i;
+    const nombre = parte + ' (depilación láser, ' + TEXTO_PUBLICO[publico] + ')';
+    botones += '<button type="button" class="chip" aria-pressed="false" data-id="' + id + '" data-name="' + nombre + '" data-price="' + zona.precio + '">' + parte + '</button>';
   });
 
-  return '<article class="tarjeta">' +
+  return '<article class="card">' +
     crearFoto(zona.imagen, 'zona ' + zona.talla) +
-    '<div class="tarjeta__cuerpo">' +
-    '<div class="tarjeta__arriba"><h3>Zona ' + zona.talla + '</h3><p class="tarjeta__precio">' + zona.precio + '€<span> / zona</span></p></div>' +
-    '<p class="tarjeta__texto">Toca las zonas que quieras hacerte:</p>' +
+    '<div class="card__body">' +
+    '<div class="card__top"><h3>Zona ' + zona.talla + '</h3><p class="card__price">' + zona.precio + '€<span> / zona</span></p></div>' +
+    '<p class="card__text">Toca las zonas que quieras hacerte:</p>' +
     '<div class="chips">' + botones + '</div>' +
     '</div></article>';
 }
 
 function tarjetaPack(pack, publico, i) {
   const id = publico + '-pack-' + i;
-  const nombre = 'Pack ' + pack.nombre.toLowerCase() + ' (depilación láser, ' + publico + ')';
+  const nombre = 'Pack ' + pack.nombre.toLowerCase() + ' (depilación láser, ' + TEXTO_PUBLICO[publico] + ')';
   let descripcion = '';
   if (pack.descripcion) {
-    descripcion = '<p class="tarjeta__texto">' + pack.descripcion + '</p>';
+    descripcion = '<p class="card__text">' + pack.descripcion + '</p>';
   }
 
-  return '<article class="tarjeta">' +
+  return '<article class="card">' +
     crearFoto(pack.imagen, pack.nombre.toLowerCase()) +
-    '<div class="tarjeta__cuerpo">' +
-    '<p class="tarjeta__tipo">Pack</p>' +
+    '<div class="card__body">' +
+    '<p class="card__type">Pack</p>' +
     '<h3>' + pack.nombre + '</h3>' +
     descripcion +
-    '<ul class="opciones">' + crearOpcion(id, nombre, 'Por sesión', pack.precio) + '</ul>' +
+    '<ul class="options">' + crearOpcion(id, nombre, 'Por sesión', pack.precio) + '</ul>' +
     '</div></article>';
 }
 
 function tarjetaEstetica(tratamiento, i) {
   let opciones = '';
   tratamiento.opciones.forEach(function (opcion, j) {
-    const id = 'estetica-' + i + '-' + j;
+    const id = 'aesthetics-' + i + '-' + j;
     let nombre = tratamiento.nombre;
     if (tratamiento.opciones.length > 1) {
       nombre += ' (' + opcion.texto.toLowerCase() + ')';
@@ -272,56 +277,56 @@ function tarjetaEstetica(tratamiento, i) {
 
   let pasos = '';
   if (tratamiento.pasos) {
-    pasos = '<details class="tarjeta__pasos"><summary>Ver los ' + tratamiento.pasos.length + ' pasos</summary><ol>';
+    pasos = '<details class="card__steps"><summary>Ver los ' + tratamiento.pasos.length + ' pasos</summary><ol>';
     tratamiento.pasos.forEach(function (paso) {
       pasos += '<li>' + paso + '</li>';
     });
     pasos += '</ol></details>';
   }
 
-  return '<article class="tarjeta">' +
+  return '<article class="card">' +
     crearFoto(tratamiento.imagen, tratamiento.nombre.toLowerCase()) +
-    '<div class="tarjeta__cuerpo">' +
+    '<div class="card__body">' +
     '<h3>' + tratamiento.nombre + '</h3>' +
-    '<p class="tarjeta__texto">' + tratamiento.descripcion + '</p>' +
+    '<p class="card__text">' + tratamiento.descripcion + '</p>' +
     pasos +
-    '<ul class="opciones">' + opciones + '</ul>' +
+    '<ul class="options">' + opciones + '</ul>' +
     '</div></article>';
 }
 
 function pintarTratamientos() {
-  ['mujer', 'hombre'].forEach(function (publico) {
+  ['woman', 'man'].forEach(function (publico) {
     let html = '';
     ZONAS[publico].forEach(function (zona) {
       html += tarjetaZona(zona, publico);
     });
-    document.getElementById('tarjetas-' + publico + '-zonas').innerHTML = html;
+    document.getElementById('cards-' + publico + '-zones').innerHTML = html;
 
     html = '';
     PACKS[publico].forEach(function (pack, i) {
       html += tarjetaPack(pack, publico, i);
     });
-    document.getElementById('tarjetas-' + publico + '-packs').innerHTML = html;
+    document.getElementById('cards-' + publico + '-packs').innerHTML = html;
   });
 
   let html = '';
   ESTETICA.forEach(function (tratamiento, i) {
     html += tarjetaEstetica(tratamiento, i);
   });
-  document.getElementById('tarjetas-estetica').innerHTML = html;
+  document.getElementById('cards-aesthetics').innerHTML = html;
 }
 
 function mostrarTarjetas() {
-  const publico = document.querySelector('input[name="publico"]:checked').value;
-  const categoria = document.querySelector('input[name="categoria"]:checked').value;
+  const publico = document.querySelector('input[name="audience"]:checked').value;
+  const categoria = document.querySelector('input[name="category"]:checked').value;
 
-  let idVisible = 'tarjetas-' + publico + '-' + categoria;
-  if (categoria === 'estetica') {
-    idVisible = 'tarjetas-estetica';
+  let idVisible = 'cards-' + publico + '-' + categoria;
+  if (categoria === 'aesthetics') {
+    idVisible = 'cards-aesthetics';
   }
 
-  document.querySelectorAll('.tarjetas').forEach(function (bloque) {
-    bloque.classList.toggle('activo', bloque.id === idVisible);
+  document.querySelectorAll('.cards').forEach(function (bloque) {
+    bloque.classList.toggle('active', bloque.id === idVisible);
   });
 }
 
@@ -342,13 +347,13 @@ function pintarListaElegidos(lista) {
     nombre.textContent = tratamiento.nombre;
 
     const precio = document.createElement('span');
-    precio.className = 'eleccion__precio';
+    precio.className = 'selection__price';
     precio.textContent = tratamiento.precio + '€';
 
     const quitar = document.createElement('button');
     quitar.type = 'button';
-    quitar.className = 'eleccion__quitar';
-    quitar.dataset.quitar = tratamiento.id;
+    quitar.className = 'selection__remove';
+    quitar.dataset.remove = tratamiento.id;
     quitar.setAttribute('aria-label', 'Quitar ' + tratamiento.nombre);
     quitar.textContent = '×';
 
@@ -358,10 +363,10 @@ function pintarListaElegidos(lista) {
 }
 
 function abrirListaBarra(abrir) {
-  document.getElementById('barra-panel').hidden = !abrir;
-  document.getElementById('barra-ver').setAttribute('aria-expanded', abrir);
-  document.getElementById('barra-accion').textContent = abrir ? 'Cerrar' : 'Ver';
-  document.getElementById('barra-cita').classList.toggle('abierta', abrir);
+  document.getElementById('bar-panel').hidden = !abrir;
+  document.getElementById('bar-toggle').setAttribute('aria-expanded', abrir);
+  document.getElementById('bar-action').textContent = abrir ? 'Cerrar' : 'Ver';
+  document.getElementById('booking-bar').classList.toggle('open', abrir);
 }
 
 function quitarTratamiento(id) {
@@ -373,7 +378,7 @@ function actualizarSeleccion() {
   document.querySelectorAll('[data-id]').forEach(function (boton) {
     const elegido = seleccion.some(function (t) { return t.id === boton.dataset.id; });
     boton.setAttribute('aria-pressed', elegido);
-    if (boton.classList.contains('boton-anadir')) {
+    if (boton.classList.contains('add-button')) {
       boton.textContent = elegido ? 'Añadido' : 'Añadir';
     }
   });
@@ -381,19 +386,19 @@ function actualizarSeleccion() {
   const total = sumarPrecios();
   const hayAlgo = seleccion.length > 0;
 
-  document.getElementById('barra-cita').hidden = !hayAlgo;
-  document.getElementById('barra-numero').textContent = seleccion.length;
-  document.getElementById('barra-texto').textContent = seleccion.length === 1 ? 'elegido' : 'elegidos';
-  document.getElementById('barra-total').textContent = total + '€';
-  document.body.classList.toggle('con-seleccion', hayAlgo);
+  document.getElementById('booking-bar').hidden = !hayAlgo;
+  document.getElementById('bar-count').textContent = seleccion.length;
+  document.getElementById('bar-text').textContent = seleccion.length === 1 ? 'elegido' : 'elegidos';
+  document.getElementById('bar-total').textContent = total + '€';
+  document.body.classList.toggle('has-selection', hayAlgo);
 
   if (!hayAlgo) abrirListaBarra(false);
 
-  pintarListaElegidos(document.getElementById('barra-lista'));
-  pintarListaElegidos(document.getElementById('eleccion-lista'));
+  pintarListaElegidos(document.getElementById('bar-list'));
+  pintarListaElegidos(document.getElementById('selection-list'));
 
-  document.getElementById('eleccion-vacia').hidden = hayAlgo;
-  const textoTotal = document.getElementById('eleccion-total');
+  document.getElementById('selection-empty').hidden = hayAlgo;
+  const textoTotal = document.getElementById('selection-total');
   textoTotal.hidden = !hayAlgo;
   textoTotal.textContent = 'Total: ' + total + '€';
 }
@@ -403,20 +408,20 @@ function alternarTratamiento(boton) {
   const posicion = seleccion.findIndex(function (t) { return t.id === id; });
 
   if (posicion === -1) {
-    seleccion.push({ id: id, nombre: boton.dataset.nombre, precio: Number(boton.dataset.precio) });
+    seleccion.push({ id: id, nombre: boton.dataset.name, precio: Number(boton.dataset.price) });
   } else {
     seleccion.splice(posicion, 1);
   }
   actualizarSeleccion();
 }
 
-const seccionTratamientos = document.getElementById('tratamientos');
+const seccionTratamientos = document.getElementById('treatments');
 
-if (seccionTratamientos && document.getElementById('tarjetas-estetica')) {
+if (seccionTratamientos && document.getElementById('cards-aesthetics')) {
   pintarTratamientos();
   mostrarTarjetas();
 
-  document.querySelectorAll('input[name="publico"], input[name="categoria"]').forEach(function (radio) {
+  document.querySelectorAll('input[name="audience"], input[name="category"]').forEach(function (radio) {
     radio.addEventListener('change', mostrarTarjetas);
   });
 
@@ -425,23 +430,23 @@ if (seccionTratamientos && document.getElementById('tarjetas-estetica')) {
     if (boton) alternarTratamiento(boton);
   });
 
-  ['barra-lista', 'eleccion-lista'].forEach(function (id) {
+  ['bar-list', 'selection-list'].forEach(function (id) {
     document.getElementById(id).addEventListener('click', function (e) {
-      const boton = e.target.closest('[data-quitar]');
-      if (boton) quitarTratamiento(boton.dataset.quitar);
+      const boton = e.target.closest('[data-remove]');
+      if (boton) quitarTratamiento(boton.dataset.remove);
     });
   });
 
-  document.getElementById('barra-ver').addEventListener('click', function () {
-    abrirListaBarra(document.getElementById('barra-panel').hidden);
+  document.getElementById('bar-toggle').addEventListener('click', function () {
+    abrirListaBarra(document.getElementById('bar-panel').hidden);
   });
 
-  document.getElementById('barra-vaciar').addEventListener('click', function () {
+  document.getElementById('bar-clear').addEventListener('click', function () {
     seleccion = [];
     actualizarSeleccion();
   });
 
-  document.getElementById('barra-pedir').addEventListener('click', function () {
+  document.getElementById('bar-book').addEventListener('click', function () {
     abrirListaBarra(false);
   });
 
@@ -449,30 +454,30 @@ if (seccionTratamientos && document.getElementById('tarjetas-estetica')) {
     if (e.key === 'Escape') abrirListaBarra(false);
   });
 
-  const barra = document.getElementById('barra-cita');
-  const contacto = document.getElementById('contacto');
+  const barra = document.getElementById('booking-bar');
+  const contacto = document.getElementById('contact');
   if (contacto && 'IntersectionObserver' in window) {
     const observadorBarra = new IntersectionObserver(function (entradas) {
-      barra.classList.toggle('oculta', entradas[0].isIntersecting);
+      barra.classList.toggle('is-hidden', entradas[0].isIntersecting);
     });
     observadorBarra.observe(contacto);
   }
 }
 
-const botonDisparo = document.getElementById('boton-disparo');
-const diagrama = document.getElementById('diagrama');
+const botonDisparo = document.getElementById('fire-button');
+const diagrama = document.getElementById('diagram');
 
 if (botonDisparo && diagrama) {
   botonDisparo.addEventListener('click', function () {
-    diagrama.classList.remove('disparando');
+    diagrama.classList.remove('firing');
     setTimeout(function () {
-      diagrama.classList.add('disparando');
+      diagrama.classList.add('firing');
     }, 20);
   });
 }
 
 const fab = document.getElementById('fab');
-const zonasConBoton = [document.getElementById('heroe-acciones'), document.getElementById('tratamientos'), document.getElementById('contacto')]
+const zonasConBoton = [document.getElementById('hero-actions'), document.getElementById('treatments'), document.getElementById('contact')]
   .filter(function (el) { return el !== null; });
 
 if (fab && zonasConBoton.length > 0 && 'IntersectionObserver' in window) {
@@ -486,7 +491,7 @@ if (fab && zonasConBoton.length > 0 && 'IntersectionObserver' in window) {
         visibles.delete(entrada.target);
       }
     });
-    fab.classList.toggle('oculto', visibles.size > 0);
+    fab.classList.toggle('is-hidden', visibles.size > 0);
   });
 
   zonasConBoton.forEach(function (el) {
@@ -500,7 +505,7 @@ const MESES_A_MOSTRAR = 2;
 let mesVisible = 0;
 let diaElegido = null;
 
-const formulario = document.getElementById('form-reserva');
+const formulario = document.getElementById('booking-form');
 
 function aHora(minutos) {
   const horas = Math.floor(minutos / 60);
@@ -510,7 +515,7 @@ function aHora(minutos) {
 
 function tramoDelDia(diaSemana, franja) {
   const tramos = HORARIO[diaSemana];
-  if (franja === 'manana') return tramos[0];
+  if (franja === 'morning') return tramos[0];
   return tramos[1];
 }
 
@@ -544,7 +549,7 @@ function crearFichas(contenedor, nombre, opciones) {
 
     const etiqueta = document.createElement('label');
     etiqueta.htmlFor = input.id;
-    etiqueta.className = 'ficha';
+    etiqueta.className = 'pill';
     etiqueta.textContent = opcion.texto;
 
     caja.append(input, etiqueta);
@@ -557,11 +562,11 @@ function pintarCalendario(franja) {
   const inicioHoy = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
   const primero = new Date(hoy.getFullYear(), hoy.getMonth() + mesVisible, 1);
 
-  document.getElementById('calendario-mes').textContent = primero.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
-  document.getElementById('mes-anterior').disabled = mesVisible === 0;
-  document.getElementById('mes-siguiente').disabled = mesVisible === MESES_A_MOSTRAR - 1;
+  document.getElementById('calendar-month').textContent = primero.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
+  document.getElementById('prev-month').disabled = mesVisible === 0;
+  document.getElementById('next-month').disabled = mesVisible === MESES_A_MOSTRAR - 1;
 
-  const contenedor = document.getElementById('calendario-dias');
+  const contenedor = document.getElementById('calendar-days');
   contenedor.innerHTML = '';
 
   const huecos = (primero.getDay() + 6) % 7;
@@ -575,16 +580,16 @@ function pintarCalendario(franja) {
 
     const boton = document.createElement('button');
     boton.type = 'button';
-    boton.className = 'calendario__dia';
+    boton.className = 'calendar__day';
     boton.textContent = dia;
-    boton.dataset.fecha = fecha.toDateString();
+    boton.dataset.date = fecha.toDateString();
     boton.setAttribute('aria-label', fecha.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' }));
-    boton.setAttribute('aria-pressed', diaElegido === boton.dataset.fecha);
+    boton.setAttribute('aria-pressed', diaElegido === boton.dataset.date);
 
     boton.disabled = fecha < inicioHoy || horasLibres(fecha, franja).length === 0;
 
     if (fecha.getTime() === inicioHoy.getTime()) {
-      boton.classList.add('calendario__dia--hoy');
+      boton.classList.add('calendar__day--today');
     }
 
     contenedor.append(boton);
@@ -595,7 +600,7 @@ function pintarHoras(fecha, franja) {
   const horas = horasLibres(fecha, franja).map(function (hora) {
     return { valor: hora, texto: hora };
   });
-  crearFichas(document.getElementById('lista-horas'), 'hora', horas);
+  crearFichas(document.getElementById('hour-list'), 'hour', horas);
 }
 
 function crearMensaje(nombre, elegidos, cuando, notas) {
@@ -627,9 +632,9 @@ function crearMensaje(nombre, elegidos, cuando, notas) {
 }
 
 if (formulario) {
-  const inputNombre = document.getElementById('reserva-nombre');
-  const errorNombre = document.getElementById('reserva-nombre-error');
-  const mensajeEstado = document.getElementById('reserva-estado');
+  const inputNombre = document.getElementById('booking-name');
+  const errorNombre = document.getElementById('booking-name-error');
+  const mensajeEstado = document.getElementById('booking-status');
 
   function mostrarError(mostrar) {
     errorNombre.hidden = !mostrar;
@@ -645,46 +650,46 @@ if (formulario) {
     if (inputNombre.value.trim() !== '') mostrarError(false);
   });
 
-  const bloqueDia = document.getElementById('bloque-dia');
-  const bloqueHora = document.getElementById('bloque-hora');
-  const errorHora = document.getElementById('reserva-hora-error');
+  const bloqueDia = document.getElementById('day-block');
+  const bloqueHora = document.getElementById('hour-block');
+  const errorHora = document.getElementById('booking-time-error');
 
   function franjaElegida() {
-    return formulario.querySelector('input[name="franja"]:checked').value;
+    return formulario.querySelector('input[name="time-slot"]:checked').value;
   }
 
-  formulario.querySelectorAll('input[name="franja"]').forEach(function (radio) {
+  formulario.querySelectorAll('input[name="time-slot"]').forEach(function (radio) {
     radio.addEventListener('change', function () {
       const franja = franjaElegida();
       diaElegido = null;
       mesVisible = 0;
       errorHora.hidden = true;
       bloqueHora.hidden = true;
-      bloqueDia.hidden = franja === 'indiferente';
-      if (franja !== 'indiferente') pintarCalendario(franja);
+      bloqueDia.hidden = franja === 'any';
+      if (franja !== 'any') pintarCalendario(franja);
     });
   });
 
-  document.getElementById('mes-anterior').addEventListener('click', function () {
+  document.getElementById('prev-month').addEventListener('click', function () {
     mesVisible--;
     pintarCalendario(franjaElegida());
   });
 
-  document.getElementById('mes-siguiente').addEventListener('click', function () {
+  document.getElementById('next-month').addEventListener('click', function () {
     mesVisible++;
     pintarCalendario(franjaElegida());
   });
 
-  document.getElementById('calendario-dias').addEventListener('click', function (e) {
-    const boton = e.target.closest('.calendario__dia');
+  document.getElementById('calendar-days').addEventListener('click', function (e) {
+    const boton = e.target.closest('.calendar__day');
     if (!boton || boton.disabled) return;
-    diaElegido = boton.dataset.fecha;
+    diaElegido = boton.dataset.date;
     pintarCalendario(franjaElegida());
     pintarHoras(new Date(diaElegido), franjaElegida());
     bloqueHora.hidden = false;
   });
 
-  document.getElementById('lista-horas').addEventListener('change', function () {
+  document.getElementById('hour-list').addEventListener('change', function () {
     errorHora.hidden = true;
   });
 
@@ -700,8 +705,8 @@ if (formulario) {
     mostrarError(false);
 
     let cuando = '';
-    if (franjaElegida() !== 'indiferente') {
-      const hora = formulario.querySelector('input[name="hora"]:checked');
+    if (franjaElegida() !== 'any') {
+      const hora = formulario.querySelector('input[name="hour"]:checked');
       if (!diaElegido || !hora) {
         errorHora.hidden = false;
         return;
@@ -710,7 +715,7 @@ if (formulario) {
       cuando = fecha.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' }).replace(',', '') + ' a las ' + hora.value;
     }
 
-    const notas = document.getElementById('reserva-notas').value.trim();
+    const notas = document.getElementById('booking-notes').value.trim();
 
     const texto = crearMensaje(nombre, seleccion, cuando, notas);
     const url = 'https://wa.me/' + TELEFONO_WHATSAPP + '?text=' + encodeURIComponent(texto);
@@ -734,9 +739,9 @@ const FIREBASE_CONFIG = {
 
 const ESPERA_MINUTOS = 10;
 
-const formOpinion = document.getElementById('form-opinion');
-const listaOpiniones = document.getElementById('lista-opiniones');
-const textoMedia = document.getElementById('opiniones-media');
+const formOpinion = document.getElementById('review-form');
+const listaOpiniones = document.getElementById('review-list');
+const textoMedia = document.getElementById('reviews-average');
 
 let baseDeDatos = null;
 if (FIREBASE_CONFIG.apiKey !== '' && typeof firebase !== 'undefined') {
@@ -767,16 +772,16 @@ function dibujarEstrellas(numero) {
 
 function crearTarjetaOpinion(opinion) {
   const tarjeta = document.createElement('li');
-  tarjeta.className = 'opinion';
+  tarjeta.className = 'review';
 
   const arriba = document.createElement('div');
-  arriba.className = 'opinion__arriba';
+  arriba.className = 'review__top';
 
   const nombre = document.createElement('strong');
   nombre.textContent = opinion.nombre;
 
   const estrellas = document.createElement('span');
-  estrellas.className = 'opinion__estrellas';
+  estrellas.className = 'review__stars';
   estrellas.setAttribute('aria-hidden', 'true');
   estrellas.textContent = dibujarEstrellas(opinion.estrellas);
 
@@ -790,7 +795,7 @@ function crearTarjetaOpinion(opinion) {
   comentario.textContent = opinion.comentario;
 
   const fecha = document.createElement('p');
-  fecha.className = 'opinion__fecha';
+  fecha.className = 'review__date';
   fecha.textContent = new Date(opinion.fecha).toLocaleDateString('es-ES', {
     day: 'numeric',
     month: 'long',
@@ -830,13 +835,13 @@ function cargarOpiniones() {
 }
 
 if (formOpinion && listaOpiniones && textoMedia) {
-  const inputNombreOpinion = document.getElementById('opinion-nombre');
-  const inputComentario = document.getElementById('opinion-comentario');
-  const errorNombreOpinion = document.getElementById('opinion-nombre-error');
-  const errorEstrellas = document.getElementById('opinion-estrellas-error');
-  const errorComentario = document.getElementById('opinion-comentario-error');
-  const botonEnviar = document.getElementById('opinion-enviar');
-  const estadoOpinion = document.getElementById('opinion-estado');
+  const inputNombreOpinion = document.getElementById('review-name');
+  const inputComentario = document.getElementById('review-comment');
+  const errorNombreOpinion = document.getElementById('review-name-error');
+  const errorEstrellas = document.getElementById('review-stars-error');
+  const errorComentario = document.getElementById('review-comment-error');
+  const botonEnviar = document.getElementById('review-submit');
+  const estadoOpinion = document.getElementById('review-status');
 
   function marcarError(error, campo, mostrar) {
     error.hidden = !mostrar;
@@ -857,7 +862,7 @@ if (formOpinion && listaOpiniones && textoMedia) {
 
     const nombre = inputNombreOpinion.value.trim();
     const comentario = inputComentario.value.trim();
-    const estrellaMarcada = formOpinion.querySelector('input[name="estrellas"]:checked');
+    const estrellaMarcada = formOpinion.querySelector('input[name="stars"]:checked');
 
     marcarError(errorNombreOpinion, inputNombreOpinion, nombre === '');
     marcarError(errorEstrellas, null, estrellaMarcada === null);
@@ -873,7 +878,7 @@ if (formOpinion && listaOpiniones && textoMedia) {
       return;
     }
 
-    if (document.getElementById('opinion-web').value !== '') {
+    if (document.getElementById('review-website').value !== '') {
       formOpinion.reset();
       estadoOpinion.textContent = '¡Gracias! Tu opinión ya está publicada.';
       return;
