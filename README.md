@@ -111,12 +111,12 @@ reglas. Si alguien deja una opinión ofensiva, se borra a mano desde la consola 
 
 - [ ] Poner el **NIF** y el **correo** de María en `aviso-legal.html` y `privacidad.html` (ahora
       salen marcados en amarillo).
-- [ ] Añadir **municipio, código postal y provincia** a la dirección.
+- [ ] Añadir el **código postal** a la dirección (el municipio y la provincia ya están: Puerto Real, Cádiz).
 - [ ] Cuando haya dominio, cambiar `https://tu-dominio.es` por el dominio real (buscar y reemplazar
       en `index.html`, `robots.txt` y `sitemap.xml`). Se usa para Google y para la imagen que sale
       al compartir el enlace.
-- [ ] Añadir el municipio y el código postal también en los datos para Google (`"address"`, en el
-      `<script type="application/ld+json">` de `index.html`).
+- [ ] Cuando se sepa, añadir el código postal en los datos para Google (`"postalCode"` dentro de
+      `"address"`, en el `<script type="application/ld+json">` de `index.html`).
 - [ ] Poner las **fotos** de los tratamientos (ver arriba).
 - [ ] Configurar **Firebase** para las opiniones (ver arriba).
 - [ ] Confirmar con María las **preguntas frecuentes** y los textos de «Paso a paso» y «Cuidados».
