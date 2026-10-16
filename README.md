@@ -24,6 +24,7 @@ sitemap.xml         List of pages for search engines
 style.css           All the styles
 js/main.js          All the JavaScript
 img/                Logo, icons and images
+img/treatments/     Temporary treatment photos (from Pexels)
 fonts/              Fonts (EB Garamond and Jost)
 ```
 
@@ -34,10 +35,11 @@ fonts/              Fonts (EB Garamond and Jost)
   centre's opening hours). For now nothing is saved: later on, appointments will be stored in the
   database so that two people cannot book the same time.
 - **Treatments and prices**: you choose woman or man and the type (laser by single areas, laser
-  packs or beauty treatments). Each treatment is a card with a photo, information and price. Several
-  items can be selected: a bar appears at the bottom with the total and, when booking, the list is
-  included in the WhatsApp message. The cards are created with JS from the data in `js/main.js`
-  (`ZONAS`, `PACKS` and `ESTETICA`), so to change a price you only need to edit it there.
+  packs, facial radiofrequency, body radiofrequency or beauty treatments). Each treatment is a card
+  with a photo, information and price. Several items can be selected: a bar appears at the bottom
+  with the total and, when booking, the list is included in the WhatsApp message. The cards are
+  created with JS from the data in `js/main.js` (`ZONAS`, `PACKS`, `RADIOFRECUENCIA` and
+  `ESTETICA`), so to change a price you only need to edit it there.
 - **Reviews**: customers can leave their name, 1 to 5 stars and a comment. They are saved in
   Firebase and the average rating is calculated.
 - **Real-time opening hours**: shows whether the centre is open or closed right now, using Madrid
@@ -53,8 +55,16 @@ fonts/              Fonts (EB Garamond and Jost)
 
 ## Treatment photos
 
-While there is no photo, each card shows a striped placeholder. To add a photo, upload it to
-Cloudinary and paste its URL in the treatment's `imagen` field in `js/main.js`. It is a good idea to
+For now the cards use temporary photos from [Pexels](https://www.pexels.com) (free to use, no
+attribution needed), saved in `img/treatments/`. They will be replaced with the photos chosen by
+María, hosted on Cloudinary.
+
+The radiofrequency and beauty treatments are the same for women and men, so each one has two
+photos: `imagen` (woman) and `imagenHombre` (man). The photo changes when you choose woman or man.
+
+If a treatment has no photo (its `imagen` field is empty), the card shows a striped placeholder. To
+change a photo, upload it to Cloudinary and paste its URL in the treatment's `imagen` field in
+`js/main.js`. When all the photos are on Cloudinary, the `img/treatments/` folder can be deleted. It is a good idea to
 add `f_auto,q_auto,w_600` after `/upload/` in the URL so that Cloudinary serves it in the right
 format and size. For example:
 
@@ -117,7 +127,7 @@ console (Firestore > `opiniones` collection).
       when the link is shared.
 - [ ] When it is known, add the postal code to the Google business data (`"postalCode"` inside
       `"address"`, in the `<script type="application/ld+json">` of `index.html`).
-- [ ] Add the treatment **photos** (see above).
+- [ ] Replace the temporary treatment **photos** with María's photos on Cloudinary (see above).
 - [ ] Set up **Firebase** for the reviews (see above).
 - [ ] Confirm the **FAQ** and the «Paso a paso» (step by step) and «Cuidados» (care) texts with María.
 - [ ] Have someone review the legal texts.
