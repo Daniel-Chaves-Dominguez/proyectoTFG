@@ -677,6 +677,24 @@ input:focus-visible + .pill {
   color: var(--muted);
 }
 
+.card__steps {
+  margin-top: 0.75rem;
+  font-size: 0.9375rem;
+}
+
+.card__steps summary {
+  cursor: pointer;
+  color: var(--copper);
+  font-weight: 500;
+}
+
+.card__steps ol {
+  margin-top: 0.5rem;
+  padding-left: 1.25rem;
+  list-style: decimal;
+  color: var(--muted);
+}
+
 .chips {
   display: flex;
   flex-wrap: wrap;

@@ -95,6 +95,65 @@ const PACKS = {
   ]
 };
 
+const RADIOFRECUENCIA = {
+  face: [
+    {
+      nombre: 'Radiofrecuencia facial',
+      descripcion: 'Estimula el colágeno y la elastina para mejorar la firmeza, la elasticidad y la calidad de la piel del rostro.',
+      imagen: '',
+      opciones: [{ texto: '1 sesión', precio: 50 }, { texto: 'Bono 3 sesiones', precio: 135 }, { texto: 'Bono 5 sesiones', precio: 210 }]
+    },
+    {
+      nombre: 'Radiofrecuencia en papada y mentón',
+      descripcion: 'Reafirma la piel y mejora el contorno de la parte de abajo del rostro.',
+      imagen: '',
+      opciones: [{ texto: '1 sesión', precio: 25 }, { texto: 'Bono 3 sesiones', precio: 65 }, { texto: 'Bono 5 sesiones', precio: 110 }]
+    },
+    {
+      nombre: 'Radiofrecuencia en ojeras',
+      descripcion: 'Mejora la circulación y atenúa las bolsas y la flacidez del contorno de ojos.',
+      imagen: '',
+      opciones: [{ texto: '1 sesión', precio: 20 }, { texto: 'Bono 3 sesiones', precio: 50 }, { texto: 'Bono 5 sesiones', precio: 80 }]
+    }
+  ],
+  body: [
+    {
+      nombre: 'Radiofrecuencia en brazos',
+      descripcion: 'Combate la flacidez y mejora la firmeza de la piel de los brazos.',
+      imagen: '',
+      opciones: [{ texto: '1 sesión', precio: 40 }, { texto: 'Bono 3 sesiones', precio: 110 }, { texto: 'Bono 5 sesiones', precio: 180 }]
+    },
+    {
+      nombre: 'Radiofrecuencia en abdomen',
+      descripcion: 'Reafirma la piel, reduce la flacidez y mejora el aspecto de la zona abdominal.',
+      imagen: '',
+      opciones: [{ texto: '1 sesión', precio: 40 }, { texto: 'Bono 3 sesiones', precio: 110 }, { texto: 'Bono 5 sesiones', precio: 180 }]
+    },
+    {
+      nombre: 'Radiofrecuencia en glúteos',
+      descripcion: 'Reafirma la piel, mejora la textura y realza su forma de manera natural.',
+      imagen: '',
+      opciones: [{ texto: '1 sesión', precio: 40 }, { texto: 'Bono 3 sesiones', precio: 110 }, { texto: 'Bono 5 sesiones', precio: 180 }]
+    }
+  ]
+};
+
+const ESTETICA = [
+  {
+    nombre: 'Limpieza facial profunda',
+    descripcion: 'Elimina impurezas, células muertas y exceso de grasa. Deja la piel limpia, fresca y más luminosa, y ayuda a prevenir puntos negros y granitos.',
+    pasos: ['Agua micelar', 'Exfoliante con scrub', 'Vapor de ozono', 'Peeling', 'Eliminación de puntos negros', 'Alta frecuencia', 'Mascarilla', 'Crema hidratante', 'Crema solar'],
+    imagen: '',
+    opciones: [{ texto: '1 sesión', precio: 35 }]
+  },
+  {
+    nombre: 'Depilación de cejas',
+    descripcion: 'Damos forma a tus cejas según tu rostro para que la mirada quede más limpia y definida.',
+    imagen: '',
+    opciones: [{ texto: '1 sesión', precio: 6 }]
+  }
+];
+
 function crearFoto(imagen, texto) {
   if (imagen !== '') {
     return '<img class="card__photo" src="' + imagen + '" alt="" width="600" height="400" loading="lazy">';
@@ -147,6 +206,36 @@ function tarjetaPack(pack, publico, i) {
     '</div></article>';
 }
 
+function tarjetaEstetica(tratamiento, grupo, i) {
+  let opciones = '';
+  tratamiento.opciones.forEach(function (opcion, j) {
+    const id = grupo + '-' + i + '-' + j;
+    let nombre = tratamiento.nombre;
+    if (tratamiento.opciones.length > 1) {
+      nombre += ' (' + opcion.texto.toLowerCase() + ')';
+    }
+    opciones += crearOpcion(id, nombre, opcion.texto, opcion.precio);
+  });
+
+  let pasos = '';
+  if (tratamiento.pasos) {
+    pasos = '<details class="card__steps"><summary>Ver los ' + tratamiento.pasos.length + ' pasos</summary><ol>';
+    tratamiento.pasos.forEach(function (paso) {
+      pasos += '<li>' + paso + '</li>';
+    });
+    pasos += '</ol></details>';
+  }
+
+  return '<article class="card">' +
+    crearFoto(tratamiento.imagen, tratamiento.nombre.toLowerCase()) +
+    '<div class="card__body">' +
+    '<h3>' + tratamiento.nombre + '</h3>' +
+    '<p class="card__text">' + tratamiento.descripcion + '</p>' +
+    pasos +
+    '<ul class="options">' + opciones + '</ul>' +
+    '</div></article>';
+}
+
 function pintarTratamientos() {
   ['woman', 'man'].forEach(function (publico) {
     let html = '';
@@ -161,6 +250,18 @@ function pintarTratamientos() {
     });
     document.getElementById('cards-' + publico + '-packs').innerHTML = html;
   });
+
+  pintarLista(RADIOFRECUENCIA.face, 'rf-face');
+  pintarLista(RADIOFRECUENCIA.body, 'rf-body');
+  pintarLista(ESTETICA, 'aesthetics');
+}
+
+function pintarLista(lista, grupo) {
+  let html = '';
+  lista.forEach(function (tratamiento, i) {
+    html += tarjetaEstetica(tratamiento, grupo, i);
+  });
+  document.getElementById('cards-' + grupo).innerHTML = html;
 }
 
 function mostrarTarjetas() {
@@ -168,6 +269,9 @@ function mostrarTarjetas() {
   const categoria = document.querySelector('input[name="category"]:checked').value;
 
   let idVisible = 'cards-' + publico + '-' + categoria;
+  if (categoria !== 'zones' && categoria !== 'packs') {
+    idVisible = 'cards-' + categoria;
+  }
 
   document.querySelectorAll('.cards').forEach(function (bloque) {
     bloque.classList.toggle('active', bloque.id === idVisible);
@@ -176,7 +280,7 @@ function mostrarTarjetas() {
 
 const seccionTratamientos = document.getElementById('treatments');
 
-if (seccionTratamientos) {
+if (seccionTratamientos && document.getElementById('cards-aesthetics')) {
   pintarTratamientos();
   mostrarTarjetas();
 
