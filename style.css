@@ -1826,6 +1826,32 @@ textarea.field__control {
   color: var(--cocoa);
 }
 
+.error404 {
+  display: grid;
+  justify-items: center;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  text-align: center;
+}
+
+.error404__emblem {
+  width: min(60vw, 15rem);
+}
+
+.error404 h1 {
+  margin-top: 2.5rem;
+}
+
+.error404 p {
+  margin-top: 1rem;
+  max-width: 28rem;
+  color: var(--muted);
+}
+
+.error404 .btn {
+  margin-top: 2.25rem;
+}
+
 @media (min-width: 40rem) {
   .header__booking {
     display: inline-flex;
@@ -2077,5 +2103,10 @@ textarea.field__control {
 
   .legal {
     padding: 6rem 0;
+  }
+
+  .error404 {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
   }
 }
