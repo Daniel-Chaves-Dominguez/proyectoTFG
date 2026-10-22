@@ -3,6 +3,11 @@
    Autor: Daniel Chaves Domínguez (2º DAW)
    ========================================================= */
 
+const anio = document.getElementById('year');
+if (anio) {
+  anio.textContent = new Date().getFullYear();
+}
+
 const cabecera = document.querySelector('.header');
 
 function comprobarScroll() {
