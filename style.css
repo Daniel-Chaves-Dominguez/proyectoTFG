@@ -1778,6 +1778,80 @@ textarea.field__control {
   padding-bottom: 6rem;
 }
 
+.legal {
+  max-width: 48rem;
+  padding: 4rem 0;
+}
+
+.legal__date {
+  margin-top: 0.75rem;
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+
+.legal__content {
+  margin-top: 2.5rem;
+}
+
+.legal h2 {
+  margin-top: 2.5rem;
+  font-size: 1.75rem;
+  line-height: 1.2;
+}
+
+.legal p,
+.legal ul {
+  margin-top: 1rem;
+}
+
+.legal ul {
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+
+.legal li + li {
+  margin-top: 0.4rem;
+}
+
+.legal a {
+  color: var(--copper);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.legal mark {
+  padding: 0.05em 0.35em;
+  border-radius: 0.3em;
+  background-color: #ffe7a6;
+  color: var(--cocoa);
+}
+
+.error404 {
+  display: grid;
+  justify-items: center;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  text-align: center;
+}
+
+.error404__emblem {
+  width: min(60vw, 15rem);
+}
+
+.error404 h1 {
+  margin-top: 2.5rem;
+}
+
+.error404 p {
+  margin-top: 1rem;
+  max-width: 28rem;
+  color: var(--muted);
+}
+
+.error404 .btn {
+  margin-top: 2.25rem;
+}
+
 @media (min-width: 40rem) {
   .header__booking {
     display: inline-flex;
@@ -2025,5 +2099,14 @@ textarea.field__control {
 
   .footer__logo {
     width: 13rem;
+  }
+
+  .legal {
+    padding: 6rem 0;
+  }
+
+  .error404 {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
   }
 }
