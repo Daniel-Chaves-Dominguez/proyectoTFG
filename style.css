@@ -795,6 +795,17 @@ input:focus-visible + .pill {
   outline-color: var(--rose-gold-light);
 }
 
+.btn-dark {
+  margin-top: 2.25rem;
+  border: 1px solid rgba(233, 177, 166, 0.6);
+  color: var(--night-text);
+}
+
+.btn-dark:hover {
+  background-color: rgba(244, 189, 178, 0.12);
+  border-color: var(--rose-gold-light);
+}
+
 .diagram svg {
   width: 100%;
   height: auto;
@@ -837,6 +848,63 @@ input:focus-visible + .pill {
   opacity: 0.85;
   transform-box: fill-box;
   transform-origin: center;
+}
+
+.firing .diagram__beam {
+  animation: diagram-beam 0.9s ease-out both;
+}
+
+.firing .diagram__heat {
+  animation: diagram-heat 1.3s ease-out 0.08s both;
+}
+
+.firing .diagram__root {
+  animation: diagram-root 1.3s ease-out 0.08s both;
+}
+
+@keyframes diagram-beam {
+  0% {
+    opacity: 0.45;
+  }
+  8% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.45;
+  }
+}
+
+@keyframes diagram-heat {
+  0% {
+    opacity: 0.5;
+    transform: scale(0.7);
+  }
+  25% {
+    opacity: 1;
+    transform: scale(1.3);
+  }
+  100% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+}
+
+@keyframes diagram-root {
+  25% {
+    fill: #ffd9ce;
+  }
+}
+
+@keyframes diagram-heat-soft {
+  25% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .firing .diagram__heat {
+    animation-name: diagram-heat-soft;
+  }
 }
 
 .selection__list li {
