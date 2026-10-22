@@ -16,6 +16,8 @@ const HORARIO = {
   6: [['10:00', '12:30']]
 };
 
+const DIAS = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+
 const anio = document.getElementById('year');
 if (anio) {
   anio.textContent = new Date().getFullYear();
@@ -75,6 +77,50 @@ function aMinutos(hora) {
 function horaDeMadrid() {
   const ahora = new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/Madrid' }));
   return { dia: ahora.getDay(), minutos: ahora.getHours() * 60 + ahora.getMinutes() };
+}
+
+function textoEstado(dia, minutos) {
+  for (const tramo of HORARIO[dia]) {
+    if (minutos >= aMinutos(tramo[0]) && minutos < aMinutos(tramo[1])) {
+      return { abierto: true, texto: 'Abierto ahora, hasta las ' + tramo[1] + '.' };
+    }
+  }
+
+  for (let i = 0; i <= 7; i++) {
+    const otroDia = (dia + i) % 7;
+    for (const tramo of HORARIO[otroDia]) {
+      if (i > 0 || aMinutos(tramo[0]) > minutos) {
+        let cuando = 'el ' + DIAS[otroDia];
+        if (i === 0) cuando = 'hoy';
+        if (i === 1) cuando = 'mañana';
+        return { abierto: false, texto: 'Cerrado ahora. Abrimos ' + cuando + ' a las ' + tramo[0] + '.' };
+      }
+    }
+  }
+
+  return { abierto: false, texto: 'Cerrado temporalmente.' };
+}
+
+function actualizarHorario() {
+  const ahora = horaDeMadrid();
+  const estado = textoEstado(ahora.dia, ahora.minutos);
+
+  document.querySelectorAll('.status').forEach(function (el) {
+    el.classList.toggle('open', estado.abierto);
+    el.querySelector('.status__text').textContent = estado.texto;
+  });
+
+  document.querySelectorAll('.schedule-row').forEach(function (fila) {
+    const dias = fila.dataset.days.split(',').map(Number);
+    const esHoy = dias.includes(ahora.dia);
+    fila.classList.toggle('today', esHoy);
+    fila.querySelector('.today-label').hidden = !esHoy;
+  });
+}
+
+if (document.querySelector('.status')) {
+  actualizarHorario();
+  setInterval(actualizarHorario, 60000);
 }
 
 const TEXTO_PUBLICO = {
