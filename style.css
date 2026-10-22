@@ -321,3 +321,286 @@ fieldset {
   letter-spacing: -0.01em;
 }
 
+.main-nav {
+  display: none;
+}
+
+.main-nav ul {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+
+.main-nav a {
+  padding: 0.5rem 0;
+  transition: color 0.2s;
+}
+
+.main-nav a:hover {
+  color: var(--copper);
+}
+
+.header__buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.header__booking {
+  display: none;
+}
+
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  height: 100vh;
+  height: 100dvh;
+  background-color: var(--powder);
+  color: var(--cocoa);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-0.75rem);
+  transition: opacity 0.25s, transform 0.25s, visibility 0.25s;
+}
+
+.mobile-menu.open {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+}
+
+.mobile-menu .container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.mobile-menu__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 4.25rem;
+}
+
+.mobile-menu nav {
+  margin-top: 2rem;
+}
+
+.mobile-menu nav li + li {
+  margin-top: 0.25rem;
+}
+
+.mobile-menu nav a {
+  display: block;
+  padding: 0.875rem 0;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--serif);
+  font-size: 2rem;
+  line-height: 1.25;
+}
+
+.mobile-menu__bottom {
+  margin-top: auto;
+  padding-top: 2rem;
+  padding-bottom: max(2rem, env(safe-area-inset-bottom));
+}
+
+.mobile-menu__bottom .btn {
+  width: 100%;
+}
+
+@media (max-height: 50rem) {
+  .mobile-menu nav {
+    margin-top: 0.5rem;
+  }
+
+  .mobile-menu nav a {
+    padding: 0.375rem 0;
+    font-size: 1.5rem;
+  }
+
+  .mobile-menu__bottom {
+    padding-top: 1.25rem;
+  }
+}
+
+.mobile-menu__bottom p {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow-x: clip;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: -18rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 44rem;
+  aspect-ratio: 1;
+  background: radial-gradient(closest-side, #fbe4dd 0%, rgba(251, 228, 221, 0.55) 45%, transparent 100%);
+  pointer-events: none;
+}
+
+.hero__grid {
+  display: grid;
+  align-items: center;
+  row-gap: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 4rem;
+}
+
+.hero__text {
+  order: 2;
+}
+
+.hero__text h1 {
+  font-size: clamp(3rem, 2.1rem + 3.9vw, 5.75rem);
+  line-height: 1.02;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.hero__text > p:first-of-type {
+  margin-top: 1.5rem;
+  max-width: 33rem;
+  font-size: clamp(1.1875rem, 1.1rem + 0.35vw, 1.3125rem);
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.hero__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 2.25rem;
+}
+
+.hero__image {
+  order: 1;
+}
+
+.hero__emblem {
+  width: min(76vw, 21rem);
+  margin: 0 auto;
+}
+
+.emblem {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.emblem__stroke {
+  stroke-dasharray: 1 1.01;
+  stroke-dashoffset: 0;
+}
+
+.emblem__head {
+  opacity: 0;
+}
+
+.emblem__mc,
+.emblem__sparkle {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.emblem__shine {
+  transform: translateX(-200px);
+}
+
+@media (min-width: 40rem) {
+  .header__booking {
+    display: inline-flex;
+  }
+
+  .hero__grid {
+    padding-top: 2rem;
+  }
+
+  .hero__actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .hero__emblem {
+    width: 25rem;
+  }
+}
+
+@media (min-width: 48rem) {
+  body {
+    font-size: 1.125rem;
+  }
+
+  .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media (min-width: 64rem) {
+  .header__bar {
+    height: 4.75rem;
+  }
+
+  .brand img {
+    height: 2.5rem;
+  }
+
+  .brand span {
+    font-size: 1.5rem;
+  }
+
+  .main-nav {
+    display: block;
+  }
+
+  .btn-menu {
+    display: none;
+  }
+
+  .hero::before {
+    top: -20%;
+    right: -10%;
+    left: auto;
+    transform: none;
+    width: min(70rem, 120vw);
+  }
+
+  .hero__grid {
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: 2rem;
+    padding-top: 2.5rem;
+    padding-bottom: 3rem;
+  }
+
+  .hero__text {
+    order: 1;
+    grid-column: span 7;
+  }
+
+  .hero__image {
+    order: 2;
+    grid-column: span 5;
+  }
+
+  .hero__emblem {
+    width: 100%;
+  }
+}
