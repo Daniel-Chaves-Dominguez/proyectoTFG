@@ -419,3 +419,15 @@ if (seccionTratamientos && document.getElementById('cards-aesthetics')) {
     if (e.key === 'Escape') abrirListaBarra(false);
   });
 }
+
+const botonDisparo = document.getElementById('fire-button');
+const diagrama = document.getElementById('diagram');
+
+if (botonDisparo && diagrama) {
+  botonDisparo.addEventListener('click', function () {
+    diagrama.classList.remove('firing');
+    setTimeout(function () {
+      diagrama.classList.add('firing');
+    }, 20);
+  });
+}
