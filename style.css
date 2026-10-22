@@ -907,6 +907,37 @@ input:focus-visible + .pill {
   }
 }
 
+.care h2 {
+  max-width: 36rem;
+}
+
+.care__grid {
+  display: grid;
+  gap: 3rem;
+  margin-top: 3rem;
+}
+
+.care h3 {
+  font-size: 1.625rem;
+}
+
+.care ul {
+  margin-top: 1.25rem;
+}
+
+.care li {
+  display: flex;
+  gap: 0.875rem;
+}
+
+.care li + li {
+  margin-top: 1rem;
+}
+
+.care li svg {
+  margin-top: 0.55em;
+}
+
 .selection__list li {
   display: flex;
   align-items: center;
@@ -1172,6 +1203,11 @@ input:focus-visible + .pill {
   .container {
     padding-left: 2rem;
     padding-right: 2rem;
+  }
+
+  .care__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4rem;
   }
 }
 
