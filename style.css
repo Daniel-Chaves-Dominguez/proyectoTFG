@@ -1143,6 +1143,11 @@ input:focus-visible + .pill {
   border-radius: 0.25rem;
 }
 
+.honeypot {
+  position: absolute;
+  left: -9999px;
+}
+
 .reviews__average {
   font-family: var(--serif);
   font-size: 1.5rem;

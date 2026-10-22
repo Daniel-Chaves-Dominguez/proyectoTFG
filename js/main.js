@@ -773,9 +773,40 @@ if (formulario) {
   });
 }
 
+const FIREBASE_CONFIG = {
+  apiKey: '',
+  authDomain: '',
+  projectId: ''
+};
+
+const ESPERA_MINUTOS = 10;
+
 const formOpinion = document.getElementById('review-form');
 const listaOpiniones = document.getElementById('review-list');
 const textoMedia = document.getElementById('reviews-average');
+
+let baseDeDatos = null;
+if (FIREBASE_CONFIG.apiKey !== '' && typeof firebase !== 'undefined') {
+  firebase.initializeApp(FIREBASE_CONFIG);
+  baseDeDatos = firebase.firestore();
+}
+
+function leerOpiniones() {
+  if (!baseDeDatos) return Promise.resolve([]);
+
+  return baseDeDatos.collection('opiniones').orderBy('fecha', 'desc').limit(50).get()
+    .then(function (resultado) {
+      const opiniones = [];
+      resultado.forEach(function (documento) {
+        opiniones.push(documento.data());
+      });
+      return opiniones;
+    });
+}
+
+function guardarOpinion(opinion) {
+  return baseDeDatos.collection('opiniones').add(opinion);
+}
 
 function dibujarEstrellas(numero) {
   return '★'.repeat(numero) + '☆'.repeat(5 - numero);
@@ -837,12 +868,21 @@ function mostrarOpiniones(opiniones) {
   textoMedia.textContent = '★ ' + media + ' de 5 · ' + total;
 }
 
+function cargarOpiniones() {
+  leerOpiniones()
+    .then(mostrarOpiniones)
+    .catch(function () {
+      textoMedia.textContent = 'No se han podido cargar las opiniones. Prueba a recargar la página.';
+    });
+}
+
 if (formOpinion && listaOpiniones && textoMedia) {
   const inputNombreOpinion = document.getElementById('review-name');
   const inputComentario = document.getElementById('review-comment');
   const errorNombreOpinion = document.getElementById('review-name-error');
   const errorEstrellas = document.getElementById('review-stars-error');
   const errorComentario = document.getElementById('review-comment-error');
+  const botonEnviar = document.getElementById('review-submit');
   const estadoOpinion = document.getElementById('review-status');
 
   function marcarError(error, campo, mostrar) {
@@ -857,7 +897,7 @@ if (formOpinion && listaOpiniones && textoMedia) {
     }
   }
 
-  mostrarOpiniones([]);
+  cargarOpiniones();
 
   formOpinion.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -875,6 +915,54 @@ if (formOpinion && listaOpiniones && textoMedia) {
       return;
     }
 
-    estadoOpinion.textContent = 'Las opiniones aún no están activas. ¡Muy pronto podrás dejar la tuya!';
+    if (!baseDeDatos) {
+      estadoOpinion.textContent = 'Las opiniones aún no están activas. ¡Muy pronto podrás dejar la tuya!';
+      return;
+    }
+
+    if (document.getElementById('review-website').value !== '') {
+      formOpinion.reset();
+      estadoOpinion.textContent = '¡Gracias! Tu opinión ya está publicada.';
+      return;
+    }
+
+    let ultima = 0;
+    try {
+      ultima = Number(localStorage.getItem('ultimaOpinion')) || 0;
+    } catch (error) {
+      ultima = 0;
+    }
+    const minutos = (Date.now() - ultima) / 60000;
+    if (minutos < ESPERA_MINUTOS) {
+      estadoOpinion.textContent = 'Ya has publicado una opinión hace poco. Espera unos minutos para publicar otra.';
+      return;
+    }
+
+    const opinion = {
+      nombre: nombre,
+      estrellas: Number(estrellaMarcada.value),
+      comentario: comentario,
+      fecha: Date.now()
+    };
+
+    botonEnviar.disabled = true;
+    estadoOpinion.textContent = 'Publicando...';
+
+    guardarOpinion(opinion)
+      .then(function () {
+        try {
+          localStorage.setItem('ultimaOpinion', Date.now());
+        } catch (error) {
+        }
+        formOpinion.reset();
+        estadoOpinion.textContent = '¡Gracias! Tu opinión ya está publicada.';
+        cargarOpiniones();
+      })
+      .catch(function () {
+        estadoOpinion.textContent = 'No se ha podido publicar. Inténtalo de nuevo en un rato.';
+      })
+      .finally(function () {
+        botonEnviar.disabled = false;
+      });
   });
 }

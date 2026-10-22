@@ -622,6 +622,11 @@
               <p id="review-name-error" class="field__error" hidden>Escribe tu nombre.</p>
             </div>
 
+            <div class="honeypot" aria-hidden="true">
+              <label for="review-website">No rellenes este campo</label>
+              <input id="review-website" name="website" type="text" tabindex="-1" autocomplete="off">
+            </div>
+
             <fieldset class="field">
               <legend class="field__label">Puntuación</legend>
               <div class="stars">
@@ -740,6 +745,8 @@
     </a>
   </footer>
 
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js" defer></script>
   <script src="js/main.js" defer></script>
 </body>
 </html>
