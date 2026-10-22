@@ -771,6 +771,74 @@ input:focus-visible + .pill {
   content: '✓ ';
 }
 
+.laser-section {
+  background-color: var(--cocoa-deep);
+  color: var(--night-text);
+}
+
+.laser-section__grid {
+  display: grid;
+  column-gap: 3.5rem;
+  row-gap: 3rem;
+}
+
+.laser-section__text p {
+  margin-top: 1rem;
+  color: var(--night-muted);
+}
+
+.laser-section__text p:first-of-type {
+  margin-top: 1.5rem;
+}
+
+.laser-section :focus-visible {
+  outline-color: var(--rose-gold-light);
+}
+
+.diagram svg {
+  width: 100%;
+  height: auto;
+}
+
+.phases {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.phase {
+  padding-top: 1rem;
+  border-top: 1px solid rgba(233, 177, 166, 0.25);
+}
+
+.phase.active {
+  border-top-color: var(--rose-gold);
+}
+
+.phase strong {
+  font-family: var(--serif);
+  font-size: 1.375rem;
+  font-weight: 400;
+}
+
+.phase span {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.9375rem;
+  line-height: 1.375;
+  color: var(--night-muted);
+}
+
+.diagram__beam {
+  opacity: 0.45;
+}
+
+.diagram__heat {
+  opacity: 0.85;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
 .selection__list li {
   display: flex;
   align-items: center;
@@ -1003,6 +1071,15 @@ input:focus-visible + .pill {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .phases {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .phase {
+    text-align: center;
+  }
+
   .footer__grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1080,8 +1157,26 @@ input:focus-visible + .pill {
     width: 100%;
   }
 
+  .faq__grid,
+  .contact__grid,
+  .laser-section__grid {
+    grid-template-columns: repeat(12, 1fr);
+  }
+
   .cards.active {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  .laser-section__grid {
+    align-items: center;
+  }
+
+  .laser-section__text {
+    grid-column: span 5;
+  }
+
+  .diagram {
+    grid-column: span 7;
   }
 
   .footer__grid {
