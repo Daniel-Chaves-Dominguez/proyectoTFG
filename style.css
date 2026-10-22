@@ -571,6 +571,13 @@ fieldset {
   border-color: var(--copper);
 }
 
+.pill {
+  min-height: 2.75rem;
+  padding: 0.55rem 1.1rem;
+  background-color: #fff;
+  font-size: 0.9375rem;
+}
+
 input:checked + .filter-option,
 input:checked + .pill {
   background-color: var(--cocoa);
@@ -1156,6 +1163,108 @@ textarea.field__control {
 .field__error {
   color: #a3342b;
   font-size: 0.9375rem;
+}
+
+.field__error--standalone {
+  margin-top: -0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.field__help {
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.calendar {
+  max-width: 22rem;
+  padding: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 0.875rem;
+  background-color: #fff;
+}
+
+.calendar__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.calendar__month {
+  font-family: var(--serif);
+  font-size: 1.125rem;
+  white-space: nowrap;
+}
+
+.calendar__month::first-letter {
+  text-transform: uppercase;
+}
+
+.calendar__arrow {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--copper);
+}
+
+.calendar__arrow:hover:not(:disabled) {
+  background-color: var(--blush);
+}
+
+.calendar__arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.calendar__week,
+.calendar__days {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.125rem;
+  text-align: center;
+}
+
+.calendar__week {
+  margin-bottom: 0.25rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.calendar__day {
+  width: 100%;
+  max-width: 2.5rem;
+  aspect-ratio: 1;
+  margin: 0 auto;
+  border-radius: 999px;
+  font-size: 0.9375rem;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.calendar__day:hover:not(:disabled) {
+  background-color: var(--blush);
+}
+
+.calendar__day:disabled {
+  color: #c9b8b4;
+  cursor: default;
+}
+
+.calendar__day--today {
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+
+.calendar__day[aria-pressed='true'] {
+  background-color: var(--cocoa);
+  color: var(--powder);
+}
+
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
 }
 
 .selection {
