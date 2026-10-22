@@ -3,6 +3,9 @@
    Autor: Daniel Chaves Domínguez (2º DAW)
    ========================================================= */
 
+const TELEFONO_WHATSAPP = '34689751693';
+const TELEFONO_TEXTO = '689 751 693';
+
 const anio = document.getElementById('year');
 if (anio) {
   anio.textContent = new Date().getFullYear();
@@ -368,6 +371,12 @@ function actualizarSeleccion() {
   if (!hayAlgo) abrirListaBarra(false);
 
   pintarListaElegidos(document.getElementById('bar-list'));
+  pintarListaElegidos(document.getElementById('selection-list'));
+
+  document.getElementById('selection-empty').hidden = hayAlgo;
+  const textoTotal = document.getElementById('selection-total');
+  textoTotal.hidden = !hayAlgo;
+  textoTotal.textContent = 'Total: ' + total + '€';
 }
 
 function alternarTratamiento(boton) {
@@ -397,9 +406,11 @@ if (seccionTratamientos && document.getElementById('cards-aesthetics')) {
     if (boton) alternarTratamiento(boton);
   });
 
-  document.getElementById('bar-list').addEventListener('click', function (e) {
-    const boton = e.target.closest('[data-remove]');
-    if (boton) quitarTratamiento(boton.dataset.remove);
+  ['bar-list', 'selection-list'].forEach(function (id) {
+    document.getElementById(id).addEventListener('click', function (e) {
+      const boton = e.target.closest('[data-remove]');
+      if (boton) quitarTratamiento(boton.dataset.remove);
+    });
   });
 
   document.getElementById('bar-toggle').addEventListener('click', function () {
@@ -418,6 +429,15 @@ if (seccionTratamientos && document.getElementById('cards-aesthetics')) {
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') abrirListaBarra(false);
   });
+
+  const barra = document.getElementById('booking-bar');
+  const contacto = document.getElementById('contact');
+  if (contacto && 'IntersectionObserver' in window) {
+    const observadorBarra = new IntersectionObserver(function (entradas) {
+      barra.classList.toggle('is-hidden', entradas[0].isIntersecting);
+    });
+    observadorBarra.observe(contacto);
+  }
 }
 
 const botonDisparo = document.getElementById('fire-button');
@@ -429,5 +449,75 @@ if (botonDisparo && diagrama) {
     setTimeout(function () {
       diagrama.classList.add('firing');
     }, 20);
+  });
+}
+
+const formulario = document.getElementById('booking-form');
+
+function crearMensaje(nombre, elegidos, notas) {
+  const lineas = ['Hola, soy ' + nombre + '.'];
+
+  if (elegidos.length > 0) {
+    lineas.push('Me gustaría pedir cita para:');
+    let total = 0;
+    elegidos.forEach(function (tratamiento) {
+      lineas.push('- ' + tratamiento.nombre + ': ' + tratamiento.precio + '€');
+      total += tratamiento.precio;
+    });
+    lineas.push('Total: ' + total + '€.');
+  } else {
+    lineas.push('Me gustaría que me asesorarais sobre qué tratamiento me conviene.');
+  }
+
+  if (notas) {
+    lineas.push(notas);
+  }
+
+  return lineas.join('\n');
+}
+
+if (formulario) {
+  const inputNombre = document.getElementById('booking-name');
+  const errorNombre = document.getElementById('booking-name-error');
+  const mensajeEstado = document.getElementById('booking-status');
+
+  function mostrarError(mostrar) {
+    errorNombre.hidden = !mostrar;
+    inputNombre.classList.toggle('error', mostrar);
+    if (mostrar) {
+      inputNombre.setAttribute('aria-invalid', 'true');
+    } else {
+      inputNombre.removeAttribute('aria-invalid');
+    }
+  }
+
+  inputNombre.addEventListener('input', function () {
+    if (inputNombre.value.trim() !== '') mostrarError(false);
+  });
+
+  formulario.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const nombre = inputNombre.value.trim();
+    if (nombre === '') {
+      mostrarError(true);
+      inputNombre.focus();
+      return;
+    }
+    mostrarError(false);
+
+    const notas = document.getElementById('booking-notes').value.trim();
+
+    const texto = crearMensaje(nombre, seleccion, notas);
+    const url = 'https://wa.me/' + TELEFONO_WHATSAPP + '?text=' + encodeURIComponent(texto);
+
+    const ventana = window.open(url, '_blank');
+    if (ventana) {
+      ventana.opener = null;
+    } else {
+      window.location.href = url;
+    }
+
+    mensajeEstado.textContent = 'Hemos abierto WhatsApp con tu mensaje. Si no se ha abierto, escríbenos al ' + TELEFONO_TEXTO + '.';
   });
 }
