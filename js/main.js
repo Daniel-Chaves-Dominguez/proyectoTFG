@@ -3,6 +3,21 @@
    Autor: Daniel Chaves Domínguez (2º DAW)
    ========================================================= */
 
+const TELEFONO_WHATSAPP = '34689751693';
+const TELEFONO_TEXTO = '689 751 693';
+
+const HORARIO = {
+  0: [],
+  1: [['10:00', '13:30'], ['17:00', '20:30']],
+  2: [['10:00', '13:30'], ['17:00', '20:30']],
+  3: [['10:00', '13:30'], ['17:00', '20:30']],
+  4: [['10:00', '13:30'], ['17:00', '20:30']],
+  5: [['10:00', '13:30'], ['17:00', '20:30']],
+  6: [['10:00', '12:30']]
+};
+
+const DIAS = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+
 const anio = document.getElementById('year');
 if (anio) {
   anio.textContent = new Date().getFullYear();
@@ -52,6 +67,60 @@ if (menu && botonAbrir && botonCerrar) {
       botonAbrir.focus();
     }
   });
+}
+
+function aMinutos(hora) {
+  const partes = hora.split(':');
+  return Number(partes[0]) * 60 + Number(partes[1]);
+}
+
+function horaDeMadrid() {
+  const ahora = new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/Madrid' }));
+  return { dia: ahora.getDay(), minutos: ahora.getHours() * 60 + ahora.getMinutes() };
+}
+
+function textoEstado(dia, minutos) {
+  for (const tramo of HORARIO[dia]) {
+    if (minutos >= aMinutos(tramo[0]) && minutos < aMinutos(tramo[1])) {
+      return { abierto: true, texto: 'Abierto ahora, hasta las ' + tramo[1] + '.' };
+    }
+  }
+
+  for (let i = 0; i <= 7; i++) {
+    const otroDia = (dia + i) % 7;
+    for (const tramo of HORARIO[otroDia]) {
+      if (i > 0 || aMinutos(tramo[0]) > minutos) {
+        let cuando = 'el ' + DIAS[otroDia];
+        if (i === 0) cuando = 'hoy';
+        if (i === 1) cuando = 'mañana';
+        return { abierto: false, texto: 'Cerrado ahora. Abrimos ' + cuando + ' a las ' + tramo[0] + '.' };
+      }
+    }
+  }
+
+  return { abierto: false, texto: 'Cerrado temporalmente.' };
+}
+
+function actualizarHorario() {
+  const ahora = horaDeMadrid();
+  const estado = textoEstado(ahora.dia, ahora.minutos);
+
+  document.querySelectorAll('.status').forEach(function (el) {
+    el.classList.toggle('open', estado.abierto);
+    el.querySelector('.status__text').textContent = estado.texto;
+  });
+
+  document.querySelectorAll('.schedule-row').forEach(function (fila) {
+    const dias = fila.dataset.days.split(',').map(Number);
+    const esHoy = dias.includes(ahora.dia);
+    fila.classList.toggle('today', esHoy);
+    fila.querySelector('.today-label').hidden = !esHoy;
+  });
+}
+
+if (document.querySelector('.status')) {
+  actualizarHorario();
+  setInterval(actualizarHorario, 60000);
 }
 
 const TEXTO_PUBLICO = {
@@ -368,6 +437,12 @@ function actualizarSeleccion() {
   if (!hayAlgo) abrirListaBarra(false);
 
   pintarListaElegidos(document.getElementById('bar-list'));
+  pintarListaElegidos(document.getElementById('selection-list'));
+
+  document.getElementById('selection-empty').hidden = hayAlgo;
+  const textoTotal = document.getElementById('selection-total');
+  textoTotal.hidden = !hayAlgo;
+  textoTotal.textContent = 'Total: ' + total + '€';
 }
 
 function alternarTratamiento(boton) {
@@ -397,9 +472,11 @@ if (seccionTratamientos && document.getElementById('cards-aesthetics')) {
     if (boton) alternarTratamiento(boton);
   });
 
-  document.getElementById('bar-list').addEventListener('click', function (e) {
-    const boton = e.target.closest('[data-remove]');
-    if (boton) quitarTratamiento(boton.dataset.remove);
+  ['bar-list', 'selection-list'].forEach(function (id) {
+    document.getElementById(id).addEventListener('click', function (e) {
+      const boton = e.target.closest('[data-remove]');
+      if (boton) quitarTratamiento(boton.dataset.remove);
+    });
   });
 
   document.getElementById('bar-toggle').addEventListener('click', function () {
@@ -418,6 +495,15 @@ if (seccionTratamientos && document.getElementById('cards-aesthetics')) {
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') abrirListaBarra(false);
   });
+
+  const barra = document.getElementById('booking-bar');
+  const contacto = document.getElementById('contact');
+  if (contacto && 'IntersectionObserver' in window) {
+    const observadorBarra = new IntersectionObserver(function (entradas) {
+      barra.classList.toggle('is-hidden', entradas[0].isIntersecting);
+    });
+    observadorBarra.observe(contacto);
+  }
 }
 
 const botonDisparo = document.getElementById('fire-button');
@@ -429,5 +515,260 @@ if (botonDisparo && diagrama) {
     setTimeout(function () {
       diagrama.classList.add('firing');
     }, 20);
+  });
+}
+
+const fab = document.getElementById('fab');
+const zonasConBoton = [document.getElementById('hero-actions'), document.getElementById('treatments'), document.getElementById('contact')]
+  .filter(function (el) { return el !== null; });
+
+if (fab && zonasConBoton.length > 0 && 'IntersectionObserver' in window) {
+  const visibles = new Set();
+
+  const observador = new IntersectionObserver(function (entradas) {
+    entradas.forEach(function (entrada) {
+      if (entrada.isIntersecting) {
+        visibles.add(entrada.target);
+      } else {
+        visibles.delete(entrada.target);
+      }
+    });
+    fab.classList.toggle('is-hidden', visibles.size > 0);
+  });
+
+  zonasConBoton.forEach(function (el) {
+    observador.observe(el);
+  });
+}
+
+const DURACION_CITA = 30;
+const MESES_A_MOSTRAR = 2;
+
+let mesVisible = 0;
+let diaElegido = null;
+
+const formulario = document.getElementById('booking-form');
+
+function aHora(minutos) {
+  const horas = Math.floor(minutos / 60);
+  const resto = minutos % 60;
+  return horas + ':' + (resto < 10 ? '0' + resto : resto);
+}
+
+function tramoDelDia(diaSemana, franja) {
+  const tramos = HORARIO[diaSemana];
+  if (franja === 'morning') return tramos[0];
+  return tramos[1];
+}
+
+function horasLibres(fecha, franja) {
+  const tramo = tramoDelDia(fecha.getDay(), franja);
+  if (!tramo) return [];
+
+  let ahora = -1;
+  if (fecha.toDateString() === new Date().toDateString()) {
+    ahora = horaDeMadrid().minutos;
+  }
+
+  const horas = [];
+  for (let inicio = aMinutos(tramo[0]); inicio + DURACION_CITA <= aMinutos(tramo[1]); inicio += DURACION_CITA) {
+    if (inicio > ahora) horas.push(aHora(inicio));
+  }
+  return horas;
+}
+
+function crearFichas(contenedor, nombre, opciones) {
+  contenedor.innerHTML = '';
+  opciones.forEach(function (opcion, i) {
+    const caja = document.createElement('span');
+
+    const input = document.createElement('input');
+    input.type = 'radio';
+    input.name = nombre;
+    input.id = nombre + '-' + i;
+    input.value = opcion.valor;
+    input.className = 'sr-only';
+
+    const etiqueta = document.createElement('label');
+    etiqueta.htmlFor = input.id;
+    etiqueta.className = 'pill';
+    etiqueta.textContent = opcion.texto;
+
+    caja.append(input, etiqueta);
+    contenedor.append(caja);
+  });
+}
+
+function pintarCalendario(franja) {
+  const hoy = new Date();
+  const inicioHoy = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
+  const primero = new Date(hoy.getFullYear(), hoy.getMonth() + mesVisible, 1);
+
+  document.getElementById('calendar-month').textContent = primero.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
+  document.getElementById('prev-month').disabled = mesVisible === 0;
+  document.getElementById('next-month').disabled = mesVisible === MESES_A_MOSTRAR - 1;
+
+  const contenedor = document.getElementById('calendar-days');
+  contenedor.innerHTML = '';
+
+  const huecos = (primero.getDay() + 6) % 7;
+  for (let i = 0; i < huecos; i++) {
+    contenedor.append(document.createElement('span'));
+  }
+
+  const diasDelMes = new Date(primero.getFullYear(), primero.getMonth() + 1, 0).getDate();
+  for (let dia = 1; dia <= diasDelMes; dia++) {
+    const fecha = new Date(primero.getFullYear(), primero.getMonth(), dia);
+
+    const boton = document.createElement('button');
+    boton.type = 'button';
+    boton.className = 'calendar__day';
+    boton.textContent = dia;
+    boton.dataset.date = fecha.toDateString();
+    boton.setAttribute('aria-label', fecha.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' }));
+    boton.setAttribute('aria-pressed', diaElegido === boton.dataset.date);
+
+    boton.disabled = fecha < inicioHoy || horasLibres(fecha, franja).length === 0;
+
+    if (fecha.getTime() === inicioHoy.getTime()) {
+      boton.classList.add('calendar__day--today');
+    }
+
+    contenedor.append(boton);
+  }
+}
+
+function pintarHoras(fecha, franja) {
+  const horas = horasLibres(fecha, franja).map(function (hora) {
+    return { valor: hora, texto: hora };
+  });
+  crearFichas(document.getElementById('hour-list'), 'hour', horas);
+}
+
+function crearMensaje(nombre, elegidos, cuando, notas) {
+  const lineas = ['Hola, soy ' + nombre + '.'];
+
+  if (elegidos.length > 0) {
+    lineas.push('Me gustaría pedir cita para:');
+    let total = 0;
+    elegidos.forEach(function (tratamiento) {
+      lineas.push('- ' + tratamiento.nombre + ': ' + tratamiento.precio + '€');
+      total += tratamiento.precio;
+    });
+    lineas.push('Total: ' + total + '€.');
+  } else {
+    lineas.push('Me gustaría que me asesorarais sobre qué tratamiento me conviene.');
+  }
+
+  if (cuando === '') {
+    lineas.push('Me da igual el horario.');
+  } else {
+    lineas.push('Me gustaría el ' + cuando + ' (si está libre).');
+  }
+
+  if (notas) {
+    lineas.push(notas);
+  }
+
+  return lineas.join('\n');
+}
+
+if (formulario) {
+  const inputNombre = document.getElementById('booking-name');
+  const errorNombre = document.getElementById('booking-name-error');
+  const mensajeEstado = document.getElementById('booking-status');
+
+  function mostrarError(mostrar) {
+    errorNombre.hidden = !mostrar;
+    inputNombre.classList.toggle('error', mostrar);
+    if (mostrar) {
+      inputNombre.setAttribute('aria-invalid', 'true');
+    } else {
+      inputNombre.removeAttribute('aria-invalid');
+    }
+  }
+
+  inputNombre.addEventListener('input', function () {
+    if (inputNombre.value.trim() !== '') mostrarError(false);
+  });
+
+  const bloqueDia = document.getElementById('day-block');
+  const bloqueHora = document.getElementById('hour-block');
+  const errorHora = document.getElementById('booking-time-error');
+
+  function franjaElegida() {
+    return formulario.querySelector('input[name="time-slot"]:checked').value;
+  }
+
+  formulario.querySelectorAll('input[name="time-slot"]').forEach(function (radio) {
+    radio.addEventListener('change', function () {
+      const franja = franjaElegida();
+      diaElegido = null;
+      mesVisible = 0;
+      errorHora.hidden = true;
+      bloqueHora.hidden = true;
+      bloqueDia.hidden = franja === 'any';
+      if (franja !== 'any') pintarCalendario(franja);
+    });
+  });
+
+  document.getElementById('prev-month').addEventListener('click', function () {
+    mesVisible--;
+    pintarCalendario(franjaElegida());
+  });
+
+  document.getElementById('next-month').addEventListener('click', function () {
+    mesVisible++;
+    pintarCalendario(franjaElegida());
+  });
+
+  document.getElementById('calendar-days').addEventListener('click', function (e) {
+    const boton = e.target.closest('.calendar__day');
+    if (!boton || boton.disabled) return;
+    diaElegido = boton.dataset.date;
+    pintarCalendario(franjaElegida());
+    pintarHoras(new Date(diaElegido), franjaElegida());
+    bloqueHora.hidden = false;
+  });
+
+  document.getElementById('hour-list').addEventListener('change', function () {
+    errorHora.hidden = true;
+  });
+
+  formulario.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const nombre = inputNombre.value.trim();
+    if (nombre === '') {
+      mostrarError(true);
+      inputNombre.focus();
+      return;
+    }
+    mostrarError(false);
+
+    let cuando = '';
+    if (franjaElegida() !== 'any') {
+      const hora = formulario.querySelector('input[name="hour"]:checked');
+      if (!diaElegido || !hora) {
+        errorHora.hidden = false;
+        return;
+      }
+      const fecha = new Date(diaElegido);
+      cuando = fecha.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' }).replace(',', '') + ' a las ' + hora.value;
+    }
+
+    const notas = document.getElementById('booking-notes').value.trim();
+
+    const texto = crearMensaje(nombre, seleccion, cuando, notas);
+    const url = 'https://wa.me/' + TELEFONO_WHATSAPP + '?text=' + encodeURIComponent(texto);
+
+    const ventana = window.open(url, '_blank');
+    if (ventana) {
+      ventana.opener = null;
+    } else {
+      window.location.href = url;
+    }
+
+    mensajeEstado.textContent = 'Hemos abierto WhatsApp con tu mensaje. Si no se ha abierto, escríbenos al ' + TELEFONO_TEXTO + '.';
   });
 }
