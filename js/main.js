@@ -518,6 +518,29 @@ if (botonDisparo && diagrama) {
   });
 }
 
+const fab = document.getElementById('fab');
+const zonasConBoton = [document.getElementById('hero-actions'), document.getElementById('treatments'), document.getElementById('contact')]
+  .filter(function (el) { return el !== null; });
+
+if (fab && zonasConBoton.length > 0 && 'IntersectionObserver' in window) {
+  const visibles = new Set();
+
+  const observador = new IntersectionObserver(function (entradas) {
+    entradas.forEach(function (entrada) {
+      if (entrada.isIntersecting) {
+        visibles.add(entrada.target);
+      } else {
+        visibles.delete(entrada.target);
+      }
+    });
+    fab.classList.toggle('is-hidden', visibles.size > 0);
+  });
+
+  zonasConBoton.forEach(function (el) {
+    observador.observe(el);
+  });
+}
+
 const DURACION_CITA = 30;
 const MESES_A_MOSTRAR = 2;
 

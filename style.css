@@ -1584,6 +1584,21 @@ textarea.field__control {
   row-gap: 0.5rem;
 }
 
+.fab {
+  position: fixed;
+  z-index: 30;
+  right: 1rem;
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  box-shadow: 0 0 0 1px rgba(233, 177, 166, 0.75), var(--shadow);
+  transition: opacity 0.25s, transform 0.25s, visibility 0.25s;
+}
+
+.fab.is-hidden {
+  opacity: 0;
+  transform: translateY(1rem);
+  visibility: hidden;
+}
+
 .booking-bar {
   position: fixed;
   z-index: 30;
@@ -1664,6 +1679,10 @@ textarea.field__control {
   opacity: 0;
   transform: translateY(1rem);
   visibility: hidden;
+}
+
+.has-selection .fab {
+  display: none;
 }
 
 .has-selection .footer {
@@ -1762,6 +1781,14 @@ textarea.field__control {
   .care__grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 4rem;
+  }
+
+  .footer {
+    padding-bottom: 0;
+  }
+
+  .fab {
+    display: none;
   }
 }
 
