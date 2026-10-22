@@ -179,6 +179,48 @@
       </div>
     </section>
 
+    <section id="treatments" class="section bg-blush" aria-labelledby="treatments-title">
+      <div class="container">
+        <div class="section-intro">
+          <h2 id="treatments-title" class="title">Tratamientos y precios</h2>
+          <p class="intro">
+            Elige para quién es y qué tipo de tratamiento buscas. Toca todo lo que te interese y pide
+            cita con todo a la vez.
+          </p>
+        </div>
+
+        <div class="filters">
+          <fieldset>
+            <legend class="filters__title">Para</legend>
+            <div class="filter-options">
+              <input type="radio" name="audience" id="audience-woman" value="woman" class="sr-only" checked>
+              <label for="audience-woman" class="filter-option">Mujer</label>
+
+              <input type="radio" name="audience" id="audience-man" value="man" class="sr-only">
+              <label for="audience-man" class="filter-option">Hombre</label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend class="filters__title">Tratamiento</legend>
+            <div class="filter-options">
+              <input type="radio" name="category" id="category-zones" value="zones" class="sr-only" checked>
+              <label for="category-zones" class="filter-option">Láser: zonas sueltas</label>
+            </div>
+          </fieldset>
+        </div>
+
+        <p class="treatments__note">Precios por sesión. Pregunta por las facilidades de pago.</p>
+
+        <div class="cards active" id="cards-woman-zones"></div>
+        <div class="cards" id="cards-man-zones"></div>
+
+        <noscript>
+          <p class="treatments__note">Activa JavaScript para ver los tratamientos o escríbenos por WhatsApp al 689 751 693.</p>
+        </noscript>
+      </div>
+    </section>
+
   </main>
 
   <footer class="footer">
