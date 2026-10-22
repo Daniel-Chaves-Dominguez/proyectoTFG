@@ -662,6 +662,15 @@ input:focus-visible + .pill {
   color: var(--muted);
 }
 
+.card__type {
+  margin-bottom: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--copper);
+}
+
 .card__text {
   margin-top: 0.5rem;
   font-size: 0.9375rem;
@@ -693,6 +702,55 @@ input:focus-visible + .pill {
   background-color: var(--cocoa);
   border-color: var(--cocoa);
   color: var(--powder);
+}
+
+.options {
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.option__text {
+  flex-grow: 1;
+  font-size: 0.9375rem;
+}
+
+.option__price {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--copper);
+}
+
+.add-button {
+  min-width: 6.5rem;
+  min-height: 2.75rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--cocoa);
+  border-radius: 999px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.add-button:hover {
+  background-color: var(--blush);
+}
+
+.add-button[aria-pressed='true'] {
+  background-color: var(--cocoa);
+  color: var(--powder);
+}
+
+.add-button[aria-pressed='true']::before {
+  content: '✓ ';
 }
 
 .footer {

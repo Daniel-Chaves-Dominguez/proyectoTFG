@@ -76,6 +76,25 @@ const ZONAS = {
   ]
 };
 
+const PACKS = {
+  woman: [
+    { nombre: 'Axilas, ingles y pubis', precio: 23, imagen: '' },
+    { nombre: 'Axilas, ingles, pubis y medias piernas', precio: 41, imagen: '' },
+    { nombre: 'Axilas, ingles, pubis, perianal y medias piernas', precio: 45, imagen: '' },
+    { nombre: 'Axilas, ingles, pubis, perianal y piernas completas', precio: 63, imagen: '' },
+    { nombre: 'Cuerpo básico', descripcion: 'Sin facial ni brazos.', precio: 68, imagen: '' },
+    { nombre: 'Cuerpo completo', precio: 83, imagen: '' }
+  ],
+  man: [
+    { nombre: 'Tórax y abdomen', precio: 32, imagen: '' },
+    { nombre: 'Piernas completas y glúteos', precio: 58, imagen: '' },
+    { nombre: 'Cuerpo inferior', precio: 75, imagen: '' },
+    { nombre: 'Cuerpo superior', precio: 85, imagen: '' },
+    { nombre: 'Cuerpo básico', descripcion: 'Sin zona íntima.', precio: 100, imagen: '' },
+    { nombre: 'Cuerpo completo', precio: 120, imagen: '' }
+  ]
+};
+
 function crearFoto(imagen, texto) {
   if (imagen !== '') {
     return '<img class="card__photo" src="' + imagen + '" alt="" width="600" height="400" loading="lazy">';
@@ -83,6 +102,14 @@ function crearFoto(imagen, texto) {
   return '<div class="card__photo placeholder" aria-hidden="true">' +
     '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="m21 16-5-5-8 8"/></svg>' +
     '<span>Foto: ' + texto + '</span></div>';
+}
+
+function crearOpcion(id, nombre, texto, precio) {
+  return '<li class="option">' +
+    '<span class="option__text">' + texto + '</span>' +
+    '<span class="option__price">' + precio + '€</span>' +
+    '<button type="button" class="add-button" aria-pressed="false" data-id="' + id + '" data-name="' + nombre + '" data-price="' + precio + '">Añadir</button>' +
+    '</li>';
 }
 
 function tarjetaZona(zona, publico) {
@@ -102,6 +129,24 @@ function tarjetaZona(zona, publico) {
     '</div></article>';
 }
 
+function tarjetaPack(pack, publico, i) {
+  const id = publico + '-pack-' + i;
+  const nombre = 'Pack ' + pack.nombre.toLowerCase() + ' (depilación láser, ' + TEXTO_PUBLICO[publico] + ')';
+  let descripcion = '';
+  if (pack.descripcion) {
+    descripcion = '<p class="card__text">' + pack.descripcion + '</p>';
+  }
+
+  return '<article class="card">' +
+    crearFoto(pack.imagen, pack.nombre.toLowerCase()) +
+    '<div class="card__body">' +
+    '<p class="card__type">Pack</p>' +
+    '<h3>' + pack.nombre + '</h3>' +
+    descripcion +
+    '<ul class="options">' + crearOpcion(id, nombre, 'Por sesión', pack.precio) + '</ul>' +
+    '</div></article>';
+}
+
 function pintarTratamientos() {
   ['woman', 'man'].forEach(function (publico) {
     let html = '';
@@ -109,6 +154,12 @@ function pintarTratamientos() {
       html += tarjetaZona(zona, publico);
     });
     document.getElementById('cards-' + publico + '-zones').innerHTML = html;
+
+    html = '';
+    PACKS[publico].forEach(function (pack, i) {
+      html += tarjetaPack(pack, publico, i);
+    });
+    document.getElementById('cards-' + publico + '-packs').innerHTML = html;
   });
 }
 
