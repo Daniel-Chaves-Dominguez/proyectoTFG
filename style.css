@@ -1105,6 +1105,95 @@ input:focus-visible + .pill {
   }
 }
 
+.reviews__grid {
+  display: grid;
+  column-gap: 3.5rem;
+  row-gap: 3rem;
+}
+
+.stars {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.stars label {
+  font-size: 2.25rem;
+  line-height: 1;
+  color: var(--line);
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.stars input:checked + label,
+.stars label:has(~ input:checked) {
+  color: var(--rose-gold);
+}
+
+.stars:hover label {
+  color: var(--rose-gold);
+}
+
+.stars label:hover ~ label {
+  color: var(--line);
+}
+
+.stars input:focus-visible + label {
+  outline: 2px solid var(--copper);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+.honeypot {
+  position: absolute;
+  left: -9999px;
+}
+
+.reviews__average {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  color: var(--copper);
+}
+
+.reviews__list {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.review {
+  padding: 1.25rem 1.5rem;
+  border-radius: 1.25rem;
+  background-color: var(--pearl);
+  box-shadow: 0 0 0 1px var(--line);
+}
+
+.review__top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.review__top strong {
+  font-weight: 500;
+}
+
+.review__stars {
+  color: var(--rose-gold);
+  letter-spacing: 0.1em;
+}
+
+.review p {
+  margin-top: 0.5rem;
+  overflow-wrap: anywhere;
+}
+
+.review .review__date {
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
 .contact-section {
   overflow-x: clip;
 }
@@ -1863,6 +1952,19 @@ textarea.field__control {
 
   .cards.active {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  .reviews__grid {
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  .reviews__form {
+    grid-column: span 6;
+  }
+
+  .reviews__column {
+    grid-column: span 6;
+    padding-top: 1rem;
   }
 
   .laser-section__grid {
