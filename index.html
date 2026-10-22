@@ -238,6 +238,23 @@
       </div>
     </section>
 
+    <div class="booking-bar" id="booking-bar" hidden>
+      <div class="booking-bar__panel" id="bar-panel" hidden>
+        <div class="booking-bar__header">
+          <p class="booking-bar__title">Lo que has elegido</p>
+          <button type="button" class="booking-bar__clear" id="bar-clear">Quitar todo</button>
+        </div>
+        <ul class="selection__list" id="bar-list"></ul>
+      </div>
+      <div class="booking-bar__row">
+        <button type="button" class="booking-bar__toggle" id="bar-toggle" aria-expanded="false" aria-controls="bar-panel">
+          <span><strong id="bar-count">0</strong> <span id="bar-text">elegidos</span> · <span id="bar-total">0€</span></span>
+          <span class="booking-bar__action" id="bar-action">Ver</span>
+        </button>
+        <a href="#contact" class="btn btn-primary btn-small" id="bar-book">Pedir cita</a>
+      </div>
+    </div>
+
   </main>
 
   <footer class="footer">

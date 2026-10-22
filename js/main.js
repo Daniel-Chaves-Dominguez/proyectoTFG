@@ -154,6 +154,8 @@ const ESTETICA = [
   }
 ];
 
+let seleccion = [];
+
 function crearFoto(imagen, texto) {
   if (imagen !== '') {
     return '<img class="card__photo" src="' + imagen + '" alt="" width="600" height="400" loading="lazy">';
@@ -278,6 +280,85 @@ function mostrarTarjetas() {
   });
 }
 
+function sumarPrecios() {
+  let total = 0;
+  seleccion.forEach(function (tratamiento) {
+    total += tratamiento.precio;
+  });
+  return total;
+}
+
+function pintarListaElegidos(lista) {
+  lista.innerHTML = '';
+  seleccion.forEach(function (tratamiento) {
+    const fila = document.createElement('li');
+
+    const nombre = document.createElement('span');
+    nombre.textContent = tratamiento.nombre;
+
+    const precio = document.createElement('span');
+    precio.className = 'selection__price';
+    precio.textContent = tratamiento.precio + '€';
+
+    const quitar = document.createElement('button');
+    quitar.type = 'button';
+    quitar.className = 'selection__remove';
+    quitar.dataset.remove = tratamiento.id;
+    quitar.setAttribute('aria-label', 'Quitar ' + tratamiento.nombre);
+    quitar.textContent = '×';
+
+    fila.append(nombre, precio, quitar);
+    lista.append(fila);
+  });
+}
+
+function abrirListaBarra(abrir) {
+  document.getElementById('bar-panel').hidden = !abrir;
+  document.getElementById('bar-toggle').setAttribute('aria-expanded', abrir);
+  document.getElementById('bar-action').textContent = abrir ? 'Cerrar' : 'Ver';
+  document.getElementById('booking-bar').classList.toggle('open', abrir);
+}
+
+function quitarTratamiento(id) {
+  seleccion = seleccion.filter(function (t) { return t.id !== id; });
+  actualizarSeleccion();
+}
+
+function actualizarSeleccion() {
+  document.querySelectorAll('[data-id]').forEach(function (boton) {
+    const elegido = seleccion.some(function (t) { return t.id === boton.dataset.id; });
+    boton.setAttribute('aria-pressed', elegido);
+    if (boton.classList.contains('add-button')) {
+      boton.textContent = elegido ? 'Añadido' : 'Añadir';
+    }
+  });
+
+  const total = sumarPrecios();
+  const hayAlgo = seleccion.length > 0;
+
+  document.getElementById('booking-bar').hidden = !hayAlgo;
+  document.getElementById('bar-count').textContent = seleccion.length;
+  document.getElementById('bar-text').textContent = seleccion.length === 1 ? 'elegido' : 'elegidos';
+  document.getElementById('bar-total').textContent = total + '€';
+  document.body.classList.toggle('has-selection', hayAlgo);
+
+  if (!hayAlgo) abrirListaBarra(false);
+
+  pintarListaElegidos(document.getElementById('bar-list'));
+}
+
+function alternarTratamiento(boton) {
+  const id = boton.dataset.id;
+  const posicion = seleccion.findIndex(function (t) { return t.id === id; });
+
+  if (posicion === -1) {
+    seleccion.push({ id: id, nombre: boton.dataset.name, precio: Number(boton.dataset.price) });
+  } else {
+    seleccion.splice(posicion, 1);
+  }
+  actualizarSeleccion();
+}
+
 const seccionTratamientos = document.getElementById('treatments');
 
 if (seccionTratamientos && document.getElementById('cards-aesthetics')) {
@@ -286,5 +367,32 @@ if (seccionTratamientos && document.getElementById('cards-aesthetics')) {
 
   document.querySelectorAll('input[name="audience"], input[name="category"]').forEach(function (radio) {
     radio.addEventListener('change', mostrarTarjetas);
+  });
+
+  seccionTratamientos.addEventListener('click', function (e) {
+    const boton = e.target.closest('[data-id]');
+    if (boton) alternarTratamiento(boton);
+  });
+
+  document.getElementById('bar-list').addEventListener('click', function (e) {
+    const boton = e.target.closest('[data-remove]');
+    if (boton) quitarTratamiento(boton.dataset.remove);
+  });
+
+  document.getElementById('bar-toggle').addEventListener('click', function () {
+    abrirListaBarra(document.getElementById('bar-panel').hidden);
+  });
+
+  document.getElementById('bar-clear').addEventListener('click', function () {
+    seleccion = [];
+    actualizarSeleccion();
+  });
+
+  document.getElementById('bar-book').addEventListener('click', function () {
+    abrirListaBarra(false);
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') abrirListaBarra(false);
   });
 }
