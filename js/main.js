@@ -772,3 +772,109 @@ if (formulario) {
     mensajeEstado.textContent = 'Hemos abierto WhatsApp con tu mensaje. Si no se ha abierto, escríbenos al ' + TELEFONO_TEXTO + '.';
   });
 }
+
+const formOpinion = document.getElementById('review-form');
+const listaOpiniones = document.getElementById('review-list');
+const textoMedia = document.getElementById('reviews-average');
+
+function dibujarEstrellas(numero) {
+  return '★'.repeat(numero) + '☆'.repeat(5 - numero);
+}
+
+function crearTarjetaOpinion(opinion) {
+  const tarjeta = document.createElement('li');
+  tarjeta.className = 'review';
+
+  const arriba = document.createElement('div');
+  arriba.className = 'review__top';
+
+  const nombre = document.createElement('strong');
+  nombre.textContent = opinion.nombre;
+
+  const estrellas = document.createElement('span');
+  estrellas.className = 'review__stars';
+  estrellas.setAttribute('aria-hidden', 'true');
+  estrellas.textContent = dibujarEstrellas(opinion.estrellas);
+
+  const estrellasTexto = document.createElement('span');
+  estrellasTexto.className = 'sr-only';
+  estrellasTexto.textContent = opinion.estrellas + ' de 5 estrellas';
+
+  arriba.append(nombre, estrellas, estrellasTexto);
+
+  const comentario = document.createElement('p');
+  comentario.textContent = opinion.comentario;
+
+  const fecha = document.createElement('p');
+  fecha.className = 'review__date';
+  fecha.textContent = new Date(opinion.fecha).toLocaleDateString('es-ES', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+
+  tarjeta.append(arriba, comentario, fecha);
+  return tarjeta;
+}
+
+function mostrarOpiniones(opiniones) {
+  listaOpiniones.innerHTML = '';
+
+  if (opiniones.length === 0) {
+    textoMedia.textContent = 'Todavía no hay opiniones. ¡Anímate a dejar la primera!';
+    return;
+  }
+
+  let suma = 0;
+  opiniones.forEach(function (opinion) {
+    suma += opinion.estrellas;
+    listaOpiniones.append(crearTarjetaOpinion(opinion));
+  });
+
+  const media = (suma / opiniones.length).toFixed(1).replace('.', ',');
+  let total = opiniones.length + ' opiniones';
+  if (opiniones.length === 1) total = '1 opinión';
+  textoMedia.textContent = '★ ' + media + ' de 5 · ' + total;
+}
+
+if (formOpinion && listaOpiniones && textoMedia) {
+  const inputNombreOpinion = document.getElementById('review-name');
+  const inputComentario = document.getElementById('review-comment');
+  const errorNombreOpinion = document.getElementById('review-name-error');
+  const errorEstrellas = document.getElementById('review-stars-error');
+  const errorComentario = document.getElementById('review-comment-error');
+  const estadoOpinion = document.getElementById('review-status');
+
+  function marcarError(error, campo, mostrar) {
+    error.hidden = !mostrar;
+    if (campo) {
+      campo.classList.toggle('error', mostrar);
+      if (mostrar) {
+        campo.setAttribute('aria-invalid', 'true');
+      } else {
+        campo.removeAttribute('aria-invalid');
+      }
+    }
+  }
+
+  mostrarOpiniones([]);
+
+  formOpinion.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const nombre = inputNombreOpinion.value.trim();
+    const comentario = inputComentario.value.trim();
+    const estrellaMarcada = formOpinion.querySelector('input[name="stars"]:checked');
+
+    marcarError(errorNombreOpinion, inputNombreOpinion, nombre === '');
+    marcarError(errorEstrellas, null, estrellaMarcada === null);
+    marcarError(errorComentario, inputComentario, comentario === '');
+
+    if (nombre === '' || estrellaMarcada === null || comentario === '') {
+      estadoOpinion.textContent = '';
+      return;
+    }
+
+    estadoOpinion.textContent = 'Las opiniones aún no están activas. ¡Muy pronto podrás dejar la tuya!';
+  });
+}
