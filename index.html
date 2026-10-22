@@ -26,12 +26,67 @@
         <img src="img/mc.svg" width="44" height="40" alt="">
         <span>María Chaves</span>
       </a>
+
+      <nav class="main-nav" aria-label="Principal">
+        <ul>
+          <li><a href="#treatments">Tratamientos</a></li>
+          <li><a href="#laser">Cómo funciona</a></li>
+          <li><a href="#faq">Preguntas</a></li>
+          <li><a href="#contact">Contacto</a></li>
+          <li><a href="#reviews">Opiniones</a></li>
+        </ul>
+      </nav>
+
+      <div class="header__buttons">
+        <a href="#treatments" class="btn btn-primary btn-small header__booking">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          Pedir cita
+        </a>
+        <button type="button" class="btn btn-secondary btn-small btn-menu" id="open-menu" aria-expanded="false" aria-controls="menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+          Menú
+        </button>
+      </div>
     </div>
   </header>
+
+  <div class="mobile-menu" id="menu">
+    <div class="container">
+      <div class="mobile-menu__top">
+        <span class="brand">
+          <img src="img/mc.svg" width="44" height="40" alt="">
+          <span>María Chaves</span>
+        </span>
+        <button type="button" class="btn btn-secondary btn-small btn-menu" id="close-menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          Cerrar
+        </button>
+      </div>
+
+      <nav aria-label="Menú móvil">
+        <ul>
+          <li><a href="#treatments">Tratamientos</a></li>
+          <li><a href="#laser">Cómo funciona</a></li>
+          <li><a href="#faq">Preguntas</a></li>
+          <li><a href="#contact">Contacto</a></li>
+          <li><a href="#reviews">Opiniones</a></li>
+        </ul>
+      </nav>
+
+      <div class="mobile-menu__bottom">
+        <a href="#treatments" class="btn btn-primary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          Pedir cita
+        </a>
+        <p>C/ La Palma, 29, Puerto Real. Con cita previa.</p>
+      </div>
+    </div>
+  </div>
 
   <main id="content" tabindex="-1">
 
   </main>
 
+  <script src="js/main.js" defer></script>
 </body>
 </html>
