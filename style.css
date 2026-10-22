@@ -436,9 +436,110 @@ fieldset {
   color: var(--muted);
 }
 
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow-x: clip;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: -18rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 44rem;
+  aspect-ratio: 1;
+  background: radial-gradient(closest-side, #fbe4dd 0%, rgba(251, 228, 221, 0.55) 45%, transparent 100%);
+  pointer-events: none;
+}
+
+.hero__grid {
+  display: grid;
+  align-items: center;
+  row-gap: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 4rem;
+}
+
+.hero__text {
+  order: 2;
+}
+
+.hero__text h1 {
+  font-size: clamp(3rem, 2.1rem + 3.9vw, 5.75rem);
+  line-height: 1.02;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.hero__text > p:first-of-type {
+  margin-top: 1.5rem;
+  max-width: 33rem;
+  font-size: clamp(1.1875rem, 1.1rem + 0.35vw, 1.3125rem);
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.hero__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 2.25rem;
+}
+
+.hero__image {
+  order: 1;
+}
+
+.hero__emblem {
+  width: min(76vw, 21rem);
+  margin: 0 auto;
+}
+
+.emblem {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.emblem__stroke {
+  stroke-dasharray: 1 1.01;
+  stroke-dashoffset: 0;
+}
+
+.emblem__head {
+  opacity: 0;
+}
+
+.emblem__mc,
+.emblem__sparkle {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.emblem__shine {
+  transform: translateX(-200px);
+}
+
 @media (min-width: 40rem) {
   .header__booking {
     display: inline-flex;
+  }
+
+  .hero__grid {
+    padding-top: 2rem;
+  }
+
+  .hero__actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .hero__emblem {
+    width: 25rem;
   }
 }
 
@@ -472,5 +573,34 @@ fieldset {
 
   .btn-menu {
     display: none;
+  }
+
+  .hero::before {
+    top: -20%;
+    right: -10%;
+    left: auto;
+    transform: none;
+    width: min(70rem, 120vw);
+  }
+
+  .hero__grid {
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: 2rem;
+    padding-top: 2.5rem;
+    padding-bottom: 3rem;
+  }
+
+  .hero__text {
+    order: 1;
+    grid-column: span 7;
+  }
+
+  .hero__image {
+    order: 2;
+    grid-column: span 5;
+  }
+
+  .hero__emblem {
+    width: 100%;
   }
 }
