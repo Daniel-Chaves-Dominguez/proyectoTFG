@@ -689,6 +689,7 @@ function marcarError(error, campo, mostrar) {
 }
 
 function limpiarTelefono(texto) {
+  // Quita espacios, puntos, guiones y paréntesis
   let numero = texto.replace(/[\s.\-()]/g, '');
   if (numero.startsWith('+34')) numero = numero.slice(3);
   if (numero.startsWith('0034')) numero = numero.slice(4);
@@ -696,6 +697,7 @@ function limpiarTelefono(texto) {
 }
 
 function telefonoValido(numero) {
+  // 9 cifras y la primera es 6, 7, 8 o 9
   return /^[6789]\d{8}$/.test(numero);
 }
 
@@ -874,7 +876,9 @@ function pintarGaleria() {
 }
 
 function mostrarFotoGrande(numero) {
-  fotoActual = (numero + FOTOS_CENTRO.length) % FOTOS_CENTRO.length;
+  if (numero < 0) numero = FOTOS_CENTRO.length - 1;
+  if (numero >= FOTOS_CENTRO.length) numero = 0;
+  fotoActual = numero;
   const foto = FOTOS_CENTRO[fotoActual];
   const caja = document.getElementById('lightbox-photo');
 
