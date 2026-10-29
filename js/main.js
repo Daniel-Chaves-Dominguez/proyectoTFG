@@ -530,6 +530,70 @@ if (botonDisparo && diagrama) {
   });
 }
 
+const comparador = document.getElementById('compare');
+const rangoComparar = document.getElementById('compare-range');
+const capaPelos = document.getElementById('compare-hair');
+const lineaComparar = document.getElementById('compare-line');
+const sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let intervaloComparar = null;
+
+function pintarPelos(capa, cantidad, color, grosor) {
+  let pelos = '';
+  for (let i = 0; i < cantidad; i++) {
+    const x = Math.random() * 800;
+    const y = Math.random() * 500;
+    const largo = 10 + Math.random() * 18;
+    const finalX = x + largo * 0.4 + Math.random() * 4;
+    const finalY = y + largo;
+    const curvaX = x + Math.random() * 8 - 4;
+    const curvaY = y + largo / 2;
+    const opacidad = 0.5 + Math.random() * 0.5;
+    pelos += '<path d="M' + x.toFixed(1) + ' ' + y.toFixed(1) +
+      ' Q' + curvaX.toFixed(1) + ' ' + curvaY.toFixed(1) + ' ' + finalX.toFixed(1) + ' ' + finalY.toFixed(1) +
+      '" opacity="' + opacidad.toFixed(2) + '"/>';
+  }
+  capa.innerHTML = '<svg viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' +
+    '<g fill="none" stroke="' + color + '" stroke-width="' + grosor + '" stroke-linecap="round">' + pelos + '</g></svg>';
+}
+
+function moverComparador(valor) {
+  rangoComparar.value = valor;
+  capaPelos.style.clipPath = 'inset(0 ' + (100 - valor) + '% 0 0)';
+  lineaComparar.style.left = valor + '%';
+}
+
+function animarComparador() {
+  let valor = 100;
+  moverComparador(valor);
+  intervaloComparar = setInterval(function () {
+    valor = valor - 1;
+    moverComparador(valor);
+    if (valor <= 30) clearInterval(intervaloComparar);
+  }, 20);
+}
+
+if (comparador) {
+  pintarPelos(capaPelos, 420, '#3b2620', 1.5);
+  pintarPelos(document.getElementById('compare-fine'), 25, '#b98a7c', 0.8);
+  moverComparador(50);
+
+  rangoComparar.addEventListener('input', function () {
+    clearInterval(intervaloComparar);
+    moverComparador(Number(rangoComparar.value));
+  });
+
+  if (!sinMovimiento && 'IntersectionObserver' in window) {
+    moverComparador(100);
+    const observadorComparar = new IntersectionObserver(function (entradas) {
+      if (entradas[0].isIntersecting) {
+        animarComparador();
+        observadorComparar.disconnect();
+      }
+    }, { threshold: 0.6 });
+    observadorComparar.observe(comparador);
+  }
+}
+
 const fab = document.getElementById('fab');
 const zonasConBoton = [document.getElementById('hero-actions'), document.getElementById('treatments'), document.getElementById('contact')]
   .filter(function (el) { return el !== null; });
