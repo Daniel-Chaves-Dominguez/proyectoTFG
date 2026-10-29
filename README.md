@@ -33,7 +33,10 @@ fonts/              Fonts (EB Garamond and Jost)
 - **Booking via WhatsApp**: the form asks for the name and the phone (a Spanish number with 9
   digits, with or without +34), builds the message with the data and opens WhatsApp. You can
   choose morning or afternoon and then the day and time (30-minute appointments, within the
-  centre's opening hours). For now nothing is saved: later on, appointments will be stored in the
+  centre's opening hours). The calendar shows this month and the next two; to change it, edit
+  `MESES_A_MOSTRAR` in `js/main.js`. Holidays and other closed days cannot be chosen: they are in `FESTIVOS`
+  (the ones that are on the same date every year) and `DIAS_CERRADOS` (Easter, local holidays,
+  vacations...) in `js/main.js`. For now nothing is saved: later on, appointments will be stored in the
   database so that two people cannot book the same time.
 - **Treatments and prices**: you choose woman or man and the type (laser by single areas, laser
   packs, facial radiofrequency, body radiofrequency or beauty treatments). Each treatment is a card
@@ -111,7 +114,10 @@ available soon. To activate them:
    example `eur3`).
 3. In *Project settings* > *Your apps*, add a **web** app and copy `apiKey`, `authDomain` and
    `projectId` into `FIREBASE_CONFIG`, at the beginning of the reviews block in `js/main.js`.
-4. In Firestore > **Rules**, paste these rules and publish them. This way anyone can read and add
+4. At the end of `index.html`, remove the comment (`<!--` and `-->`) around the two Firebase
+   `<script>` lines. They are commented so that visitors do not download Firebase (about 110 KB)
+   while it is not configured.
+5. In Firestore > **Rules**, paste these rules and publish them. This way anyone can read and add
    reviews, but nobody can change or delete them from the website, and the data is checked to have
    the correct format:
 
@@ -150,10 +156,14 @@ console (Firestore > `opiniones` collection).
 - [ ] When there is a domain, replace `https://tu-dominio.es` with the real domain (find and replace
       in `index.html`, `robots.txt` and `sitemap.xml`). It is used for Google and for the image shown
       when the link is shared.
+- [ ] With the new domain, also change the paths that start with `/proyectoTFG/` in `404.html` to `/`
+      (there are 34; they only work on GitHub Pages, where the website is inside `/proyectoTFG/`).
 - [ ] When it is known, add the postal code to the Google business data (`"postalCode"` inside
       `"address"`, in the `<script type="application/ld+json">` of `index.html`).
 - [ ] Replace the temporary treatment **photos** with María's photos on Cloudinary (see above).
 - [ ] Add **María's photo** to `FOTO_MARIA` (see above).
+- [ ] Ask María for the **local holidays of Puerto Real**, the Mondays that replace holidays that fall
+      on a Sunday and her **vacations**, and add them to `DIAS_CERRADOS` in `js/main.js`.
 - [ ] Add the **brand, model and technical data** of the laser to «Nuestro láser» (wavelength,
       cooling system...), and confirm which machine is the Phoenix+.
 - [ ] Add María's **training and years of experience** to «Sobre María» (they are still blank in

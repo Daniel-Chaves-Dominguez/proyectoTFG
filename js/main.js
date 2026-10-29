@@ -41,21 +41,31 @@ if (cabecera) {
 const menu = document.getElementById('menu');
 const botonAbrir = document.getElementById('open-menu');
 const botonCerrar = document.getElementById('close-menu');
+const restoPagina = document.querySelectorAll('.header, main, .footer');
 
 function abrirMenu() {
   menu.classList.add('open');
   botonAbrir.setAttribute('aria-expanded', 'true');
+  restoPagina.forEach(function (parte) {
+    parte.inert = true;
+  });
   botonCerrar.focus();
 }
 
 function cerrarMenu() {
   menu.classList.remove('open');
   botonAbrir.setAttribute('aria-expanded', 'false');
+  restoPagina.forEach(function (parte) {
+    parte.inert = false;
+  });
 }
 
 if (menu && botonAbrir && botonCerrar) {
   botonAbrir.addEventListener('click', abrirMenu);
-  botonCerrar.addEventListener('click', cerrarMenu);
+  botonCerrar.addEventListener('click', function () {
+    cerrarMenu();
+    botonAbrir.focus();
+  });
 
   menu.querySelectorAll('a').forEach(function (enlace) {
     enlace.addEventListener('click', cerrarMenu);
@@ -618,7 +628,13 @@ if (fab && zonasConBoton.length > 0 && 'IntersectionObserver' in window) {
 }
 
 const DURACION_CITA = 30;
-const MESES_A_MOSTRAR = 2;
+const MESES_A_MOSTRAR = 3;
+
+// Festivos que caen el mismo día todos los años (mes-día)
+const FESTIVOS = ['01-01', '01-06', '02-28', '05-01', '08-15', '10-12', '11-01', '12-06', '12-08', '12-25'];
+
+// Otros días que el centro está cerrado (año-mes-día): Semana Santa, fiestas de Puerto Real, vacaciones...
+const DIAS_CERRADOS = ['2027-03-25', '2027-03-26'];
 
 let mesVisible = 0;
 let diaElegido = null;
@@ -631,6 +647,17 @@ function aHora(minutos) {
   return horas + ':' + (resto < 10 ? '0' + resto : resto);
 }
 
+function fechaATexto(fecha) {
+  const mes = fecha.getMonth() + 1;
+  const dia = fecha.getDate();
+  return fecha.getFullYear() + '-' + (mes < 10 ? '0' + mes : mes) + '-' + (dia < 10 ? '0' + dia : dia);
+}
+
+function estaCerrado(fecha) {
+  const texto = fechaATexto(fecha);
+  return FESTIVOS.includes(texto.slice(5)) || DIAS_CERRADOS.includes(texto);
+}
+
 function tramoDelDia(diaSemana, franja) {
   const tramos = HORARIO[diaSemana];
   if (franja === 'morning') return tramos[0];
@@ -638,6 +665,8 @@ function tramoDelDia(diaSemana, franja) {
 }
 
 function horasLibres(fecha, franja) {
+  if (estaCerrado(fecha)) return [];
+
   const tramo = tramoDelDia(fecha.getDay(), franja);
   if (!tramo) return [];
 
