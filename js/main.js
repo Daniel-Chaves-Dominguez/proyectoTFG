@@ -553,6 +553,25 @@ if (fab && zonasConBoton.length > 0 && 'IntersectionObserver' in window) {
   });
 }
 
+const contenidos = document.querySelectorAll('main > section:not(.hero) > .container');
+const sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (contenidos.length > 0 && !sinMovimiento && 'IntersectionObserver' in window) {
+  const observadorSecciones = new IntersectionObserver(function (entradas) {
+    entradas.forEach(function (entrada) {
+      if (entrada.isIntersecting) {
+        entrada.target.classList.add('is-visible');
+        observadorSecciones.unobserve(entrada.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -10% 0px' });
+
+  contenidos.forEach(function (contenido) {
+    contenido.classList.add('reveal');
+    observadorSecciones.observe(contenido);
+  });
+}
+
 const DURACION_CITA = 30;
 const MESES_A_MOSTRAR = 2;
 

@@ -53,6 +53,9 @@ fonts/              Fonts (EB Garamond and Jost)
 - **Laser animation**: the «Simular un disparo» (simulate a shot) button animates the drawing that
   shows how the laser works.
 - **Animated logo** with CSS (it is not animated if the user has «reduce motion» enabled).
+- **Sections appear smoothly** when you scroll to them, using `IntersectionObserver`. It only
+  happens once per section and it is turned off with «reduce motion». The class is added with
+  JavaScript, so if JavaScript fails everything is still visible.
 - **Mobile menu** and floating booking button.
 - **FAQ** with collapsible questions using `<details>`.
 - **Responsive** design (mobile, tablet and desktop).
