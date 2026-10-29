@@ -1504,19 +1504,26 @@ input:focus-visible + .pill {
   border-radius: var(--panel-radius);
 }
 
-.about__centre {
+.about__centre,
+.about__laser {
   margin-top: 4.5rem;
 }
 
-.about__centre h3 {
+.about__centre h3,
+.about__laser h3 {
   font-size: clamp(1.75rem, 1.5rem + 1vw, 2.25rem);
   line-height: 1.15;
 }
 
-.about__centre p {
+.about__centre p,
+.about__laser p {
   max-width: 40rem;
   margin-top: 1rem;
   color: var(--muted);
+}
+
+.about__laser .btn {
+  margin-top: 2.25rem;
 }
 
 .gallery {
@@ -2603,7 +2610,17 @@ textarea.field__control {
     max-width: none;
   }
 
-  .about__centre {
+  .about__laser .about__photo {
+    grid-column: 1 / span 5;
+    grid-row: 1;
+  }
+
+  .about__laser .about__text {
+    grid-column: 7 / span 6;
+  }
+
+  .about__centre,
+  .about__laser {
     margin-top: 6rem;
   }
 

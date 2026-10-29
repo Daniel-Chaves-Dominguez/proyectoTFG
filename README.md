@@ -41,7 +41,9 @@ fonts/              Fonts (EB Garamond and Jost)
   with the total and, when booking, the list is included in the WhatsApp message. The cards are
   created with JS from the data in `js/main.js` (`ZONAS`, `PACKS`, `RADIOFRECUENCIA` and
   `ESTETICA`), so to change a price you only need to edit it there.
-- **About María**: who she is and how the centre works, with a gallery of the centre. Clicking a
+- **About María**: who she is and how the centre works, with a gallery of the centre and «Nuestro
+  láser» (our laser), a photo of the diode laser and what makes it safe (CE marking, test shot and
+  safety features). Clicking a
   photo opens it bigger in a `<dialog>` that can be used with the keyboard (arrows to change the
   photo, Esc to close, and the focus goes back to the photo when it is closed).
 - **Reviews**: customers can leave their name, 1 to 5 stars and a comment. They are saved in
@@ -147,6 +149,8 @@ console (Firestore > `opiniones` collection).
       `"address"`, in the `<script type="application/ld+json">` of `index.html`).
 - [ ] Replace the temporary treatment **photos** with María's photos on Cloudinary (see above).
 - [ ] Add **María's photo** to `FOTO_MARIA` (see above).
+- [ ] Add the **brand, model and technical data** of the laser to «Nuestro láser» (wavelength,
+      cooling system...), and confirm which machine is the Phoenix+.
 - [ ] Add María's **training and years of experience** to «Sobre María» (they are still blank in
       the business plan) and confirm the text of that section with her.
 - [ ] Set up **Firebase** for the reviews (see above).
