@@ -955,6 +955,19 @@ input:focus-visible + .pill {
   border-color: var(--rose-gold-light);
 }
 
+.laser-section__text .laser-result {
+  max-width: 30rem;
+  margin-top: 1.25rem;
+  font-size: 0.9375rem;
+  color: var(--rose-gold-light);
+  opacity: 0;
+  transition: opacity 0.6s;
+}
+
+.laser-section__text .laser-result.visible {
+  opacity: 1;
+}
+
 .diagram svg {
   width: 100%;
   height: auto;

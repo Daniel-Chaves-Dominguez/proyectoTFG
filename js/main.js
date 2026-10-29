@@ -508,6 +508,8 @@ if (seccionTratamientos && document.getElementById('cards-aesthetics')) {
 
 const botonDisparo = document.getElementById('fire-button');
 const diagrama = document.getElementById('diagram');
+const resultadoDisparo = document.getElementById('fire-result');
+let esperaResultado = null;
 
 if (botonDisparo && diagrama) {
   botonDisparo.addEventListener('click', function () {
@@ -515,6 +517,12 @@ if (botonDisparo && diagrama) {
     setTimeout(function () {
       diagrama.classList.add('firing');
     }, 20);
+
+    resultadoDisparo.classList.remove('visible');
+    clearTimeout(esperaResultado);
+    esperaResultado = setTimeout(function () {
+      resultadoDisparo.classList.add('visible');
+    }, 3000);
   });
 }
 
