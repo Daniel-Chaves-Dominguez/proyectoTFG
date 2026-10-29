@@ -340,12 +340,13 @@
             <rect x="0" y="160" width="640" height="220" fill="#F4BDB2" fill-opacity=".05"/>
             <path d="M0 160c80-4 160 4 240 0s160-4 240 0 120 4 160 0v24H0z" fill="#F4BDB2" fill-opacity=".1"/>
 
-            <rect x="50" y="10" width="540" height="26" rx="13" fill="#F4BDB2" fill-opacity=".1" stroke="#E9B1A6" stroke-opacity=".6"/>
-            <rect class="diagram__window" x="64" y="18" width="512" height="10" rx="5" fill="#FFD9CE"/>
-
-            <g class="diagram__beam" style="mix-blend-mode: screen">
-              <path class="diagram__cone" d="M70 36h500l20 124H50z" fill="url(#diagram-beam)"/>
-              <rect x="50" y="160" width="540" height="200" fill="url(#diagram-beam-skin)"/>
+            <g class="diagram__beam">
+              <rect x="50" y="10" width="540" height="26" rx="13" fill="#F4BDB2" fill-opacity=".1" stroke="#E9B1A6" stroke-opacity=".6"/>
+              <rect class="diagram__window" x="64" y="18" width="512" height="10" rx="5" fill="#FFD9CE"/>
+              <g style="mix-blend-mode: screen">
+                <path d="M70 36h500l20 124H50z" fill="url(#diagram-beam)"/>
+                <rect x="50" y="160" width="540" height="200" fill="url(#diagram-beam-skin)"/>
+              </g>
             </g>
 
             <circle class="diagram__heat" cx="107" cy="330" r="64" fill="url(#diagram-heat)"/>
@@ -355,9 +356,9 @@
 
             <path d="M96 160c0 68-1 126-6 152-5 28 10 44 17 44s22-16 17-44c-5-26-6-84-6-152" fill="#F4BDB2" fill-opacity=".08" stroke="#E9B1A6" stroke-opacity=".65"/>
             <path class="diagram__hair" d="M107 326V150" stroke="#E3A396" stroke-width="4" stroke-linecap="round"/>
-            <path class="diagram__new-hair" d="M107 326V150" pathLength="1" stroke="#EFC2B8" stroke-width="2" stroke-linecap="round"/>
+            <path class="diagram__new-hair" d="M107 326V150" pathLength="1" stroke="#E3A396" stroke-width="2" stroke-linecap="round"/>
             <ellipse class="diagram__root" cx="107" cy="330" rx="13" ry="17" fill="#C98276"/>
-            <ellipse class="diagram__papilla" cx="107" cy="343" rx="6" ry="7" fill="#2B2122"/>
+            <ellipse cx="107" cy="343" rx="6" ry="7" fill="#2B2122"/>
 
             <path d="M310 160c0 40 1 80 2 102 1 20 15 20 16 0 1-22 2-62 2-102" fill="#F4BDB2" fill-opacity=".06" stroke="#E9B1A6" stroke-opacity=".5"/>
             <line x1="320" y1="262" x2="320" y2="150" stroke="#E3A396" stroke-width="3.4" stroke-linecap="round"/>

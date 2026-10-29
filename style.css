@@ -999,21 +999,20 @@ input:focus-visible + .pill {
   color: var(--night-muted);
 }
 
-.diagram__window {
-  opacity: 0.2;
+.diagram__beam {
+  opacity: 0.45;
 }
 
-.diagram__beam,
-.diagram__heat,
+.diagram__heat {
+  opacity: 0.85;
+}
+
+.diagram__window,
+.diagram__heat--weak,
 .diagram__wave,
 .diagram__pulse,
 .diagram__new-hair {
   opacity: 0;
-}
-
-.diagram__cone {
-  transform-box: fill-box;
-  transform-origin: top;
 }
 
 .diagram__heat,
@@ -1040,10 +1039,6 @@ input:focus-visible + .pill {
   animation: diagram-beam 1.3s ease-out 0.35s both;
 }
 
-.firing .diagram__cone {
-  animation: diagram-cone 0.35s ease-out 0.35s both;
-}
-
 .firing .diagram__pulse {
   animation: diagram-pulse 0.7s ease-in 0.6s both;
 }
@@ -1068,10 +1063,6 @@ input:focus-visible + .pill {
   animation: diagram-root 2.4s ease-out 1.2s both;
 }
 
-.firing .diagram__papilla {
-  animation: diagram-papilla 2.4s ease-out 1.2s both;
-}
-
 .firing .diagram__hair {
   animation: diagram-hair 0.7s ease-in 3s both;
 }
@@ -1089,36 +1080,23 @@ input:focus-visible + .pill {
 }
 
 @keyframes diagram-window {
-  0% {
-    opacity: 0.2;
+  0%,
+  100% {
+    opacity: 0;
   }
   25% {
     opacity: 1;
   }
-  100% {
-    opacity: 0.2;
-  }
 }
 
 @keyframes diagram-beam {
-  0% {
-    opacity: 0;
+  0%,
+  100% {
+    opacity: 0.45;
   }
   15%,
   45% {
     opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes diagram-cone {
-  from {
-    transform: scaleY(0);
-  }
-  to {
-    transform: scaleY(1);
   }
 }
 
@@ -1137,21 +1115,14 @@ input:focus-visible + .pill {
 }
 
 @keyframes diagram-heat {
-  0% {
-    opacity: 0;
-    transform: scale(0.3);
+  0%,
+  100% {
+    opacity: 0.85;
+    transform: scale(1);
   }
   25% {
     opacity: 1;
     transform: scale(1.25);
-  }
-  60% {
-    opacity: 0.8;
-    transform: scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1);
   }
 }
 
@@ -1190,13 +1161,7 @@ input:focus-visible + .pill {
     fill: #ffd9ce;
   }
   100% {
-    fill: #e3b3a8;
-  }
-}
-
-@keyframes diagram-papilla {
-  to {
-    opacity: 0.35;
+    fill: #c98276;
   }
 }
 
@@ -1245,7 +1210,6 @@ input:focus-visible + .pill {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .firing .diagram__cone,
   .firing .diagram__wave,
   .firing .diagram__pulse {
     animation: none;
@@ -1272,11 +1236,11 @@ input:focus-visible + .pill {
 @keyframes diagram-heat-soft {
   0%,
   100% {
-    opacity: 0;
+    opacity: 0.85;
   }
   25%,
   60% {
-    opacity: 0.85;
+    opacity: 1;
   }
 }
 
