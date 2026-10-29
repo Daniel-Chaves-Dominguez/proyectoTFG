@@ -334,19 +334,24 @@
             <rect x="0" y="160" width="640" height="220" fill="#F4BDB2" fill-opacity=".05"/>
             <path d="M0 160c80-4 160 4 240 0s160-4 240 0 120 4 160 0v24H0z" fill="#F4BDB2" fill-opacity=".1"/>
 
-            <g class="diagram__beam">
-              <rect x="50" y="10" width="540" height="26" rx="13" fill="#F4BDB2" fill-opacity=".1" stroke="#E9B1A6" stroke-opacity=".6"/>
-              <g style="mix-blend-mode: screen">
-                <path d="M70 36h500l20 124H50z" fill="url(#diagram-beam)"/>
-                <rect x="50" y="160" width="540" height="200" fill="url(#diagram-beam-skin)"/>
-              </g>
+            <rect x="50" y="10" width="540" height="26" rx="13" fill="#F4BDB2" fill-opacity=".1" stroke="#E9B1A6" stroke-opacity=".6"/>
+            <rect class="diagram__window" x="64" y="18" width="512" height="10" rx="5" fill="#FFD9CE"/>
+
+            <g class="diagram__beam" style="mix-blend-mode: screen">
+              <path class="diagram__cone" d="M70 36h500l20 124H50z" fill="url(#diagram-beam)"/>
+              <rect x="50" y="160" width="540" height="200" fill="url(#diagram-beam-skin)"/>
             </g>
 
             <circle class="diagram__heat" cx="107" cy="330" r="64" fill="url(#diagram-heat)"/>
+            <circle class="diagram__wave" cx="107" cy="330" r="60" fill="none" stroke="#F4BDB2" stroke-width="1.5"/>
+            <circle class="diagram__wave diagram__wave--late" cx="107" cy="330" r="60" fill="none" stroke="#F4BDB2" stroke-width="1.5"/>
+            <circle class="diagram__heat diagram__heat--weak" cx="320" cy="262" r="34" fill="url(#diagram-heat)"/>
+
             <path d="M96 160c0 68-1 126-6 152-5 28 10 44 17 44s22-16 17-44c-5-26-6-84-6-152" fill="#F4BDB2" fill-opacity=".08" stroke="#E9B1A6" stroke-opacity=".65"/>
-            <line x1="107" y1="326" x2="107" y2="150" stroke="#E3A396" stroke-width="4" stroke-linecap="round"/>
+            <path class="diagram__hair" d="M107 326V150" stroke="#E3A396" stroke-width="4" stroke-linecap="round"/>
+            <path class="diagram__new-hair" d="M107 326V150" pathLength="1" stroke="#EFC2B8" stroke-width="2" stroke-linecap="round"/>
             <ellipse class="diagram__root" cx="107" cy="330" rx="13" ry="17" fill="#C98276"/>
-            <ellipse cx="107" cy="343" rx="6" ry="7" fill="#2B2122"/>
+            <ellipse class="diagram__papilla" cx="107" cy="343" rx="6" ry="7" fill="#2B2122"/>
 
             <path d="M310 160c0 40 1 80 2 102 1 20 15 20 16 0 1-22 2-62 2-102" fill="#F4BDB2" fill-opacity=".06" stroke="#E9B1A6" stroke-opacity=".5"/>
             <line x1="320" y1="262" x2="320" y2="150" stroke="#E3A396" stroke-width="3.4" stroke-linecap="round"/>
@@ -358,12 +363,16 @@
             <ellipse cx="533" cy="208" rx="6" ry="8" fill="#E9B1A6"/>
             <ellipse cx="533" cy="254" rx="8" ry="10" fill="none" stroke="#E9B1A6" stroke-opacity=".55" stroke-dasharray="2 3"/>
 
+            <path class="diagram__pulse" d="M107 150V326" pathLength="100" stroke="#FFF3EE" stroke-width="4" stroke-linecap="round"/>
+            <path class="diagram__pulse" d="M320 150V262" pathLength="100" stroke="#FFF3EE" stroke-opacity=".75" stroke-width="3.4" stroke-linecap="round"/>
+            <path class="diagram__pulse" d="M533 150V208" pathLength="100" stroke="#FFF3EE" stroke-opacity=".5" stroke-width="3" stroke-linecap="round"/>
+
             <path d="M0 160c80-4 160 4 240 0s160-4 240 0 120 4 160 0" fill="none" stroke="#E9B1A6" stroke-width="1.5"/>
           </svg>
 
           <figcaption>
             <ul class="phases">
-              <li class="phase active">
+              <li class="phase">
                 <strong>Fase anágena</strong>
                 <span>El vello sigue unido a la raíz: absorbe la luz y el folículo se debilita.</span>
               </li>
