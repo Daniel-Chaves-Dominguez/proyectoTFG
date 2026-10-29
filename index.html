@@ -84,6 +84,7 @@
           <li><a href="#laser">Cómo funciona</a></li>
           <li><a href="#faq">Preguntas</a></li>
           <li><a href="#contact">Contacto</a></li>
+          <li><a href="#about">Sobre María</a></li>
           <li><a href="#reviews">Opiniones</a></li>
         </ul>
       </nav>
@@ -120,6 +121,7 @@
           <li><a href="#laser">Cómo funciona</a></li>
           <li><a href="#faq">Preguntas</a></li>
           <li><a href="#contact">Contacto</a></li>
+          <li><a href="#about">Sobre María</a></li>
           <li><a href="#reviews">Opiniones</a></li>
         </ul>
       </nav>
@@ -679,7 +681,59 @@
       </div>
     </section>
 
-    <section id="reviews" class="section-continued" aria-labelledby="reviews-title">
+    <section id="about" class="section bg-blush" aria-labelledby="about-title">
+      <div class="container">
+        <div class="about__grid">
+          <div class="about__text">
+            <h2 id="about-title" class="title">Sobre María</h2>
+            <p class="intro">
+              Detrás del centro está María Chaves. Ella te atiende desde que pides cita hasta la última
+              sesión, así que siempre te trata la misma persona, que conoce tu piel y tu historial.
+            </p>
+            <ul class="about__list">
+              <li>
+                <svg class="sparkle" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c.6 7.2 4.8 11.4 12 12-7.2.6-11.4 4.8-12 12-.6-7.2-4.8-11.4-12-12 7.2-.6 11.4-4.8 12-12Z"/></svg>
+                <span>Antes de empezar te hace una valoración y una prueba de disparo en una zona pequeña.</span>
+              </li>
+              <li>
+                <svg class="sparkle" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c.6 7.2 4.8 11.4 12 12-7.2.6-11.4 4.8-12 12-.6-7.2-4.8-11.4-12-12 7.2-.6 11.4-4.8 12-12Z"/></svg>
+                <span>Pagas por sesión, sin permanencias ni financiaciones.</span>
+              </li>
+              <li>
+                <svg class="sparkle" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c.6 7.2 4.8 11.4 12 12-7.2.6-11.4 4.8-12 12-.6-7.2-4.8-11.4-12-12 7.2-.6 11.4-4.8 12-12Z"/></svg>
+                <span>Todos los precios están en la web, también los de hombre.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="about__photo" id="about-photo"></div>
+        </div>
+
+        <div class="about__centre">
+          <h3>El centro</h3>
+          <p>
+            Un local a pie de calle en el casco urbano de Puerto Real, con cabina cerrada. Antes de cada
+            sesión se desinfectan la camilla y el cabezal, se pone papel nuevo en la camilla y tanto tú
+            como María usáis gafas de protección.
+          </p>
+          <ul class="gallery" id="gallery"></ul>
+        </div>
+      </div>
+
+      <dialog class="lightbox" id="lightbox" aria-labelledby="lightbox-caption">
+        <div class="lightbox__box">
+          <button type="button" class="lightbox__close" id="lightbox-close" autofocus>Cerrar</button>
+          <div id="lightbox-photo"></div>
+          <div class="lightbox__bar">
+            <button type="button" class="lightbox__arrow" id="lightbox-prev" aria-label="Foto anterior">‹</button>
+            <p class="lightbox__caption" id="lightbox-caption" aria-live="polite"></p>
+            <button type="button" class="lightbox__arrow" id="lightbox-next" aria-label="Foto siguiente">›</button>
+          </div>
+        </div>
+      </dialog>
+    </section>
+
+    <section id="reviews" class="section" aria-labelledby="reviews-title">
       <div class="container reviews__grid">
         <div class="reviews__form">
           <h2 id="reviews-title" class="title">Opiniones</h2>
@@ -787,6 +841,7 @@
           <li><a href="#laser" class="footer__link">Cómo funciona</a></li>
           <li><a href="#faq" class="footer__link">Preguntas</a></li>
           <li><a href="#contact" class="footer__link">Contacto</a></li>
+          <li><a href="#about" class="footer__link">Sobre María</a></li>
           <li><a href="#reviews" class="footer__link">Opiniones</a></li>
         </ul>
       </nav>

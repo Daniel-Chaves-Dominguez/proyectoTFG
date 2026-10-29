@@ -41,6 +41,9 @@ fonts/              Fonts (EB Garamond and Jost)
   with the total and, when booking, the list is included in the WhatsApp message. The cards are
   created with JS from the data in `js/main.js` (`ZONAS`, `PACKS`, `RADIOFRECUENCIA` and
   `ESTETICA`), so to change a price you only need to edit it there.
+- **About María**: who she is and how the centre works, with a gallery of the centre. Clicking a
+  photo opens it bigger in a `<dialog>` that can be used with the keyboard (arrows to change the
+  photo, Esc to close, and the focus goes back to the photo when it is closed).
 - **Reviews**: customers can leave their name, 1 to 5 stars and a comment. They are saved in
   Firebase and the average rating is calculated.
 - **Real-time opening hours**: shows whether the centre is open or closed right now, using Madrid
@@ -75,6 +78,16 @@ https://res.cloudinary.com/YOUR_ACCOUNT/image/upload/f_auto,q_auto,w_600/limpiez
 
 Photos are automatically cropped to a 3:2 ratio (`object-fit: cover`), so it is best to keep the
 important part in the centre.
+
+## Photos of María and the centre
+
+The «Sobre María» section works the same way: María's photo is in `FOTO_MARIA` and the gallery
+photos are in `FOTOS_CENTRO`, both in `js/main.js`. While the URL is empty, a striped placeholder
+with the text of the photo is shown. To add a photo, paste its URL and, in the gallery, change
+`texto` if needed (it is the caption of the enlarged view and what screen readers say).
+
+María's photo is cropped to a 4:5 ratio (portrait) and the gallery photos to 4:3, so a horizontal
+photo works best for the first one of the gallery, which is the biggest.
 
 ## Reviews with Firebase
 
@@ -129,6 +142,9 @@ console (Firestore > `opiniones` collection).
 - [ ] When it is known, add the postal code to the Google business data (`"postalCode"` inside
       `"address"`, in the `<script type="application/ld+json">` of `index.html`).
 - [ ] Replace the temporary treatment **photos** with María's photos on Cloudinary (see above).
+- [ ] Add the photos of **María and the centre** to `FOTO_MARIA` and `FOTOS_CENTRO` (see above).
+- [ ] Add María's **training and years of experience** to «Sobre María» (they are still blank in
+      the business plan) and confirm the text of that section with her.
 - [ ] Set up **Firebase** for the reviews (see above).
 - [ ] Confirm the **FAQ** and the «Paso a paso» (step by step) and «Cuidados» (care) texts with María.
 - [ ] Have someone review the legal texts.

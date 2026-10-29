@@ -233,13 +233,17 @@ const ESTETICA = [
 
 let seleccion = [];
 
+function crearHueco(texto, clase) {
+  return '<div class="' + clase + ' placeholder" aria-hidden="true">' +
+    '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="m21 16-5-5-8 8"/></svg>' +
+    '<span>Foto: ' + texto + '</span></div>';
+}
+
 function crearFoto(imagen, texto) {
   if (imagen !== '') {
     return '<img class="card__photo" src="' + imagen + '" alt="" width="600" height="400" loading="lazy">';
   }
-  return '<div class="card__photo placeholder" aria-hidden="true">' +
-    '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="m21 16-5-5-8 8"/></svg>' +
-    '<span>Foto: ' + texto + '</span></div>';
+  return crearHueco(texto, 'card__photo');
 }
 
 function crearOpcion(id, nombre, texto, precio) {
@@ -809,6 +813,96 @@ if (formulario) {
     }
 
     mensajeEstado.textContent = 'Hemos abierto WhatsApp con tu mensaje. Si no se ha abierto, escríbenos al ' + TELEFONO_TEXTO + '.';
+  });
+}
+
+const FOTO_MARIA = '';
+
+const FOTOS_CENTRO = [
+  { imagen: '', texto: 'Fachada del centro' },
+  { imagen: '', texto: 'Recepción' },
+  { imagen: '', texto: 'Cabina de depilación láser' },
+  { imagen: '', texto: 'Equipo de láser' },
+  { imagen: '', texto: 'Zona de estética' },
+  { imagen: '', texto: 'Detalle de la cabina' }
+];
+
+const cajaFotoMaria = document.getElementById('about-photo');
+const galeria = document.getElementById('gallery');
+const visor = document.getElementById('lightbox');
+let fotoActual = 0;
+let botonGaleria = null;
+
+function pintarFotoMaria() {
+  if (FOTO_MARIA !== '') {
+    cajaFotoMaria.innerHTML = '<img class="about__img" src="' + FOTO_MARIA + '" alt="María Chaves" width="800" height="1000" loading="lazy">';
+  } else {
+    cajaFotoMaria.innerHTML = crearHueco('María', 'about__img');
+  }
+}
+
+function pintarGaleria() {
+  let html = '';
+  FOTOS_CENTRO.forEach(function (foto, i) {
+    let contenido = crearHueco(foto.texto, 'gallery__img');
+    if (foto.imagen !== '') {
+      contenido = '<img class="gallery__img" src="' + foto.imagen + '" alt="" width="800" height="600" loading="lazy">';
+    }
+    html += '<li><button type="button" class="gallery__item" data-index="' + i + '" aria-label="Ampliar foto: ' + foto.texto + '">' +
+      contenido + '</button></li>';
+  });
+  galeria.innerHTML = html;
+}
+
+function mostrarFotoGrande(numero) {
+  fotoActual = (numero + FOTOS_CENTRO.length) % FOTOS_CENTRO.length;
+  const foto = FOTOS_CENTRO[fotoActual];
+  const caja = document.getElementById('lightbox-photo');
+
+  if (foto.imagen !== '') {
+    caja.innerHTML = '<img class="lightbox__img" src="' + foto.imagen + '" alt="' + foto.texto + '">';
+  } else {
+    caja.innerHTML = crearHueco(foto.texto, 'lightbox__img');
+  }
+
+  document.getElementById('lightbox-caption').textContent = foto.texto + ' · ' + (fotoActual + 1) + ' de ' + FOTOS_CENTRO.length;
+}
+
+if (cajaFotoMaria && galeria && visor) {
+  pintarFotoMaria();
+  pintarGaleria();
+
+  galeria.addEventListener('click', function (e) {
+    const boton = e.target.closest('.gallery__item');
+    if (!boton) return;
+    botonGaleria = boton;
+    mostrarFotoGrande(Number(boton.dataset.index));
+    visor.showModal();
+  });
+
+  document.getElementById('lightbox-prev').addEventListener('click', function () {
+    mostrarFotoGrande(fotoActual - 1);
+  });
+
+  document.getElementById('lightbox-next').addEventListener('click', function () {
+    mostrarFotoGrande(fotoActual + 1);
+  });
+
+  document.getElementById('lightbox-close').addEventListener('click', function () {
+    visor.close();
+  });
+
+  visor.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft') mostrarFotoGrande(fotoActual - 1);
+    if (e.key === 'ArrowRight') mostrarFotoGrande(fotoActual + 1);
+  });
+
+  visor.addEventListener('click', function (e) {
+    if (e.target === visor) visor.close();
+  });
+
+  visor.addEventListener('close', function () {
+    if (botonGaleria) botonGaleria.focus();
   });
 }
 
