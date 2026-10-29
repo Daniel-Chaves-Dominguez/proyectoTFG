@@ -89,6 +89,10 @@ with the text of the photo is shown. To add a photo, paste its URL and, in the g
 María's photo is cropped to a 4:5 ratio (portrait) and the gallery photos to 4:3, so a horizontal
 photo works best for the first one of the gallery, which is the biggest.
 
+The gallery already has the real photos of the centre (façade, reception, treatment room, display
+cabinet, sign and shop window), saved in `img/centre/`. They were cropped to 4:3 and reduced to
+1200 × 900 px so that they load fast. María's photo is still pending.
+
 ## Reviews with Firebase
 
 Until Firebase is configured, reviews are not active: the form shows a message saying they will be
@@ -142,7 +146,7 @@ console (Firestore > `opiniones` collection).
 - [ ] When it is known, add the postal code to the Google business data (`"postalCode"` inside
       `"address"`, in the `<script type="application/ld+json">` of `index.html`).
 - [ ] Replace the temporary treatment **photos** with María's photos on Cloudinary (see above).
-- [ ] Add the photos of **María and the centre** to `FOTO_MARIA` and `FOTOS_CENTRO` (see above).
+- [ ] Add **María's photo** to `FOTO_MARIA` (see above).
 - [ ] Add María's **training and years of experience** to «Sobre María» (they are still blank in
       the business plan) and confirm the text of that section with her.
 - [ ] Set up **Firebase** for the reviews (see above).

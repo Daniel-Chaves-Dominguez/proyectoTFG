@@ -819,12 +819,12 @@ if (formulario) {
 const FOTO_MARIA = '';
 
 const FOTOS_CENTRO = [
-  { imagen: '', texto: 'Fachada del centro' },
-  { imagen: '', texto: 'Recepción' },
-  { imagen: '', texto: 'Cabina de depilación láser' },
-  { imagen: '', texto: 'Equipo de láser' },
-  { imagen: '', texto: 'Zona de estética' },
-  { imagen: '', texto: 'Detalle de la cabina' }
+  { imagen: 'img/centre/facade.jpg', texto: 'Fachada en C/ La Palma, 29' },
+  { imagen: 'img/centre/reception.jpg', texto: 'Recepción y sala de espera' },
+  { imagen: 'img/centre/cabin.jpg', texto: 'Cabina de tratamientos' },
+  { imagen: 'img/centre/showcase.jpg', texto: 'Vitrina con productos y gafas de protección' },
+  { imagen: 'img/centre/sign.jpg', texto: 'Letrero de la entrada' },
+  { imagen: 'img/centre/window.jpg', texto: 'Escaparate con el logo' }
 ];
 
 const cajaFotoMaria = document.getElementById('about-photo');
