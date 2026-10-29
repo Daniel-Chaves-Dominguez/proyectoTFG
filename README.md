@@ -44,9 +44,10 @@ fonts/              Fonts (EB Garamond and Jost)
   with the total and, when booking, the list is included in the WhatsApp message. The cards are
   created with JS from the data in `js/main.js` (`ZONAS`, `PACKS`, `RADIOFRECUENCIA` and
   `ESTETICA`), so to change a price you only need to edit it there.
-- **About María**: who she is and how the centre works, with a gallery of the centre and «Nuestro
-  láser» (our laser), a photo of the diode laser and what makes it safe (CE marking, test shot and
-  safety features). Clicking a
+- **About María**: who she is and how the centre works, with a gallery of the centre, «Nuestro
+  láser» (the Ópphalo Sapphire LS-1200 diode laser) and «Nuestra radiofrecuencia» (the Ópphalo
+  Phoenix RF500), each one with a photo and its main technical data. The data comes from Ópphalo's
+  website and its distributor in Andalusia. Clicking a
   photo opens it bigger in a `<dialog>` that can be used with the keyboard (arrows to change the
   photo, Esc to close, and the focus goes back to the photo when it is closed).
 - **Reviews**: customers can leave their name, 1 to 5 stars and a comment. They are saved in
@@ -101,7 +102,8 @@ photo works best for the first one of the gallery, which is the biggest.
 
 The gallery already has the real photos of the centre (façade, reception, treatment room, display
 cabinet, sign and shop window), saved in `img/centre/`. They were cropped to 4:3 and reduced to
-1200 × 900 px so that they load fast. María's photo is still pending.
+1200 × 900 px so that they load fast. The photos of the two machines (`laser.jpg` and
+`phoenix.jpg`) are in the same folder, cropped to 4:5. María's photo is still pending.
 
 ## Reviews with Firebase
 
@@ -164,8 +166,9 @@ console (Firestore > `opiniones` collection).
 - [ ] Add **María's photo** to `FOTO_MARIA` (see above).
 - [ ] Ask María for the **local holidays of Puerto Real**, the Mondays that replace holidays that fall
       on a Sunday and her **vacations**, and add them to `DIAS_CERRADOS` in `js/main.js`.
-- [ ] Add the **brand, model and technical data** of the laser to «Nuestro láser» (wavelength,
-      cooling system...), and confirm which machine is the Phoenix+.
+- [ ] Confirm with María the **technical data of the machines** in «Sobre María», and whether the
+      laser works on blonde hair in her experience: the manufacturer says it does, but the FAQ says
+      that fine and blonde hair is not removed, so it has not been included.
 - [ ] Add María's **training and years of experience** to «Sobre María» (they are still blank in
       the business plan) and confirm the text of that section with her.
 - [ ] Set up **Firebase** for the reviews (see above).
