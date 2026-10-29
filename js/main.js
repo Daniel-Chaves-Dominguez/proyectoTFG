@@ -645,8 +645,36 @@ function pintarHoras(fecha, franja) {
   crearFichas(document.getElementById('hour-list'), 'hour', horas);
 }
 
-function crearMensaje(nombre, elegidos, cuando, notas) {
+function marcarError(error, campo, mostrar) {
+  error.hidden = !mostrar;
+  if (campo) {
+    campo.classList.toggle('error', mostrar);
+    if (mostrar) {
+      campo.setAttribute('aria-invalid', 'true');
+    } else {
+      campo.removeAttribute('aria-invalid');
+    }
+  }
+}
+
+function limpiarTelefono(texto) {
+  let numero = texto.replace(/[\s.\-()]/g, '');
+  if (numero.startsWith('+34')) numero = numero.slice(3);
+  if (numero.startsWith('0034')) numero = numero.slice(4);
+  return numero;
+}
+
+function telefonoValido(numero) {
+  return /^[6789]\d{8}$/.test(numero);
+}
+
+function formatearTelefono(numero) {
+  return numero.slice(0, 3) + ' ' + numero.slice(3, 6) + ' ' + numero.slice(6);
+}
+
+function crearMensaje(nombre, telefono, elegidos, cuando, notas) {
   const lineas = ['Hola, soy ' + nombre + '.'];
+  lineas.push('Mi teléfono es ' + formatearTelefono(telefono) + '.');
 
   if (elegidos.length > 0) {
     lineas.push('Me gustaría pedir cita para:');
@@ -676,20 +704,16 @@ function crearMensaje(nombre, elegidos, cuando, notas) {
 if (formulario) {
   const inputNombre = document.getElementById('booking-name');
   const errorNombre = document.getElementById('booking-name-error');
+  const inputTelefono = document.getElementById('booking-phone');
+  const errorTelefono = document.getElementById('booking-phone-error');
   const mensajeEstado = document.getElementById('booking-status');
 
-  function mostrarError(mostrar) {
-    errorNombre.hidden = !mostrar;
-    inputNombre.classList.toggle('error', mostrar);
-    if (mostrar) {
-      inputNombre.setAttribute('aria-invalid', 'true');
-    } else {
-      inputNombre.removeAttribute('aria-invalid');
-    }
-  }
-
   inputNombre.addEventListener('input', function () {
-    if (inputNombre.value.trim() !== '') mostrarError(false);
+    if (inputNombre.value.trim() !== '') marcarError(errorNombre, inputNombre, false);
+  });
+
+  inputTelefono.addEventListener('input', function () {
+    if (telefonoValido(limpiarTelefono(inputTelefono.value))) marcarError(errorTelefono, inputTelefono, false);
   });
 
   const bloqueDia = document.getElementById('day-block');
@@ -739,12 +763,19 @@ if (formulario) {
     e.preventDefault();
 
     const nombre = inputNombre.value.trim();
+    const telefono = limpiarTelefono(inputTelefono.value);
+
+    marcarError(errorNombre, inputNombre, nombre === '');
+    marcarError(errorTelefono, inputTelefono, !telefonoValido(telefono));
+
     if (nombre === '') {
-      mostrarError(true);
       inputNombre.focus();
       return;
     }
-    mostrarError(false);
+    if (!telefonoValido(telefono)) {
+      inputTelefono.focus();
+      return;
+    }
 
     let cuando = '';
     if (franjaElegida() !== 'any') {
@@ -759,7 +790,7 @@ if (formulario) {
 
     const notas = document.getElementById('booking-notes').value.trim();
 
-    const texto = crearMensaje(nombre, seleccion, cuando, notas);
+    const texto = crearMensaje(nombre, telefono, seleccion, cuando, notas);
     const url = 'https://wa.me/' + TELEFONO_WHATSAPP + '?text=' + encodeURIComponent(texto);
 
     const ventana = window.open(url, '_blank');
@@ -884,18 +915,6 @@ if (formOpinion && listaOpiniones && textoMedia) {
   const errorComentario = document.getElementById('review-comment-error');
   const botonEnviar = document.getElementById('review-submit');
   const estadoOpinion = document.getElementById('review-status');
-
-  function marcarError(error, campo, mostrar) {
-    error.hidden = !mostrar;
-    if (campo) {
-      campo.classList.toggle('error', mostrar);
-      if (mostrar) {
-        campo.setAttribute('aria-invalid', 'true');
-      } else {
-        campo.removeAttribute('aria-invalid');
-      }
-    }
-  }
 
   cargarOpiniones();
 

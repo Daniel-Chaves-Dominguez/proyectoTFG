@@ -30,7 +30,8 @@ fonts/              Fonts (EB Garamond and Jost)
 
 ## Features
 
-- **Booking via WhatsApp**: the form builds the message with the data and opens WhatsApp. You can
+- **Booking via WhatsApp**: the form asks for the name and the phone (a Spanish number with 9
+  digits, with or without +34), builds the message with the data and opens WhatsApp. You can
   choose morning or afternoon and then the day and time (30-minute appointments, within the
   centre's opening hours). For now nothing is saved: later on, appointments will be stored in the
   database so that two people cannot book the same time.
