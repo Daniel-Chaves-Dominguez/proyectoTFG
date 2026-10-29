@@ -2339,6 +2339,32 @@ textarea.field__control {
   visibility: hidden;
 }
 
+.to-top {
+  position: fixed;
+  z-index: 30;
+  left: 1rem;
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
+  background-color: var(--pearl);
+  color: var(--copper);
+  box-shadow: 0 0 0 1px var(--line), var(--shadow);
+  transition: background-color 0.2s, opacity 0.25s, transform 0.25s, visibility 0.25s;
+}
+
+.to-top:hover {
+  background-color: var(--blush);
+}
+
+.to-top.is-hidden {
+  opacity: 0;
+  transform: translateY(1rem);
+  visibility: hidden;
+}
+
 .booking-bar {
   position: fixed;
   z-index: 30;
@@ -2423,6 +2449,10 @@ textarea.field__control {
 
 .has-selection .fab {
   display: none;
+}
+
+.has-selection .to-top {
+  bottom: 5.5rem;
 }
 
 .has-selection .footer {
@@ -2624,6 +2654,12 @@ textarea.field__control {
 
   .fab {
     display: none;
+  }
+
+  .to-top {
+    left: auto;
+    right: 1.5rem;
+    bottom: 1.5rem;
   }
 }
 

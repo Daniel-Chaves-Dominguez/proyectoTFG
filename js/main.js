@@ -627,6 +627,18 @@ if (fab && zonasConBoton.length > 0 && 'IntersectionObserver' in window) {
   });
 }
 
+const botonArriba = document.getElementById('to-top');
+
+function comprobarBotonArriba() {
+  // Solo aparece cuando se ha bajado más de una pantalla
+  botonArriba.classList.toggle('is-hidden', window.scrollY < window.innerHeight);
+}
+
+if (botonArriba) {
+  window.addEventListener('scroll', comprobarBotonArriba);
+  comprobarBotonArriba();
+}
+
 const DURACION_CITA = 30;
 const MESES_A_MOSTRAR = 3;
 

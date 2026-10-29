@@ -63,6 +63,8 @@ fonts/              Fonts (EB Garamond and Jost)
   It is a simulation, not a real result.
 - **Animated logo** with CSS (it is not animated if the user has «reduce motion» enabled).
 - **Mobile menu** and floating booking button.
+- **Back to top button**: it appears after scrolling down more than one screen (on the left on
+  mobile, so that it does not cover the booking button, and on the right on computers).
 - **FAQ** with collapsible questions using `<details>`.
 - **Responsive** design (mobile, tablet and desktop).
 - No cookies or analytics, and the fonts are hosted on the website itself, so no cookie banner is
