@@ -44,12 +44,16 @@ fonts/              Fonts (EB Garamond and Jost)
   with the total and, when booking, the list is included in the WhatsApp message. The cards are
   created with JS from the data in `js/main.js` (`ZONAS`, `PACKS`, `RADIOFRECUENCIA` and
   `ESTETICA`), so to change a price you only need to edit it there.
-- **About María**: who she is and how the centre works, with a gallery of the centre, «Nuestro
+- **About María**: who she is and how the centre works, with a virtual tour of the centre, «Nuestro
   láser» (the Ópphalo Sapphire LS-1200 diode laser) and «Nuestra radiofrecuencia» (the Ópphalo
   Phoenix RF500), each one with a photo and its main technical data. The data comes from Ópphalo's
-  website and its distributor in Andalusia. Clicking a
-  photo opens it bigger in a `<dialog>` that can be used with the keyboard (arrows to change the
-  photo, Esc to close, and the focus goes back to the photo when it is closed).
+  website and its distributor in Andalusia.
+- **Virtual tour of the centre**: like walking in Google Maps, but with photos. Each photo has
+  points you can click («Entrar», «Pasar a la cabina», «Láser»...); the photo zooms towards the
+  point and the next one appears, so it feels like you are walking in. There is a «Volver» button,
+  a small map (Fachada › Recepción › Cabina) and an «Ampliar» button that opens the photo bigger in
+  a `<dialog>` (arrows to change the photo, Esc to close). Everything works with the keyboard, and
+  with «reduce motion» the photos change without zooming.
 - **Reviews**: customers can leave their name, 1 to 5 stars and a comment. They are saved in
   Firebase and the average rating is calculated.
 - **Real-time opening hours**: shows whether the centre is open or closed right now, using Madrid
@@ -94,18 +98,21 @@ important part in the centre.
 
 ## Photos of María and the centre
 
-The «Sobre María» section works the same way: María's photo is in `FOTO_MARIA` and the gallery
-photos are in `FOTOS_CENTRO`, both in `js/main.js`. While the URL is empty, a striped placeholder
-with the text of the photo is shown. To add a photo, paste its URL and, in the gallery, change
-`texto` if needed (it is the caption of the enlarged view and what screen readers say).
+María's photo is in `FOTO_MARIA`, in `js/main.js`. While it is empty, the logo is shown in its
+place. Her photo is cropped to a 4:5 ratio (portrait).
 
-María's photo is cropped to a 4:5 ratio (portrait) and the gallery photos to 4:3, so a horizontal
-photo works best for the first one of the gallery, which is the biggest.
+The virtual tour is in `RECORRIDO`, also in `js/main.js`. Each stop has an `id`, the `zona` it
+belongs to (for the small map), a `titulo`, a `texto`, the `imagen`, its `alt` text and its
+`puntos`. Each point has its position on the photo in percentages (`x` from the left, `y` from the
+top), the text of the button and the `id` of the stop it goes to. Stops with a portrait photo have
+`vertical: true`, so the photo is shown whole with a blurred copy behind it. To add a new place
+(for example the corridor), add a stop and a point that goes to it from the previous stop.
 
-The gallery already has the real photos of the centre (façade, reception, treatment room, display
-cabinet, sign and shop window), saved in `img/centre/`. They were cropped to 4:3 and reduced to
-1200 × 900 px so that they load fast. The photos of the two machines (`laser.jpg` and
-`phoenix.jpg`) are in the same folder, cropped to 4:5. María's photo is still pending.
+The photos are the real ones of the centre, saved in `img/centre/`: façade, sign, shop window,
+reception, treatment room and display cabinet, cropped to 4:3 and reduced to 1200 × 900 px, and
+the two machines (`laser.jpg` and `phoenix.jpg`), cropped to 4:5. For the zoom to look like
+walking, it works best with horizontal photos taken at eye level, each one a few steps further
+along the way. María's photo is still pending.
 
 ## Reviews with Firebase
 

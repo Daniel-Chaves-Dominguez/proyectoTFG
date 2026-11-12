@@ -220,6 +220,11 @@ fieldset {
   transform: translateY(1px);
 }
 
+.btn:disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
 .btn-primary {
   background-color: var(--cocoa);
   color: var(--powder);
@@ -461,7 +466,35 @@ fieldset {
   align-items: center;
   row-gap: 1rem;
   padding-top: 1rem;
-  padding-bottom: 4rem;
+  padding-bottom: 2.5rem;
+}
+
+.highlights {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem 1rem;
+  padding: 1.75rem 0 3rem;
+  border-top: 1px solid var(--line);
+}
+
+.highlights li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.highlights svg {
+  flex: none;
+  color: var(--copper);
+}
+
+.highlights strong {
+  display: block;
+  font-weight: 500;
+  color: var(--cocoa);
 }
 
 .hero__text {
@@ -475,7 +508,7 @@ fieldset {
   letter-spacing: -0.02em;
 }
 
-.hero__text > p:first-of-type {
+.hero__intro {
   margin-top: 1.5rem;
   max-width: 33rem;
   font-size: clamp(1.1875rem, 1.1rem + 0.35vw, 1.3125rem);
@@ -1423,8 +1456,15 @@ input:focus-visible + .pill {
 
 .care__grid {
   display: grid;
-  gap: 3rem;
+  gap: 1.25rem;
   margin-top: 3rem;
+}
+
+.care__grid > div {
+  padding: 1.75rem 1.5rem;
+  border-radius: var(--panel-radius);
+  background-color: var(--pearl);
+  box-shadow: 0 0 0 1px var(--line);
 }
 
 .care h3 {
@@ -1579,6 +1619,20 @@ input:focus-visible + .pill {
   border-radius: var(--panel-radius);
 }
 
+.about__logo {
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 42%, #fff 0%, rgba(255, 255, 255, 0) 65%),
+    var(--pearl);
+  box-shadow: 0 0 0 1px var(--line);
+}
+
+.about__logo img {
+  width: 55%;
+  height: auto;
+}
+
 .about__centre,
 .about__laser,
 .about__rf {
@@ -1630,37 +1684,229 @@ input:focus-visible + .pill {
   font-size: 0.9375rem;
 }
 
-.gallery {
+.tour {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.75rem;
+  gap: 1.5rem;
   margin-top: 2rem;
 }
 
-.gallery li:first-child,
-.gallery li:last-child {
-  grid-column: span 2;
-}
-
-.gallery__item {
-  display: block;
-  width: 100%;
-  height: 100%;
+.tour__view {
+  position: relative;
   overflow: hidden;
-  border-radius: 1.25rem;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--panel-radius);
+  background-color: var(--cocoa-deep);
+  box-shadow: var(--shadow);
 }
 
-.gallery__img {
+.tour__photo {
+  position: absolute;
+  inset: 0;
+  transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+}
+
+.tour__img {
   width: 100%;
   height: 100%;
-  aspect-ratio: 4 / 3;
   object-fit: cover;
-  transition: transform 0.4s var(--ease-light);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .gallery__item:hover .gallery__img {
-    transform: scale(1.04);
+.tour__photo--vertical .tour__img {
+  position: relative;
+  object-fit: contain;
+}
+
+.tour__blur {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(18px) brightness(0.75);
+  transform: scale(1.15);
+}
+
+/* Avanzar: la foto vieja se acerca hacia el punto pulsado y la nueva llega desde un poco más cerca */
+.tour__photo--adelante-entra {
+  opacity: 0;
+  transform: scale(1.3);
+}
+
+.tour__photo--adelante-sale {
+  opacity: 0;
+  transform: scale(2.2);
+}
+
+/* Volver: lo contrario */
+.tour__photo--atras-entra {
+  opacity: 0;
+  transform: scale(2.2);
+}
+
+.tour__photo--atras-sale {
+  opacity: 0;
+  transform: scale(0.85);
+}
+
+.tour__photo--salto-entra,
+.tour__photo--salto-sale {
+  opacity: 0;
+}
+
+/* Cada punto es solo un círculo; el nombre se despliega al pasar el ratón o con el teclado */
+.tour__spot {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0.3rem;
+  border-radius: 999px;
+  background-color: rgba(43, 33, 34, 0);
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transform: translate(-1.2rem, -50%);
+  transition: background-color 0.25s;
+}
+
+.tour__spot::before {
+  content: '';
+  flex: none;
+  width: 1.8rem;
+  height: 1.8rem;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  background-color: var(--rose-gold);
+  filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.45));
+  animation: tour-pulso 1.8s ease-out infinite;
+}
+
+.tour__label {
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-width 0.3s ease, margin 0.3s ease, opacity 0.2s;
+}
+
+.tour__spot:hover,
+.tour__spot:focus-visible {
+  background-color: rgba(43, 33, 34, 0.85);
+}
+
+.tour__spot:hover .tour__label,
+.tour__spot:focus-visible .tour__label {
+  max-width: 12rem;
+  margin: 0 0.6rem 0 0.5rem;
+  opacity: 1;
+}
+
+.tour__spot--izquierda {
+  flex-direction: row-reverse;
+  transform: translate(calc(-100% + 1.2rem), -50%);
+}
+
+.tour__spot--izquierda:hover .tour__label,
+.tour__spot--izquierda:focus-visible .tour__label {
+  margin: 0 0.5rem 0 0.6rem;
+}
+
+.tour__spot:focus-visible {
+  outline-color: #fff;
+}
+
+@keyframes tour-pulso {
+  0% {
+    box-shadow: 0 0 0 0 rgba(244, 189, 178, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 0 0.9rem rgba(244, 189, 178, 0);
+  }
+}
+
+.tour__view .tour__hint {
+  position: absolute;
+  z-index: 2;
+  bottom: 1rem;
+  left: 50%;
+  max-width: none;
+  margin: 0;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  background-color: rgba(253, 245, 242, 0.92);
+  color: var(--cocoa);
+  font-size: 0.8125rem;
+  white-space: nowrap;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.tour__title {
+  font-family: var(--serif);
+  font-size: 1.75rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.tour__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.tour__map {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.tour__map li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tour__map li + li::before {
+  content: '›';
+  color: var(--muted);
+}
+
+.tour__map button {
+  min-height: 2.75rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background-color: #fff;
+  font-size: 0.9375rem;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.tour__map button:hover {
+  border-color: var(--copper);
+}
+
+.tour__map button[aria-current='step'] {
+  background-color: var(--cocoa);
+  border-color: var(--cocoa);
+  color: var(--powder);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tour__photo {
+    transition: opacity 0.3s;
+    transform: none !important;
+  }
+
+  .tour__spot::before {
+    animation: none;
+  }
+
+  .tour__label {
+    transition: none;
   }
 }
 
@@ -1803,6 +2049,37 @@ html:has(.lightbox[open]) {
   font-family: var(--serif);
   font-size: 1.5rem;
   color: var(--copper);
+}
+
+.reviews__empty {
+  padding: 2.25rem 1.75rem;
+  border-radius: var(--panel-radius);
+  background-color: var(--pearl);
+  box-shadow: 0 0 0 1px var(--line);
+  text-align: center;
+}
+
+.reviews__empty .reviews__empty-stars {
+  margin-top: 0;
+  font-size: 1.75rem;
+  letter-spacing: 0.15em;
+  color: var(--rose-gold);
+}
+
+.reviews__empty h3 {
+  margin-top: 0.5rem;
+  font-size: 1.75rem;
+  line-height: 1.2;
+}
+
+.reviews__empty p {
+  margin-top: 0.5rem;
+  color: var(--muted);
+}
+
+.reviews__empty .link {
+  display: inline-block;
+  margin-top: 1.25rem;
 }
 
 .reviews__list {
@@ -2624,24 +2901,15 @@ textarea.field__control {
 
   .care__grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 4rem;
+    gap: 1.5rem;
   }
 
-  .gallery {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
+  .care__grid > div {
+    padding: 2.25rem 2.5rem;
   }
 
-  .gallery li:first-child {
-    grid-row: span 2;
-  }
-
-  .gallery li:last-child {
-    grid-column: auto;
-  }
-
-  .gallery li:first-child .gallery__img {
-    aspect-ratio: auto;
+  .tour__spot {
+    font-size: 0.9375rem;
   }
 
   .lightbox__box {
@@ -2697,6 +2965,11 @@ textarea.field__control {
     column-gap: 2rem;
     padding-top: 2.5rem;
     padding-bottom: 3rem;
+  }
+
+  .highlights {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
   }
 
   .hero__text {
@@ -2763,6 +3036,20 @@ textarea.field__control {
   .about__laser,
   .about__rf {
     margin-top: 6rem;
+  }
+
+  .tour {
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: 2.5rem;
+    align-items: center;
+  }
+
+  .tour__view {
+    grid-column: span 8;
+  }
+
+  .tour__panel {
+    grid-column: span 4;
   }
 
   .reviews__grid {

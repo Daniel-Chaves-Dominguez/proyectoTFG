@@ -925,67 +925,269 @@ if (formulario) {
 
 const FOTO_MARIA = '';
 
-const FOTOS_CENTRO = [
-  { imagen: 'img/centre/facade.jpg', texto: 'Fachada en C/ La Palma, 29' },
-  { imagen: 'img/centre/reception.jpg', texto: 'Recepción y sala de espera' },
-  { imagen: 'img/centre/cabin.jpg', texto: 'Cabina de tratamientos' },
-  { imagen: 'img/centre/showcase.jpg', texto: 'Vitrina con productos y gafas de protección' },
-  { imagen: 'img/centre/sign.jpg', texto: 'Letrero de la entrada' },
-  { imagen: 'img/centre/window.jpg', texto: 'Escaparate con el logo' }
+// Paradas del recorrido virtual. En "puntos", x e y son la posición (en %) del punto sobre la foto
+const RECORRIDO = [
+  {
+    id: 'fachada',
+    zona: 'fachada',
+    titulo: 'La fachada',
+    texto: 'Estamos en C/ La Palma, 29, en el casco urbano de Puerto Real. Pulsa en la puerta para entrar.',
+    imagen: 'img/centre/facade.jpg',
+    alt: 'Fachada blanca del centro, con el letrero de María Chaves sobre la puerta y el escaparate a la derecha',
+    puntos: [
+      { x: 17, y: 55, texto: 'Entrar', ir: 'recepcion' },
+      { x: 18, y: 24, texto: 'Letrero', ir: 'letrero' },
+      { x: 87, y: 52, texto: 'Escaparate', ir: 'escaparate' }
+    ]
+  },
+  {
+    id: 'letrero',
+    zona: 'fachada',
+    titulo: 'El letrero',
+    texto: 'Así nos reconocerás desde la calle. La puerta está justo debajo.',
+    imagen: 'img/centre/sign.jpg',
+    alt: 'Letrero de María Chaves, depilación láser y estética, sobre la puerta de entrada',
+    puntos: [
+      { x: 60, y: 86, texto: 'Entrar', ir: 'recepcion' }
+    ]
+  },
+  {
+    id: 'escaparate',
+    zona: 'fachada',
+    titulo: 'El escaparate',
+    texto: 'El logo de María en el cristal, a la derecha de la puerta.',
+    imagen: 'img/centre/window.jpg',
+    alt: 'Escaparate de cristal con el logo de María Chaves',
+    puntos: []
+  },
+  {
+    id: 'recepcion',
+    zona: 'recepcion',
+    titulo: 'La recepción',
+    texto: 'Aquí te recibimos y esperas tu turno. Al fondo está la puerta de la cabina.',
+    imagen: 'img/centre/reception.jpg',
+    alt: 'Recepción luminosa con mostrador blanco, sillas de espera y una puerta al fondo',
+    puntos: [
+      { x: 56, y: 48, texto: 'Cabina', ir: 'cabina' }
+    ]
+  },
+  {
+    id: 'cabina',
+    zona: 'cabina',
+    titulo: 'La cabina',
+    texto: 'Cabina cerrada con la camilla, el láser y la radiofrecuencia. Pulsa en las máquinas para verlas de cerca.',
+    imagen: 'img/centre/cabin.jpg',
+    alt: 'Cabina de tratamientos con camilla, el láser de diodo a la izquierda y el equipo de radiofrecuencia a la derecha',
+    puntos: [
+      { x: 43, y: 60, texto: 'Láser', ir: 'laser' },
+      { x: 78, y: 40, texto: 'Radiofrecuencia', ir: 'radiofrecuencia' },
+      { x: 27, y: 22, texto: 'Vitrina', ir: 'vitrina' }
+    ]
+  },
+  {
+    id: 'laser',
+    zona: 'cabina',
+    titulo: 'El láser Sapphire LS-1200',
+    texto: 'Láser de diodo con frío hasta -12 ºC. Más abajo tienes todas sus características.',
+    imagen: 'img/centre/laser.jpg',
+    alt: 'Láser de diodo Sapphire LS-1200 con pantalla táctil y botón de parada de emergencia',
+    vertical: true,
+    puntos: []
+  },
+  {
+    id: 'radiofrecuencia',
+    zona: 'cabina',
+    titulo: 'La radiofrecuencia Phoenix RF500',
+    texto: 'El equipo de radiofrecuencia facial y corporal. Más abajo tienes sus características.',
+    imagen: 'img/centre/phoenix.jpg',
+    alt: 'Equipo de radiofrecuencia Phoenix RF500 con pantalla táctil',
+    vertical: true,
+    puntos: []
+  },
+  {
+    id: 'vitrina',
+    zona: 'cabina',
+    titulo: 'La vitrina',
+    texto: 'Productos de cuidado y las gafas de protección que usáis tú y María en cada sesión.',
+    imagen: 'img/centre/showcase.jpg',
+    alt: 'Vitrina de cristal con productos de cuidado de la piel y gafas de protección verdes',
+    puntos: []
+  }
 ];
 
 const cajaFotoMaria = document.getElementById('about-photo');
-const galeria = document.getElementById('gallery');
+const visorTour = document.getElementById('tour-view');
+const tituloTour = document.getElementById('tour-title');
+const textoTour = document.getElementById('tour-text');
+const botonVolver = document.getElementById('tour-back');
+const botonAmpliar = document.getElementById('tour-zoom');
+const mapaTour = document.getElementById('tour-map');
 const visor = document.getElementById('lightbox');
+let paradaActual = 0;
+let historial = [];
+let moviendo = false;
 let fotoActual = 0;
-let botonGaleria = null;
 
 function pintarFotoMaria() {
   if (FOTO_MARIA !== '') {
     cajaFotoMaria.innerHTML = '<img class="about__img" src="' + FOTO_MARIA + '" alt="María Chaves" width="800" height="1000" loading="lazy">';
   } else {
-    cajaFotoMaria.innerHTML = crearHueco('María', 'about__img');
+    // Mientras no haya foto de María se enseña el logo
+    cajaFotoMaria.innerHTML = '<div class="about__img about__logo"><img src="img/logo.svg" alt="" width="208" height="231" loading="lazy"></div>';
   }
 }
 
-function pintarGaleria() {
-  let html = '';
-  FOTOS_CENTRO.forEach(function (foto, i) {
-    let contenido = crearHueco(foto.texto, 'gallery__img');
-    if (foto.imagen !== '') {
-      contenido = '<img class="gallery__img" src="' + foto.imagen + '" alt="" width="800" height="600" loading="lazy">';
-    }
-    html += '<li><button type="button" class="gallery__item" data-index="' + i + '" aria-label="Ampliar foto: ' + foto.texto + '">' +
-      contenido + '</button></li>';
+function buscarParada(id) {
+  return RECORRIDO.findIndex(function (parada) {
+    return parada.id === id;
   });
-  galeria.innerHTML = html;
+}
+
+function crearCapa(parada, primeraVez) {
+  const capa = document.createElement('div');
+  capa.className = 'tour__photo';
+
+  let carga = '';
+  if (primeraVez) carga = ' loading="lazy"';
+
+  let html = '';
+  if (parada.vertical) {
+    // Las fotos verticales se ven enteras, con la misma foto desenfocada de fondo
+    capa.classList.add('tour__photo--vertical');
+    html += '<img class="tour__blur" src="' + parada.imagen + '" alt=""' + carga + '>';
+  }
+  html += '<img class="tour__img" src="' + parada.imagen + '" alt="' + parada.alt + '"' + carga + '>';
+
+  parada.puntos.forEach(function (punto) {
+    let clase = 'tour__spot';
+    // Si el punto está a la derecha, el texto va a su izquierda para que no se salga
+    if (punto.x > 50) clase += ' tour__spot--izquierda';
+    html += '<button type="button" class="' + clase + '" style="left:' + punto.x + '%;top:' + punto.y + '%"' +
+      ' data-ir="' + punto.ir + '" data-x="' + punto.x + '" data-y="' + punto.y + '">' +
+      '<span class="tour__label">' + punto.texto + '</span></button>';
+  });
+
+  capa.innerHTML = html;
+  return capa;
+}
+
+function ponerTextos(parada) {
+  tituloTour.textContent = parada.titulo;
+  textoTour.textContent = parada.texto;
+  botonVolver.disabled = historial.length === 0;
+
+  mapaTour.querySelectorAll('button').forEach(function (boton) {
+    if (boton.dataset.ir === parada.zona) {
+      boton.setAttribute('aria-current', 'step');
+    } else {
+      boton.removeAttribute('aria-current');
+    }
+  });
+}
+
+function precargar(parada) {
+  parada.puntos.forEach(function (punto) {
+    const foto = new Image();
+    foto.src = RECORRIDO[buscarParada(punto.ir)].imagen;
+  });
+}
+
+// tipo: 'adelante', 'atras' o 'salto'. x e y: el punto hacia el que se mueve la cámara
+function irA(numero, tipo, x, y) {
+  moviendo = true;
+  document.getElementById('tour-hint').hidden = true;
+
+  const parada = RECORRIDO[numero];
+  const capaVieja = visorTour.querySelector('.tour__photo');
+  const capaNueva = crearCapa(parada, false);
+  const origen = x + '% ' + y + '%';
+
+  if (tipo === 'adelante') capaVieja.style.transformOrigin = origen;
+  if (tipo === 'atras') capaNueva.style.transformOrigin = origen;
+  capaNueva.classList.add('tour__photo--' + tipo + '-entra');
+
+  function empezar() {
+    visorTour.append(capaNueva);
+    capaVieja.classList.add('tour__photo--' + tipo + '-sale');
+    capaVieja.querySelectorAll('.tour__spot').forEach(function (punto) {
+      punto.hidden = true;
+    });
+
+    setTimeout(function () {
+      capaNueva.classList.remove('tour__photo--' + tipo + '-entra');
+    }, 20);
+
+    setTimeout(function () {
+      capaVieja.remove();
+      moviendo = false;
+    }, 1000);
+
+    paradaActual = numero;
+    ponerTextos(parada);
+    tituloTour.focus({ preventScroll: true });
+    precargar(parada);
+  }
+
+  // Se espera a que cargue la foto nueva para que no aparezca a trozos
+  const foto = capaNueva.querySelector('.tour__img');
+  if (foto.complete) {
+    empezar();
+  } else {
+    foto.onload = empezar;
+    foto.onerror = empezar;
+  }
 }
 
 function mostrarFotoGrande(numero) {
-  if (numero < 0) numero = FOTOS_CENTRO.length - 1;
-  if (numero >= FOTOS_CENTRO.length) numero = 0;
+  if (numero < 0) numero = RECORRIDO.length - 1;
+  if (numero >= RECORRIDO.length) numero = 0;
   fotoActual = numero;
-  const foto = FOTOS_CENTRO[fotoActual];
-  const caja = document.getElementById('lightbox-photo');
+  const parada = RECORRIDO[fotoActual];
 
-  if (foto.imagen !== '') {
-    caja.innerHTML = '<img class="lightbox__img" src="' + foto.imagen + '" alt="' + foto.texto + '">';
-  } else {
-    caja.innerHTML = crearHueco(foto.texto, 'lightbox__img');
-  }
-
-  document.getElementById('lightbox-caption').textContent = foto.texto + ' · ' + (fotoActual + 1) + ' de ' + FOTOS_CENTRO.length;
+  document.getElementById('lightbox-photo').innerHTML = '<img class="lightbox__img" src="' + parada.imagen + '" alt="' + parada.alt + '">';
+  document.getElementById('lightbox-caption').textContent = parada.titulo + ' · ' + (fotoActual + 1) + ' de ' + RECORRIDO.length;
 }
 
-if (cajaFotoMaria && galeria && visor) {
+if (cajaFotoMaria) {
   pintarFotoMaria();
-  pintarGaleria();
+}
 
-  galeria.addEventListener('click', function (e) {
-    const boton = e.target.closest('.gallery__item');
-    if (!boton) return;
-    botonGaleria = boton;
-    mostrarFotoGrande(Number(boton.dataset.index));
+if (visorTour && visor) {
+  visorTour.append(crearCapa(RECORRIDO[0], true));
+  ponerTextos(RECORRIDO[0]);
+
+  visorTour.addEventListener('click', function (e) {
+    const punto = e.target.closest('.tour__spot');
+    if (!punto || moviendo) return;
+    historial.push({ parada: paradaActual, x: punto.dataset.x, y: punto.dataset.y });
+    irA(buscarParada(punto.dataset.ir), 'adelante', punto.dataset.x, punto.dataset.y);
+  });
+
+  botonVolver.addEventListener('click', function () {
+    if (moviendo || historial.length === 0) return;
+    const anterior = historial.pop();
+    irA(anterior.parada, 'atras', anterior.x, anterior.y);
+  });
+
+  mapaTour.addEventListener('click', function (e) {
+    const boton = e.target.closest('button');
+    if (!boton || moviendo) return;
+    const numero = buscarParada(boton.dataset.ir);
+    if (numero === paradaActual) return;
+    historial.push({ parada: paradaActual, x: 50, y: 50 });
+    irA(numero, 'salto', 50, 50);
+  });
+
+  // Cuando el ratón o el teclado llegan al recorrido se cargan las fotos siguientes
+  visorTour.addEventListener('mouseenter', function () {
+    precargar(RECORRIDO[paradaActual]);
+  });
+  visorTour.addEventListener('focusin', function () {
+    precargar(RECORRIDO[paradaActual]);
+  });
+
+  botonAmpliar.addEventListener('click', function () {
+    mostrarFotoGrande(paradaActual);
     visor.showModal();
   });
 
@@ -1011,7 +1213,7 @@ if (cajaFotoMaria && galeria && visor) {
   });
 
   visor.addEventListener('close', function () {
-    if (botonGaleria) botonGaleria.focus();
+    botonAmpliar.focus();
   });
 }
 
@@ -1026,6 +1228,7 @@ const ESPERA_MINUTOS = 10;
 const formOpinion = document.getElementById('review-form');
 const listaOpiniones = document.getElementById('review-list');
 const textoMedia = document.getElementById('reviews-average');
+const cajaSinOpiniones = document.getElementById('reviews-empty');
 
 let baseDeDatos = null;
 if (FIREBASE_CONFIG.apiKey !== '' && typeof firebase !== 'undefined') {
@@ -1093,10 +1296,10 @@ function crearTarjetaOpinion(opinion) {
 function mostrarOpiniones(opiniones) {
   listaOpiniones.innerHTML = '';
 
-  if (opiniones.length === 0) {
-    textoMedia.textContent = 'Todavía no hay opiniones. ¡Anímate a dejar la primera!';
-    return;
-  }
+  const hayOpiniones = opiniones.length > 0;
+  cajaSinOpiniones.hidden = hayOpiniones;
+  textoMedia.hidden = !hayOpiniones;
+  if (!hayOpiniones) return;
 
   let suma = 0;
   opiniones.forEach(function (opinion) {
@@ -1114,6 +1317,8 @@ function cargarOpiniones() {
   leerOpiniones()
     .then(mostrarOpiniones)
     .catch(function () {
+      cajaSinOpiniones.hidden = true;
+      textoMedia.hidden = false;
       textoMedia.textContent = 'No se han podido cargar las opiniones. Prueba a recargar la página.';
     });
 }
