@@ -60,11 +60,13 @@ fonts/              Fonts (EB Garamond and Jost)
   time, and highlights today in the opening hours table.
 - **Laser animation**: the «Simular un disparo» (simulate a shot) button animates the drawing that
   shows how the laser works.
-- **Before and after comparison**: a drawing of the skin with a line you can drag (it is an
-  `<input type="range">`, so it also works with the keyboard). On the «Antes» side there is hair and
-  on the «Después» side only a few fine hairs. The hairs are drawn with a `for` loop and
-  `Math.random()`. The first time you see it, the line moves by itself (not with «reduce motion»).
-  It is a simulation, not a real result.
+- **Before and after comparison**: a photo of a leg (`img/centre/leg.jpg`, temporary from Pexels)
+  with a line you can drag (it is an `<input type="range">`, so it also works with the keyboard). On
+  the «Antes» side there is hair on the shin and on the «Después» side only a few fine hairs. The
+  hairs are drawn on top of the photo with a `for` loop and `Math.random()`, along the line of the
+  shin (`PIERNA_INICIO` and `PIERNA_FIN` in `js/main.js`, measured on the photo of 1200 × 800 px; if
+  the photo changes, they have to be measured again). The first time you see it, the line moves by
+  itself (not with «reduce motion»). It is a simulation, not a real result.
 - **Animated logo** with CSS (it is not animated if the user has «reduce motion» enabled).
 - **Mobile menu** and floating booking button.
 - **Back to top button**: it appears after scrolling down more than one screen (on the left on
