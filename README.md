@@ -14,7 +14,10 @@ Server*).
 ## Structure
 
 ```
-index.html          Home page
+index.html          Home page: treatments and prices, how the laser works, step by step,
+                    booking and reviews
+sobre-maria.html    About María: who she is, virtual tour of the centre and the machines
+preguntas.html      Frequently asked questions and care before and after each session
 aviso-legal.html    Legal notice
 privacidad.html     Privacy and cookies policy
 404.html            Error page (page not found)
@@ -44,6 +47,11 @@ fonts/              Fonts (EB Garamond and Jost)
   with the total and, when booking, the list is included in the WhatsApp message. The cards are
   created with JS from the data in `js/main.js` (`ZONAS`, `PACKS`, `RADIOFRECUENCIA` and
   `ESTETICA`), so to change a price you only need to edit it there.
+- **Separate pages**: the home page only has what is needed to choose and book. «Sobre María»
+  (`sobre-maria.html`) and the FAQ with the care tips (`preguntas.html`) have their own page, with
+  the same header, menu and footer. The menus first show the sections of the home page and then,
+  a little apart, the other pages (class `nav-split`). The page you are on is marked with
+  `aria-current="page"`.
 - **About María**: who she is and how the centre works, with a virtual tour of the centre, «Nuestro
   láser» (the Ópphalo Sapphire LS-1200 diode laser) and «Nuestra radiofrecuencia» (the Ópphalo
   Phoenix RF500), each one with a photo and its main technical data. The data comes from Ópphalo's
@@ -62,11 +70,13 @@ fonts/              Fonts (EB Garamond and Jost)
   shows how the laser works.
 - **Before and after comparison**: a photo of a leg (`img/centre/leg.jpg`, temporary from Pexels)
   with a line you can drag (it is an `<input type="range">`, so it also works with the keyboard). On
-  the «Antes» side there is hair on the shin and on the «Después» side only a few fine hairs. The
-  hairs are drawn on top of the photo with a `for` loop and `Math.random()`, along the line of the
-  shin (`PIERNA_INICIO` and `PIERNA_FIN` in `js/main.js`, measured on the photo of 1200 × 800 px; if
-  the photo changes, they have to be measured again). The first time you see it, the line moves by
-  itself (not with «reduce motion»). It is a simulation, not a real result.
+  the «Antes» side there is hair on the leg and on the «Después» side only a few fine hairs. The
+  hairs are drawn on top of the photo (SVG) with loops and `Math.random()`: they are only placed
+  inside the leg, between its top and bottom edges (`PIERNA_ARRIBA` and `PIERNA_ABAJO` in
+  `js/main.js`, measured every 50 px on the photo of 1200 × 800 px; if the photo changes, they have
+  to be measured again). Nearby hairs grow in almost the same direction, like real hair, and some
+  stick out along the edge of the shin. The first time you see it, the line moves by itself (not
+  with «reduce motion»). It is a simulation, not a real result.
 - **Animated logo** with CSS (it is not animated if the user has «reduce motion» enabled).
 - **Mobile menu** and floating booking button.
 - **Back to top button**: it appears after scrolling down more than one screen (on the left on

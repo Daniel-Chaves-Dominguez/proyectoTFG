@@ -347,6 +347,25 @@ fieldset {
   color: var(--copper);
 }
 
+/* La página en la que estás se marca en el menú */
+.main-nav a[aria-current='page'],
+.mobile-menu nav a[aria-current='page'] {
+  color: var(--copper);
+}
+
+.main-nav a[aria-current='page'] {
+  text-decoration: underline;
+  text-underline-offset: 0.4em;
+  text-decoration-thickness: 1px;
+}
+
+/* En los menús van primero las secciones de la portada y después las páginas aparte.
+   .nav-split es la primera página aparte: en la barra de arriba lleva una raya a la izquierda */
+.main-nav .nav-split {
+  padding-left: 1.75rem;
+  border-left: 1px solid var(--line);
+}
+
 .header__buttons {
   display: flex;
   align-items: center;
@@ -399,6 +418,11 @@ fieldset {
 
 .mobile-menu nav li + li {
   margin-top: 0.25rem;
+}
+
+/* Hueco entre las secciones de la portada y las páginas aparte */
+.mobile-menu nav .nav-split {
+  margin-top: 2rem;
 }
 
 .mobile-menu nav a {
@@ -1635,15 +1659,13 @@ input:focus-visible + .pill {
   height: auto;
 }
 
-.about__centre,
-.about__laser,
 .about__rf {
   margin-top: 4.5rem;
 }
 
-.about__centre h3,
-.about__laser h3,
-.about__rf h3 {
+.about__centre h2,
+.about__laser h2,
+.about__rf h2 {
   font-size: clamp(1.75rem, 1.5rem + 1vw, 2.25rem);
   line-height: 1.15;
 }
@@ -2008,6 +2030,17 @@ html:has(.lightbox[open]) {
   display: grid;
   column-gap: 3.5rem;
   row-gap: 3rem;
+  margin-top: 2.25rem;
+}
+
+.reviews__form .booking {
+  margin-top: 0;
+}
+
+/* La caja de "Todavía no hay opiniones" mide lo mismo que el formulario */
+.reviews__column {
+  display: flex;
+  flex-direction: column;
 }
 
 .stars {
@@ -2054,6 +2087,11 @@ html:has(.lightbox[open]) {
 }
 
 .reviews__empty {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: 2.25rem 1.75rem;
   border-radius: var(--panel-radius);
   background-color: var(--pearl);
@@ -2088,6 +2126,11 @@ html:has(.lightbox[open]) {
   display: grid;
   gap: 1rem;
   margin-top: 1.25rem;
+}
+
+/* Sin opiniones la lista está vacía y no debe ocupar sitio */
+.reviews__list:empty {
+  display: none;
 }
 
 .review {
@@ -2516,6 +2559,7 @@ textarea.field__control {
 
 .footer {
   padding-bottom: 6rem;
+  border-top: 1px solid var(--line);
   background-color: var(--blush);
 }
 
@@ -2547,6 +2591,10 @@ textarea.field__control {
 
 .footer__grid li + li {
   margin-top: 0.375rem;
+}
+
+.footer__sections .nav-split {
+  margin-top: 1.25rem;
 }
 
 .footer__schedule {
@@ -3034,8 +3082,6 @@ textarea.field__control {
     grid-column: 7 / span 6;
   }
 
-  .about__centre,
-  .about__laser,
   .about__rf {
     margin-top: 6rem;
   }
@@ -3064,7 +3110,6 @@ textarea.field__control {
 
   .reviews__column {
     grid-column: span 6;
-    padding-top: 1rem;
   }
 
   .laser-section__grid {
