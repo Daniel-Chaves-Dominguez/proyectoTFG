@@ -547,71 +547,98 @@ const lineaComparar = document.getElementById('compare-line');
 const sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 let intervaloComparar = null;
 
-// Línea por el centro de la espinilla (de la rodilla al tobillo), medida sobre la foto de 1200 x 800
-const PIERNA_INICIO = { x: 170, y: 215 };
-const PIERNA_FIN = { x: 660, y: 510 };
+// Bordes de la pierna de delante en la foto (1200 x 800), medidos cada 50 píxeles
+// desde debajo de la rodilla (x = 200) hasta el tobillo (x = 700)
+const PIERNA_ARRIBA = [88, 128, 168, 212, 248, 288, 332, 378, 416, 448, 476];
+const PIERNA_ABAJO = [380, 412, 437, 459, 480, 504, 530, 557, 584, 611, 636];
 
-// Crea los pelos de la espinilla. Cada pelo es una forma fina que acaba en punta
-// grosor: ancho de la raíz en medidas de la foto (1200 x 800)
+// Dónde empieza y acaba la pierna en una x (entre dos medidas se calcula el punto intermedio)
+function bordesPierna(x) {
+  let i = Math.floor((x - 200) / 50);
+  if (i > PIERNA_ARRIBA.length - 2) i = PIERNA_ARRIBA.length - 2;
+  const t = (x - 200 - i * 50) / 50;
+  return {
+    arriba: PIERNA_ARRIBA[i] + (PIERNA_ARRIBA[i + 1] - PIERNA_ARRIBA[i]) * t,
+    abajo: PIERNA_ABAJO[i] + (PIERNA_ABAJO[i + 1] - PIERNA_ABAJO[i]) * t
+  };
+}
+
+// Ángulo del vello: hacia el tobillo, siguiendo la pierna. Con el seno, los pelos que están cerca
+// van casi en la misma dirección y por zonas cambia un poco, como el vello de verdad
+function anguloVello(x, y) {
+  const grados = 38 - (x - 200) / 500 * 8 + Math.sin(x / 55 + y / 40) * 10 + (Math.random() - 0.5) * 14;
+  return grados * Math.PI / 180;
+}
+
+// Un pelo: una forma fina que sale de la raíz (x, y) y acaba en punta
+function crearPelo(x, y, angulo, largo, grosor, opacidad) {
+  const dirX = Math.cos(angulo);
+  const dirY = Math.sin(angulo);
+  const puntaX = x + dirX * largo;
+  const puntaY = y + dirY * largo;
+
+  // Se curvan un poco, casi siempre hacia el mismo lado
+  let curva = largo * (0.04 + Math.random() * 0.08);
+  if (Math.random() < 0.2) curva = -curva;
+  const curvaX = (x + puntaX) / 2 - dirY * curva;
+  const curvaY = (y + puntaY) / 2 + dirX * curva;
+
+  // Los dos lados de la raíz; desde ahí se estrecha hasta la punta
+  const mitad = grosor / 2;
+  return '<path d="M' + (x - dirY * mitad).toFixed(2) + ' ' + (y + dirX * mitad).toFixed(2) +
+    ' Q' + curvaX.toFixed(2) + ' ' + curvaY.toFixed(2) + ' ' + puntaX.toFixed(2) + ' ' + puntaY.toFixed(2) +
+    ' Q' + curvaX.toFixed(2) + ' ' + curvaY.toFixed(2) + ' ' + (x + dirY * mitad).toFixed(2) + ' ' + (y - dirX * mitad).toFixed(2) +
+    'Z" opacity="' + opacidad.toFixed(2) + '"/>';
+}
+
+// Pelos repartidos por toda la pierna (grosor y largo en medidas de la foto)
 function crearPelos(cantidad, grosor, largoMinimo, largoMaximo, opacidadMinima, opacidadMaxima) {
-  const dx = PIERNA_FIN.x - PIERNA_INICIO.x;
-  const dy = PIERNA_FIN.y - PIERNA_INICIO.y;
-  const largoPierna = Math.sqrt(dx * dx + dy * dy);
   let pelos = '';
+  let hechos = 0;
+  while (hechos < cantidad) {
+    // Un punto al azar; si no cae dentro de la pierna, se prueba con otro
+    const x = 200 + Math.random() * 490;
+    const y = 80 + Math.random() * 560;
+    const borde = bordesPierna(x);
+    if (y < borde.arriba + 3 || y > borde.abajo - 3) continue;
+    // Junto a la rodilla y al tobillo hay menos vello
+    if (x < 260 && Math.random() > (x - 200) / 60) continue;
+    if (x > 640 && Math.random() > (690 - x) / 50) continue;
 
-  for (let i = 0; i < cantidad; i++) {
-    // Un punto al azar a lo largo de la pierna; hacia el tobillo la pierna es más estrecha
-    const t = 0.03 + Math.random() * 0.94;
-    const ancho = 70 - 30 * t;
-    // Sumando dos números al azar salen más pelos en el centro y menos en los bordes
-    const lado = (Math.random() + Math.random() - 1) * ancho;
-    const x = PIERNA_INICIO.x + dx * t - dy / largoPierna * lado;
-    const y = PIERNA_INICIO.y + dy * t + dx / largoPierna * lado;
-
-    // Todo el vello crece hacia el tobillo, con muy poca diferencia entre un pelo y otro
-    const giro = Math.sin(t * 6) * 0.1 + (Math.random() - 0.5) * 0.25;
-    const dirX = dx / largoPierna * Math.cos(giro) - dy / largoPierna * Math.sin(giro);
-    const dirY = dy / largoPierna * Math.cos(giro) + dx / largoPierna * Math.sin(giro);
+    hechos++;
     const largo = largoMinimo + Math.random() * (largoMaximo - largoMinimo);
-    const puntaX = x + dirX * largo;
-    const puntaY = y + dirY * largo;
-
-    // La curva del pelo: casi siempre hacia el mismo lado
-    let curva = largo * (0.08 + Math.random() * 0.14);
-    if (Math.random() < 0.15) curva = -curva;
-    const curvaX = (x + puntaX) / 2 - dirY * curva;
-    const curvaY = (y + puntaY) / 2 + dirX * curva;
-
-    // Los dos lados de la raíz; desde ahí se estrecha hasta la punta
-    const mitad = grosor * (0.7 + Math.random() * 0.6) / 2;
-    const raiz1X = x - dirY * mitad;
-    const raiz1Y = y + dirX * mitad;
-    const raiz2X = x + dirY * mitad;
-    const raiz2Y = y - dirX * mitad;
     const opacidad = opacidadMinima + Math.random() * (opacidadMaxima - opacidadMinima);
+    pelos += crearPelo(x, y, anguloVello(x, y), largo, grosor * (0.8 + Math.random() * 0.4), opacidad);
+  }
+  return pelos;
+}
 
-    pelos += '<path d="M' + raiz1X.toFixed(2) + ' ' + raiz1Y.toFixed(2) +
-      ' Q' + curvaX.toFixed(2) + ' ' + curvaY.toFixed(2) + ' ' + puntaX.toFixed(2) + ' ' + puntaY.toFixed(2) +
-      ' Q' + curvaX.toFixed(2) + ' ' + curvaY.toFixed(2) + ' ' + raiz2X.toFixed(2) + ' ' + raiz2Y.toFixed(2) +
-      'Z" opacity="' + opacidad.toFixed(2) + '"/>';
+// Pelos en el borde de arriba de la pierna: se ven contra el fondo gris
+function crearPelosBorde(cantidad, grosor) {
+  let pelos = '';
+  for (let i = 0; i < cantidad; i++) {
+    const x = 370 + Math.random() * 300;
+    const y = bordesPierna(x).arriba + Math.random() * 2;
+    // Siguen el borde, pero se separan un poco de la piel
+    const angulo = anguloVello(x, y) - (8 + Math.random() * 14) * Math.PI / 180;
+    pelos += crearPelo(x, y, angulo, 7 + Math.random() * 9, grosor, 0.45 + Math.random() * 0.35);
   }
   return pelos;
 }
 
 // escala: cuántas medidas de la foto ocupa un píxel de la pantalla
 function pintarPelos(capa, escala, fino) {
-  let html = '<svg viewBox="0 0 1200 800" aria-hidden="true">' +
-    '<filter id="pelo-suave-' + capa.id + '"><feGaussianBlur stdDeviation="' + (0.15 * escala).toFixed(2) + '"/></filter>' +
-    '<g filter="url(#pelo-suave-' + capa.id + ')">';
+  let html = '<svg viewBox="0 0 1200 800" aria-hidden="true">';
   if (fino) {
     // Después del tratamiento: unos pocos pelos finos y claros
-    html += '<g fill="#a5826f">' + crearPelos(35, 0.6 * escala, 6, 12, 0.2, 0.45) + '</g>';
+    html += '<g fill="#9c7a68">' + crearPelos(30, 0.7 * escala, 4, 9, 0.2, 0.4) + '</g>';
   } else {
-    // Pelos cortos y claros, y encima los más largos y oscuros
-    html += '<g fill="#7a5a4a">' + crearPelos(500, 0.6 * escala, 6, 12, 0.15, 0.4) + '</g>';
-    html += '<g fill="#3b2a22">' + crearPelos(450, 0.9 * escala, 14, 26, 0.35, 0.75) + '</g>';
+    // Vello fino y claro, y encima el más oscuro y largo
+    html += '<g fill="#7a5c4e">' + crearPelos(480, 0.5 * escala, 7, 14, 0.18, 0.4) + '</g>';
+    html += '<g fill="#3b2820">' + crearPelos(360, 0.7 * escala, 12, 24, 0.35, 0.7) + '</g>';
+    html += '<g fill="#3b2820">' + crearPelosBorde(60, 0.7 * escala) + '</g>';
   }
-  capa.innerHTML = html + '</g></svg>';
+  capa.innerHTML = html + '</svg>';
 }
 
 function moverComparador(valor) {
@@ -633,7 +660,7 @@ function animarComparador() {
 if (comparador) {
   // En el móvil la foto es pequeña: se limita para que el pelo no salga gordo
   let escalaPelo = 1200 / comparador.offsetWidth;
-  if (escalaPelo > 2.2) escalaPelo = 2.2;
+  if (escalaPelo > 1.8) escalaPelo = 1.8;
   pintarPelos(capaPelos, escalaPelo, false);
   pintarPelos(document.getElementById('compare-fine'), escalaPelo, true);
   moverComparador(50);
